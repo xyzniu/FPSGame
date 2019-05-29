@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.renderer.Renderer;
@@ -55,9 +56,11 @@ public class GameActivity extends Activity {
             return;
         }
         
+        
         addContentView(glSurfaceView,
                 new ActionBar.LayoutParams(glSurfaceView.getLayoutParams().WRAP_CONTENT,
                         glSurfaceView.getLayoutParams().WRAP_CONTENT));
+        
         
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         final View view = layoutInflater.inflate(R.layout.activity_game, null);
@@ -65,8 +68,12 @@ public class GameActivity extends Activity {
         addContentView(view, new ActionBar.LayoutParams(glSurfaceView.getLayoutParams().WRAP_CONTENT,
                 glSurfaceView.getLayoutParams().WRAP_CONTENT));
         
+        initLinsteners();
+    }
+    
+    private void initLinsteners() {
+        glSurfaceView.setOnTouchListener(new CameraTouchListener(glSurfaceView));
         initButtons();
-        
     }
     
     private void initButtons() {

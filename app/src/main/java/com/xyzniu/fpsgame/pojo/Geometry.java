@@ -30,6 +30,12 @@ public class Geometry {
             this.z = z;
         }
         
+        public Vector(Vector other) {
+            this.x = other.x;
+            this.y = other.y;
+            this.z = other.z;
+        }
+        
         public float length() {
             return (float) Math.sqrt(x * x + y * y + z * z);
         }
@@ -82,6 +88,20 @@ public class Geometry {
         public Vector reverse() {
             return new Vector(-x, -y, -z);
             
+        }
+        
+        public float[] toArray4() {
+            float[] vector = new float[4];
+            vector[0] = x;
+            vector[1] = y;
+            vector[2] = z;
+            vector[3] = 0;
+            return vector;
+        }
+        
+        @Override
+        public String toString() {
+            return "(" + x + ":" + y + ":" + z + ")";
         }
     }
     

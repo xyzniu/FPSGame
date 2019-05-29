@@ -30,7 +30,7 @@ void main() {
 
     materialColor = vec3(1.0, 1.0, 1.0);
     v_Color = getAmbientLighting();
-    v_Color+=getDirectionalLighting();
+    //v_Color+=getDirectionalLighting();
     v_Color+=getPointLighting();
 
     gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);
@@ -48,5 +48,5 @@ vec3 getPointLighting(){
     toPointLight = normalize(toPointLight);
 
     float cosine = max(dot(eyeSpaceNormal, toPointLight), 0.0);
-    return vec3(materialColor*u_PointLightColor * 4.0 * cosine )/distance;
+    return vec3(materialColor*u_PointLightColor * 4.0 * cosine )/(distance*distance);
 }

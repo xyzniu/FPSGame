@@ -21,6 +21,7 @@ public class Camera {
     private Geometry.Vector position;
     private Geometry.Vector direction;
     private final Geometry.Vector UP = new Geometry.Vector(0, 1, 0);
+    private float rotation = 0;
     
     
     private Camera() {
@@ -28,13 +29,18 @@ public class Camera {
     }
     
     public void init() {
-        position = new Geometry.Vector(0, -1.5f, -6f);
+        position = new Geometry.Vector(0, 0f, -6f);
         direction = new Geometry.Vector(0, 0, 1);
         updateViewMatrix();
     }
     
+    public Geometry.Vector getPosition() {
+        return position;
+    }
+    
     private void updateViewMatrix() {
         setIdentityM(viewMatrix, 0);
+        MatrixHelper.rotateMatrix(viewMatrix, 0, rotation);
         MatrixHelper.translateMatrix(viewMatrix, 0, position);
     }
     
@@ -72,7 +78,6 @@ public class Camera {
         return direction.crossProduct(UP);
     }
     
-    
     public void updateCamera() {
         if (isMovingForward) {
             moveForward();
@@ -86,6 +91,14 @@ public class Camera {
         if (isMovingRight) {
             moveRight();
         }
+        updateViewMatrix();
+    }
+    
+    
+    public void dragCamera(float deltaX) {
+        rotation += deltaX / 16f;
+        double radians = Math.toRadians(-rotation);
+        direction = new Geometry.Vector(-(float) Math.sin(radians), 0, (float) Math.cos(radians));
         updateViewMatrix();
     }
 }

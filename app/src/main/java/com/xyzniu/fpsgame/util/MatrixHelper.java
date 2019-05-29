@@ -2,6 +2,7 @@ package com.xyzniu.fpsgame.util;
 
 import com.xyzniu.fpsgame.pojo.Geometry;
 
+import static android.opengl.Matrix.rotateM;
 import static android.opengl.Matrix.translateM;
 
 public class MatrixHelper {
@@ -32,5 +33,9 @@ public class MatrixHelper {
     
     public static void translateMatrix(float[] m, int mOffset, Geometry.Vector v) {
         translateM(m, mOffset, v.getX(), v.getY(), v.getZ());
+    }
+    
+    public static void rotateMatrix(float[] viewMatrix, int mOffset, float rotation) {
+        rotateM(viewMatrix, mOffset, -rotation, 0, 1, 0);
     }
 }

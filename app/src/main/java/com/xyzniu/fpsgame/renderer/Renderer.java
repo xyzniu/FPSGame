@@ -5,6 +5,8 @@ import android.opengl.GLSurfaceView;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.objects.Object;
 import com.xyzniu.fpsgame.pojo.Camera;
+import com.xyzniu.fpsgame.pojo.Geometry;
+import com.xyzniu.fpsgame.pojo.Light;
 import com.xyzniu.fpsgame.programs.ObjectShaderProgram;
 import com.xyzniu.fpsgame.util.MatrixHelper;
 import com.xyzniu.fpsgame.util.TextureHelper;
@@ -27,13 +29,14 @@ public class Renderer implements GLSurfaceView.Renderer {
     private final float[] modelViewMatrix = new float[16];
     private final float[] it_modelViewMatrix = new float[16];
     
-    final float[] vectorToLight = {0f, 2f, 0f, 0f};
-    private final float[] pointLightPosition = new float[]{0f, 2f, 0f, 1f};
+    // final float[] vectorToLight = {0f, 2f, 0f, 0f};
+    // private final float[] pointLightPosition = new float[]{0f, 2f, 0f, 1f};
     private final float[] pointLightColor = new float[]{1.0f, 1.0f, 1.0f};
     private Object object;
     private ObjectShaderProgram program;
     private int texture;
     private Camera camera = Camera.getCamera();
+    private Light light = Light.getLight();
     
     public Renderer(Context context) {
         this.context = context;
@@ -52,7 +55,7 @@ public class Renderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         glViewport(0, 0, width, height);
-        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 1f, 10f);
+        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 1f, 100f);
         // updateViewMatrices();
     }
     
@@ -82,8 +85,8 @@ public class Renderer implements GLSurfaceView.Renderer {
         
         float[] vectorToLightInEyeSpace = new float[4];
         float[] pointPositionsInEyeSpcae = new float[4];
-        multiplyMV(vectorToLightInEyeSpace, 0, camera.getViewMatrix(), 0, vectorToLight, 0);
-        multiplyMV(pointPositionsInEyeSpcae, 0, camera.getViewMatrix(), 0, pointLightPosition, 0);
+        multiplyMV(vectorToLightInEyeSpace, 0, camera.getViewMatrix(), 0, light.getVectorToLight(new Geometry.Vector(0, 0, 0)), 0);
+        multiplyMV(pointPositionsInEyeSpcae, 0, camera.getViewMatrix(), 0, light.getPointLightPosition(), 0);
         
         program.setUniforms(modelViewMatrix,
                 it_modelViewMatrix,
