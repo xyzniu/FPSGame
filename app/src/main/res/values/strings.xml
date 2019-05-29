@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">FPSGame</string>
+    <string name="start">START</string>
+    <string name="how_to">HOW TO</string>
+    <string name="settings">SETTINGS</string>
+    <string name="about">ABOUT</string>
+    <string name="exit">EXIT</string>
+    <string name="volume">VOLUME:</string>
+    <string name="sound_effect">SOUND EFFECT:</string>
+    <string name="back">BACK</string>
+    <string name="right">RIGHT</string>
+    <string name="left">LEFT</string>
+    <string name="down">DOWN</string>
+    <string name="up">UP</string>
+    <string name="backward">BACKWARD</string>
+    <string name="forward">FORWARD</string>
+</resources>
