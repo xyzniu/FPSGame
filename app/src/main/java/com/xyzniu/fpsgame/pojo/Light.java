@@ -15,18 +15,15 @@ public class Light {
         return light;
     }
     
-    public float[] getVectorToLight(Geometry.Vector position) {
-        Geometry.Vector cameraPosition = camera.getPosition();
-        Geometry.Vector vectorToLight = new Geometry.Vector(cameraPosition);
-        vectorToLight.add(lightToCameraPosition);
-        vectorToLight.sub(position);
-        return vectorToLight.toArray4();
-    }
     
-    public float[] getPointLightPosition() {
+    public float[] getLightPosition() {
         Geometry.Vector lightPosition = new Geometry.Vector(camera.getPosition());
         lightPosition.add(lightToCameraPosition);
-        return lightPosition.toArray4();
+        return lightPosition.toArray3();
+    }
+    
+    public float[] getLightColor() {
+        return new float[]{1.0f, 1.0f, 1.0f};
     }
     
 }

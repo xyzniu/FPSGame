@@ -14,4 +14,5 @@
     <string name="up">UP</string>
     <string name="backward">BACKWARD</string>
     <string name="forward">FORWARD</string>
+    <string name="shoot">ATTACK</string>
 </resources>

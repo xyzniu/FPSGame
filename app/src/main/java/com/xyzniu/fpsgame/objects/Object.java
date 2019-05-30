@@ -3,7 +3,7 @@ package com.xyzniu.fpsgame.objects;
 import android.content.Context;
 import com.xyzniu.fpsgame.data.VertexArray;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.programs.ObjectShaderProgram;
+import com.xyzniu.fpsgame.programs.MainShaderProgram;
 
 import static android.opengl.GLES20.*;
 
@@ -33,7 +33,7 @@ public class Object {
         textureCoordinates = new VertexArray(objectLoader.textureCoordinates);
     }
     
-    public void bindData(ObjectShaderProgram program) {
+    public void bindData(MainShaderProgram program) {
         positions.setVertexAttribPointer(0, program.getPositionLocation(), POSITION_COMPONENT_COUNT, 0);
         normals.setVertexAttribPointer(0, program.getNormalLocation(), NORMAL_COMPONENT_COUNT, 0);
         textureCoordinates.setVertexAttribPointer(0, program.getTextureCoordinatesLocation(), TEXTURE_COMPONENT_COUNT, 0);

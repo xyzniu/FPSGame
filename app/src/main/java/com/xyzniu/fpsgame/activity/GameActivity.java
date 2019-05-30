@@ -91,7 +91,8 @@ public class GameActivity extends Activity {
     private void init() {
         initCamera();
         initTimer();
-        initDirectionButtons();
+        initMovingButtons();
+        initShootButton();
     }
     
     private void initCamera() {
@@ -107,15 +108,22 @@ public class GameActivity extends Activity {
         timeHandler.postDelayed(timerRunnable, 0);
     }
     
-    private void initDirectionButtons() {
+    private void initMovingButtons() {
         forwardBtn = findViewById(R.id.btn_forward);
         forwardBtn.setOnTouchListener(new MovingTouchListener());
+        
         backwardBtn = findViewById(R.id.btn_backward);
         backwardBtn.setOnTouchListener(new MovingTouchListener());
+        
         leftBtn = findViewById(R.id.btn_left);
         leftBtn.setOnTouchListener(new MovingTouchListener());
+        
         rightBtn = findViewById(R.id.btn_right);
         rightBtn.setOnTouchListener(new MovingTouchListener());
+    }
+    
+    private void initShootButton() {
+        shootBtn = findViewById(R.id.btn_shoot);
     }
     
     public void goToHomePage(View view) {

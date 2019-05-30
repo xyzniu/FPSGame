@@ -90,18 +90,17 @@ public class Geometry {
             
         }
         
-        public float[] toArray4() {
-            float[] vector = new float[4];
-            vector[0] = x;
-            vector[1] = y;
-            vector[2] = z;
-            vector[3] = 0;
-            return vector;
-        }
-        
         @Override
         public String toString() {
             return "(" + x + ":" + y + ":" + z + ")";
+        }
+        
+        public float[] toArray3() {
+            float[] vector = new float[3];
+            vector[0] = x;
+            vector[1] = y;
+            vector[2] = z;
+            return vector;
         }
     }
     

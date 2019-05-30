@@ -128,7 +128,8 @@
             <Button
                     android:layout_width="@dimen/btn_width"
                     android:layout_height="@dimen/btn_height"
-                    android:text="ATTACK"
+                    android:text="@string/shoot"
+                    android:id="@+id/btn_shoot"
                     android:background="@android:drawable/screen_background_light_transparent"/>
             <!--    Attack End    -->
 

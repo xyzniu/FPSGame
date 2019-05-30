@@ -30,12 +30,12 @@ public class SettingsActivity extends Activity {
         soundEffectBtn = super.findViewById(R.id.sound_effect);
         volumeBar = super.findViewById(R.id.volume_bar);
         
-        setSoundEffect();
-        setVolume();
+        initSoundEffect();
+        initVolume();
         
     }
     
-    private void setVolume() {
+    private void initVolume() {
         volumeBar.setMax(maxVolume);
         volumeBar.setProgress(currentVolume);
         volumeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -59,7 +59,7 @@ public class SettingsActivity extends Activity {
         
     }
     
-    private void setSoundEffect() {
+    private void initSoundEffect() {
         soundEffectBtn.setChecked(Configuration.openSoundEffect);
         soundEffectBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
