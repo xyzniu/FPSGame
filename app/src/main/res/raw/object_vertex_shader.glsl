@@ -30,7 +30,7 @@ void main() {
 
     materialColor = vec3(1.0, 1.0, 1.0);
     v_Color = getAmbientLighting();
-    //v_Color+=getDirectionalLighting();
+    v_Color+=getDirectionalLighting();
     v_Color+=getPointLighting();
 
     gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);

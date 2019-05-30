@@ -8,49 +8,132 @@
         tools:context=".activity.GameActivity">
 
 
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
+
+        <!--    Back, Health, Kill, Time    -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+            <Button
+                    android:layout_width="@dimen/btn_width"
+                    android:layout_height="@dimen/btn_height"
+                    android:text="@string/back"
+                    android:background="@android:drawable/screen_background_light_transparent"
+                    android:onClick="goToHomePage"/>
 
 
-        <Button
-                android:layout_width="@dimen/btn_width"
-                android:layout_height="@dimen/btn_height"
-                android:text="@string/back"
-                android:background="@android:drawable/screen_background_light_transparent"
-                android:onClick="goToHomePage"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/view_kill"
+                    android:text="KILL: 20"/>
 
-        <Button
-                android:layout_width="@dimen/btn_width"
-                android:layout_height="@dimen/btn_height"
-                android:text="@string/forward"
-                android:background="@android:drawable/screen_background_light_transparent"
-                android:id="@+id/btn_forward"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/view_timer"/>
 
-        <Button
-                android:layout_width="@dimen/btn_width"
-                android:layout_height="@dimen/btn_height"
-                android:text="@string/backward"
-                android:background="@android:drawable/screen_background_light_transparent"
-                android:id="@+id/btn_backward"/>
+        </LinearLayout>
 
-        <Button
-                android:layout_width="@dimen/btn_width"
-                android:layout_height="@dimen/btn_height"
-                android:text="@string/left"
-                android:background="@android:drawable/screen_background_light_transparent"
-                android:id="@+id/btn_left"/>
+        <!--    Directions, Loot, Attack    -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true">
 
-        <Button
-                android:layout_width="@dimen/btn_width"
-                android:layout_height="@dimen/btn_height"
-                android:text="@string/right"
-                android:background="@android:drawable/screen_background_light_transparent"
-                android:id="@+id/btn_right"/>
-    </LinearLayout>
+            <!--    Directions    -->
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <Button
+                        android:layout_width="@dimen/btn_width"
+                        android:layout_height="@dimen/btn_height"
+                        android:text="@string/left"
+                        android:background="@android:drawable/screen_background_light_transparent"
+                        android:id="@+id/btn_left"/>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <Button
+                            android:layout_width="@dimen/btn_width"
+                            android:layout_height="@dimen/btn_height"
+                            android:text="@string/forward"
+                            android:background="@android:drawable/screen_background_light_transparent"
+                            android:id="@+id/btn_forward"/>
+
+                    <Button
+                            android:layout_width="@dimen/btn_width"
+                            android:layout_height="@dimen/btn_height"
+                            android:text="@string/backward"
+                            android:background="@android:drawable/screen_background_light_transparent"
+                            android:id="@+id/btn_backward"/>
+
+                </LinearLayout>
+
+                <Button
+                        android:layout_width="@dimen/btn_width"
+                        android:layout_height="@dimen/btn_height"
+                        android:text="@string/right"
+                        android:background="@android:drawable/screen_background_light_transparent"
+                        android:id="@+id/btn_right"/>
+
+            </LinearLayout><!--    Directions End    -->
+
+            <!--    Loot    -->
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <Button
+                        android:layout_width="@dimen/btn_width"
+                        android:layout_height="@dimen/btn_height"
+                        android:text="LOOT"
+                        android:background="@android:drawable/screen_background_light_transparent"/>
+
+                <Button
+                        android:layout_width="@dimen/btn_width"
+                        android:layout_height="@dimen/btn_height"
+                        android:text="LOOT"
+                        android:background="@android:drawable/screen_background_light_transparent"/>
+
+                <Button
+                        android:layout_width="@dimen/btn_width"
+                        android:layout_height="@dimen/btn_height"
+                        android:text="LOOT"
+                        android:background="@android:drawable/screen_background_light_transparent"/>
+
+            </LinearLayout><!--    Loot End    -->
+
+            <!--    Attack    -->
+            <Button
+                    android:layout_width="@dimen/btn_width"
+                    android:layout_height="@dimen/btn_height"
+                    android:text="ATTACK"
+                    android:background="@android:drawable/screen_background_light_transparent"/>
+            <!--    Attack End    -->
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

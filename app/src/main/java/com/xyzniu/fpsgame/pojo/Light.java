@@ -1,6 +1,5 @@
 package com.xyzniu.fpsgame.pojo;
 
-import android.util.Log;
 
 public class Light {
     
@@ -27,7 +26,6 @@ public class Light {
     public float[] getPointLightPosition() {
         Geometry.Vector lightPosition = new Geometry.Vector(camera.getPosition());
         lightPosition.add(lightToCameraPosition);
-        // Log.w("LightPosition: ", lightPosition.toString());
         return lightPosition.toArray4();
     }
     
