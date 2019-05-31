@@ -13,7 +13,7 @@ varying vec3 v_Position;
 
 void main() {
     v_TextureCoordinates = a_TextureCoordinates;
-    v_Normal = normalize(mat3(u_IT_Model)*a_Normal);
+    v_Normal = mat3(u_IT_Model)* a_Normal;
     v_Position = vec3(u_Model * vec4(a_Position, 1.0));
 
     gl_Position = u_ModelViewProjection * vec4(a_Position, 1.0);

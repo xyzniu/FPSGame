@@ -2,6 +2,7 @@ package com.xyzniu.fpsgame.renderer;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.objects.Object;
 import com.xyzniu.fpsgame.pojo.Camera;
@@ -22,11 +23,11 @@ public class Renderer implements GLSurfaceView.Renderer {
     private final Context context;
     private int r = 0;
     private final float[] modelMatrix = new float[16];
+    private final float[] it_modelMatrix = new float[16];
+    private final float[] modelViewMatrix = new float[16];
+    private final float[] modelViewProjectionMatrix = new float[16];
     private final float[] projectionMatrix = new float[16];
     private final float[] tempMatrix = new float[16];
-    private final float[] modelViewProjectionMatrix = new float[16];
-    private final float[] modelViewMatrix = new float[16];
-    private final float[] it_modelViewMatrix = new float[16];
     
     private Object object;
     private MainShaderProgram program;
@@ -52,7 +53,6 @@ public class Renderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         glViewport(0, 0, width, height);
         MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 1f, 100f);
-        // updateViewMatrices();
     }
     
     @Override
@@ -62,11 +62,14 @@ public class Renderer implements GLSurfaceView.Renderer {
         drawObject();
     }
     
-    private void updateMvpMatrix() {
+    
+    private void updateMatrix() {
+        // it_modelMtrix
+        invertM(tempMatrix, 0, modelMatrix, 0);
+        transposeM(it_modelMatrix, 0, tempMatrix, 0);
+        
+        // ModelViewProjectionMatrix
         multiplyMM(modelViewMatrix, 0, camera.getViewMatrix(), 0, modelMatrix, 0);
-        // used to get the right normals
-        invertM(tempMatrix, 0, modelViewMatrix, 0);
-        transposeM(it_modelViewMatrix, 0, tempMatrix, 0);
         multiplyMM(modelViewProjectionMatrix, 0, projectionMatrix, 0, modelViewMatrix, 0);
     }
     
@@ -77,13 +80,14 @@ public class Renderer implements GLSurfaceView.Renderer {
         setIdentityM(modelMatrix, 0);
         rotateM(modelMatrix, 0, r++, 1f, 0f, 0f);
         scaleM(modelMatrix, 0, 0.05f, 0.05f, 0.05f);
-        updateMvpMatrix();
+        updateMatrix();
         
         program.setUniforms(modelMatrix,
+                it_modelMatrix,
                 modelViewProjectionMatrix,
                 light.getLightPosition(),
                 light.getLightColor(),
-                camera.getPosition().toArray3(),
+                camera.getPositionVec3(),
                 texture);
         
         object.draw();

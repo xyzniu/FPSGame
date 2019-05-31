@@ -20,6 +20,7 @@ public class TimerRunnable implements Runnable {
         long millis = System.currentTimeMillis() - startTime;
         int seconds = (int) millis / 1000;
         int minutes = seconds / 60;
+        seconds = seconds % 60;
         timerView.setText(String.format("Time: %02d:%02d", minutes, seconds));
         timerHandler.postDelayed(this, 500);
     }

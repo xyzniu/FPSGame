@@ -1,9 +1,8 @@
 package com.xyzniu.fpsgame.pojo;
 
 import com.xyzniu.fpsgame.util.Constants;
-import com.xyzniu.fpsgame.util.MatrixHelper;
 
-import static android.opengl.Matrix.setIdentityM;
+import static android.opengl.Matrix.*;
 
 public class Camera {
     
@@ -23,7 +22,6 @@ public class Camera {
     private final Geometry.Vector UP = new Geometry.Vector(0, 1, 0);
     private float rotation = 0;
     
-    
     private Camera() {
         init();
     }
@@ -31,21 +29,14 @@ public class Camera {
     public void init() {
         position = new Geometry.Vector(0, 0f, -6f);
         direction = new Geometry.Vector(0, 0, 1);
-        updateViewMatrix();
     }
     
     public Geometry.Vector getPosition() {
         return position;
     }
     
-    private void updateViewMatrix() {
-        setIdentityM(viewMatrix, 0);
-        MatrixHelper.rotateMatrix(viewMatrix, 0, rotation);
-        MatrixHelper.translateMatrix(viewMatrix, 0, position);
-    }
-    
-    public float[] getViewMatrix() {
-        return viewMatrix;
+    public float[] getPositionVec3() {
+        return position.toArray3();
     }
     
     private void moveForward() {
@@ -91,14 +82,21 @@ public class Camera {
         if (isMovingRight) {
             moveRight();
         }
-        updateViewMatrix();
     }
-    
     
     public void dragCamera(float deltaX) {
         rotation += deltaX / 16f;
         double radians = Math.toRadians(-rotation);
         direction = new Geometry.Vector(-(float) Math.sin(radians), 0, (float) Math.cos(radians));
-        updateViewMatrix();
+    }
+    
+    public float[] getViewMatrix() {
+        Geometry.Vector center = new Geometry.Vector(position);
+        center.add(direction);
+        setLookAtM(viewMatrix, 0,
+                position.getX(), position.getY(), position.getZ(),
+                center.getX(), center.getY(), center.getZ(),
+                UP.getX(), UP.getY(), UP.getZ());
+        return viewMatrix;
     }
 }
