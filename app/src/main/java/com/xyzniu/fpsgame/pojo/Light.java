@@ -21,7 +21,6 @@ public class Light {
     public float[] getLightPosition() {
         Geometry.Vector lightPosition = new Geometry.Vector(camera.getPosition());
         lightPosition.add(lightToCameraPosition);
-        Log.w("lightPosition", lightPosition.toString());
         return lightPosition.toArray3();
     }
     

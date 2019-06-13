@@ -6,7 +6,7 @@ import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.pojo.Camera;
 
 public class MovingTouchListener implements View.OnTouchListener {
-    private Camera camera = Camera.getCamera();
+    private static Camera camera = Camera.getCamera();
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {

@@ -99,4 +99,8 @@ public class Camera {
                 UP.getX(), UP.getY(), UP.getZ());
         return viewMatrix;
     }
+    
+    public Geometry.Vector getDirection() {
+        return direction;
+    }
 }

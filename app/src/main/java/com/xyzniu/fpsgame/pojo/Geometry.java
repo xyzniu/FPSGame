@@ -1,5 +1,8 @@
 package com.xyzniu.fpsgame.pojo;
 
+import android.graphics.Matrix;
+import com.xyzniu.fpsgame.util.MatrixHelper;
+
 public class Geometry {
     
     
@@ -106,6 +109,13 @@ public class Geometry {
     
     public static Vector vectorBetween(Point from, Point to) {
         return new Vector(to.x - from.x, to.y - from.y, to.z - from.z);
+    }
+    
+    public static float distanceBetween(Vector v1, Vector v2) {
+        double x = v1.x - v2.x;
+        double y = v1.y - v2.y;
+        double z = v1.z - v2.z;
+        return (float) Math.sqrt(x * x + y * y + z * z);
     }
     
     

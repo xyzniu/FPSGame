@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
 import com.xyzniu.fpsgame.R;
+import com.xyzniu.fpsgame.listener.ShootTouchListener;
 import com.xyzniu.fpsgame.pojo.Camera;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
@@ -124,6 +125,7 @@ public class GameActivity extends Activity {
     
     private void initShootButton() {
         shootBtn = findViewById(R.id.btn_shoot);
+        shootBtn.setOnTouchListener(new ShootTouchListener());
     }
     
     public void goToHomePage(View view) {

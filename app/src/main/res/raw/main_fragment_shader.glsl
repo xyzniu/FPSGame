@@ -29,7 +29,6 @@ void main() {
     vec3 specular = specularStrength * spec * u_LightColor;
 
     vec3 objectColor = vec3(texture2D(u_TextureUnit, v_TextureCoordinates));
-    // vec3 result = (ambient + diffuse) * objectColor;
     vec3 result = (ambient + specular + diffuse) * objectColor;
 
     gl_FragColor = vec4(result, 1.0);
