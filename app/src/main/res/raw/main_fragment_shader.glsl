@@ -28,6 +28,15 @@ void main() {
     float spec = pow(max(dot(Normal, halfwayDir), 0.0), 32.0);
     vec3 specular = specularStrength * spec * u_LightColor;
 
+    // attenuation
+    float distance = length(u_LightPosition - v_Position);
+    if(distance < 1.5){
+        distance = 1.5;
+    }
+    float attenuation = 1.0 / distance;
+    diffuse *= attenuation;
+    specular *= attenuation;
+
     vec3 objectColor = vec3(texture2D(u_TextureUnit, v_TextureCoordinates));
     vec3 result = (ambient + specular + diffuse) * objectColor;
 

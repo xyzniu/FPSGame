@@ -1,13 +1,15 @@
 package com.xyzniu.fpsgame.renderer;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import com.xyzniu.fpsgame.R;
+import com.xyzniu.fpsgame.activity.MainActivity;
 import com.xyzniu.fpsgame.objects.*;
 import com.xyzniu.fpsgame.pojo.Camera;
 import com.xyzniu.fpsgame.pojo.Geometry;
-import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -23,6 +25,7 @@ public class Renderer implements GLSurfaceView.Renderer {
     
     private final Context context;
     private Ground ground;
+    private EnemyManager enemyManager;
     private Camera camera = Camera.getCamera();
     private List<Bullet> bullets = BulletBag.getBullets();
     
@@ -34,10 +37,17 @@ public class Renderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glEnable(GL_DEPTH_TEST);
-        
-        ShaderProgramManager.init(context);
-        
-        ground = new Ground(context, R.raw.map1);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        new ShaderProgramManager(context);
+        new TextureManager(context);
+        try {
+            ground = new Ground(context, R.raw.map1);
+        } catch (Exception e) {
+            Log.w("Ground", "There is something wrong with the map");
+        }
+        camera.setGround(ground);
+        enemyManager = new EnemyManager(context, ground.getMobSpawner());
     }
     
     @Override
@@ -50,9 +60,15 @@ public class Renderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         camera.updateCamera();
-        
-        drawBullets();
+        // drawBullets();
         ground.drawGround();
+        // enemyManager.draw();
+        if (camera.atEndPoint()) {
+            Intent home = new Intent();
+            home.setClass(this.context, MainActivity.class);
+            context.startActivity(home);
+            ((Activity) context).finish();
+        }
     }
     
     
@@ -73,24 +89,4 @@ public class Renderer implements GLSurfaceView.Renderer {
         }
     }
     
-    /*private void drawObject() {
-        program.useProgram();
-        object.bindData(program);
-        
-        setIdentityM(Matrix.modelMatrix, 0);
-        MatrixHelper.translateMatrix(Matrix.modelMatrix, 0, object.getPosition());
-        rotateM(Matrix.modelMatrix, 0, r++, 1f, 0f, 0f);
-        scaleM(Matrix.modelMatrix, 0, 0.05f, 0.05f, 0.05f);
-        Matrix.updateMatrix();
-        
-        program.setUniforms(Matrix.modelMatrix,
-                Matrix.it_modelMatrix,
-                Matrix.modelViewProjectionMatrix,
-                light.getLightPosition(),
-                light.getLightColor(),
-                camera.getPositionVec3(),
-                carTexture);
-        
-        object.draw();
-    }*/
 }

@@ -1,8 +1,10 @@
 package com.xyzniu.fpsgame.pojo;
 
+import com.xyzniu.fpsgame.objects.Ground;
 import com.xyzniu.fpsgame.util.Constants;
 
 import static android.opengl.Matrix.*;
+import static com.xyzniu.fpsgame.pojo.Geometry.distanceBetween;
 
 public class Camera {
     
@@ -21,6 +23,9 @@ public class Camera {
     private Geometry.Vector direction;
     private final Geometry.Vector UP = new Geometry.Vector(0, 1, 0);
     private float rotation = 0;
+    private Geometry.Vector startPoint;
+    private Geometry.Vector endPoint;
+    private Ground ground;
     
     private Camera() {
         init();
@@ -29,6 +34,23 @@ public class Camera {
     public void init() {
         position = new Geometry.Vector(0, 0f, -6f);
         direction = new Geometry.Vector(0, 0, 1);
+    }
+    
+    public void setStartPoint(Geometry.Vector startPoint) {
+        this.startPoint = startPoint;
+        this.position = startPoint;
+    }
+    
+    public void setEndPoint(Geometry.Vector endPoint) {
+        this.endPoint = endPoint;
+    }
+    
+    public Geometry.Vector getStartPoint() {
+        return startPoint;
+    }
+    
+    public Geometry.Vector getEndPoint() {
+        return endPoint;
     }
     
     public Geometry.Vector getPosition() {
@@ -62,7 +84,10 @@ public class Camera {
     private void movePosition(Geometry.Vector direction) {
         direction.normalize();
         direction.scale(Constants.STEP_LENGTH);
-        position.add(direction);
+        Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
+        if (!ground.hitWallDetection(newPosition)) {
+            position = newPosition;
+        }
     }
     
     private Geometry.Vector getRightDirection() {
@@ -102,5 +127,19 @@ public class Camera {
     
     public Geometry.Vector getDirection() {
         return direction;
+    }
+    
+    
+    public boolean atEndPoint() {
+        float distance = distanceBetween(endPoint, position);
+        if (distance < 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void setGround(Ground ground) {
+        this.ground = ground;
     }
 }

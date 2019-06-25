@@ -2,8 +2,6 @@ package com.xyzniu.fpsgame.objects;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.data.VertexArray;
-import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.pojo.Geometry;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 
 import static android.opengl.GLES20.*;
@@ -22,10 +20,9 @@ public class Object {
     private VertexArray positions;
     private VertexArray normals;
     private VertexArray textureCoordinates;
-    private Geometry.Vector position = new Geometry.Vector(0, 0, 0);
     
-    public Object(Context context) {
-        ObjectLoader objectLoader = new ObjectLoader(context, R.raw.car);
+    public Object(Context context, int file) {
+        ObjectLoader objectLoader = new ObjectLoader(context, file);
         
         numFaces = objectLoader.numFaces;
         
@@ -43,9 +40,5 @@ public class Object {
     
     public void draw() {
         glDrawArrays(GL_TRIANGLES, 0, numFaces);
-    }
-    
-    public Geometry.Vector getPosition() {
-        return position;
     }
 }

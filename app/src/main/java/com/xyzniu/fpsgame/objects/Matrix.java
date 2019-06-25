@@ -19,7 +19,7 @@ public class Matrix {
     
     
     public static void perspective(int width, int height) {
-        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 1f, 100f);
+        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 0.05f, 50f);
     }
     
     public void updateMatrix() {

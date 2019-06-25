@@ -39,6 +39,14 @@ public class Geometry {
             this.z = other.z;
         }
         
+        public static Vector sub(Vector vector1, Vector vector2) {
+            return new Vector(vector1.x - vector2.x, vector1.y - vector2.y, vector1.z - vector2.z);
+        }
+        
+        public static Vector add(Vector vector1, Vector vector2) {
+            return new Vector(vector1.x + vector2.x, vector1.y + vector2.y, vector1.z + vector2.z);
+        }
+        
         public float length() {
             return (float) Math.sqrt(x * x + y * y + z * z);
         }
