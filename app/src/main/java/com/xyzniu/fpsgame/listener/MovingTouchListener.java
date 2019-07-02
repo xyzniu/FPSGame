@@ -3,7 +3,7 @@ package com.xyzniu.fpsgame.listener;
 import android.view.MotionEvent;
 import android.view.View;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.pojo.Camera;
+import com.xyzniu.fpsgame.objects.Camera;
 
 public class MovingTouchListener implements View.OnTouchListener {
     private static Camera camera = Camera.getCamera();

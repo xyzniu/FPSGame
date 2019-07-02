@@ -1,7 +1,5 @@
 package com.xyzniu.fpsgame.objects;
 
-import com.xyzniu.fpsgame.pojo.Geometry;
-
 public class Bullet {
     
     private Geometry.Vector position;
@@ -15,8 +13,9 @@ public class Bullet {
         this.position = new Geometry.Vector(position);
         this.direction = new Geometry.Vector(direction);
         this.direction.normalize();
-        this.direction.scale(0.1f);
+        this.direction.scale(0.3f);
         this.position.add(this.direction);
+        this.direction.scale(0.3f);
         this.isValid = isValid;
         this.isHit = isHit;
     }

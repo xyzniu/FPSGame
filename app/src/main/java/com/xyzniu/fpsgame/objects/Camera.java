@@ -1,10 +1,9 @@
-package com.xyzniu.fpsgame.pojo;
+package com.xyzniu.fpsgame.objects;
 
-import com.xyzniu.fpsgame.objects.Ground;
 import com.xyzniu.fpsgame.util.Constants;
 
 import static android.opengl.Matrix.*;
-import static com.xyzniu.fpsgame.pojo.Geometry.distanceBetween;
+import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
 
 public class Camera {
     

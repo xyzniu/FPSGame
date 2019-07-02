@@ -4,19 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.activity.MainActivity;
 import com.xyzniu.fpsgame.objects.*;
-import com.xyzniu.fpsgame.pojo.Camera;
-import com.xyzniu.fpsgame.pojo.Geometry;
+import com.xyzniu.fpsgame.objects.Camera;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
-import java.util.Iterator;
-import java.util.List;
 
 import static android.opengl.GLES20.*;
 import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;

@@ -1,8 +1,6 @@
 package com.xyzniu.fpsgame.objects;
 
 
-import com.xyzniu.fpsgame.pojo.Geometry;
-
 import static com.xyzniu.fpsgame.util.Constants.*;
 
 public class Enemy {

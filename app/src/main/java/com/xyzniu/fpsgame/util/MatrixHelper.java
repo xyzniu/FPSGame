@@ -1,6 +1,6 @@
 package com.xyzniu.fpsgame.util;
 
-import com.xyzniu.fpsgame.pojo.Geometry;
+import com.xyzniu.fpsgame.objects.Geometry;
 
 import static android.opengl.Matrix.translateM;
 

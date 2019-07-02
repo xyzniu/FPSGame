@@ -1,6 +1,5 @@
 package com.xyzniu.fpsgame.objects;
 
-import com.xyzniu.fpsgame.pojo.Camera;
 import com.xyzniu.fpsgame.util.MatrixHelper;
 
 import static android.opengl.Matrix.*;

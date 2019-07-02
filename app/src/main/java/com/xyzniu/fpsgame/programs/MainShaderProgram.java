@@ -2,8 +2,8 @@ package com.xyzniu.fpsgame.programs;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.pojo.Camera;
-import com.xyzniu.fpsgame.pojo.Light;
+import com.xyzniu.fpsgame.objects.Camera;
+import com.xyzniu.fpsgame.objects.Light;
 
 import static android.opengl.GLES20.*;
 

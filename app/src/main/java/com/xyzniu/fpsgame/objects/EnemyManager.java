@@ -1,11 +1,7 @@
 package com.xyzniu.fpsgame.objects;
 
 import android.content.Context;
-import android.util.Log;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.pojo.Camera;
-import com.xyzniu.fpsgame.pojo.Geometry;
-import com.xyzniu.fpsgame.pojo.Light;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.util.MatrixHelper;
 import com.xyzniu.fpsgame.util.TextureHelper;

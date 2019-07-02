@@ -1,7 +1,5 @@
-package com.xyzniu.fpsgame.pojo;
+package com.xyzniu.fpsgame.objects;
 
-
-import android.util.Log;
 
 public class Light {
     

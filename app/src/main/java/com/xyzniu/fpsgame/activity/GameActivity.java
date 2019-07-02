@@ -19,10 +19,7 @@ import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.ShootTouchListener;
-import com.xyzniu.fpsgame.objects.BulletBag;
-import com.xyzniu.fpsgame.objects.TextureManager;
-import com.xyzniu.fpsgame.pojo.Camera;
-import com.xyzniu.fpsgame.programs.ShaderProgramManager;
+import com.xyzniu.fpsgame.objects.Camera;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
 public class GameActivity extends Activity {

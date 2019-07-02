@@ -2,7 +2,7 @@ package com.xyzniu.fpsgame.activity;
 
 import android.os.Handler;
 import com.xyzniu.fpsgame.objects.BulletBag;
-import com.xyzniu.fpsgame.pojo.Camera;
+import com.xyzniu.fpsgame.objects.Camera;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
 

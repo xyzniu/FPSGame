@@ -1,4 +1,4 @@
-package com.xyzniu.fpsgame.pojo;
+package com.xyzniu.fpsgame.objects;
 
 import android.graphics.Matrix;
 import com.xyzniu.fpsgame.util.MatrixHelper;

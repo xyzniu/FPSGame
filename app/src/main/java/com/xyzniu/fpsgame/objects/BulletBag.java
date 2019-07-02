@@ -1,15 +1,12 @@
 package com.xyzniu.fpsgame.objects;
 
 import android.content.Context;
-import android.util.Log;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.pojo.Camera;
-import com.xyzniu.fpsgame.pojo.Geometry;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.opengl.Matrix.*;
@@ -28,51 +25,13 @@ public class BulletBag {
         bulletObject = new Object(context, R.raw.ball);
         mainShaderProgram = ShaderProgramManager.mainShaderProgram;
         bulletTexture = TextureManager.bulletTexture;
-        bullets = new ArrayList<>();
+        bullets = new LinkedList<>();
         addBullet = false;
     }
-    
     
     public static List<Bullet> getBullets() {
         return bullets;
     }
-    
-    /*
-    public static void draw1() {
-        
-        synchronized (bullets) {
-            if (addBullet) {
-                bullets.add(new Bullet(camera.getPosition(), camera.getDirection(), true, false));
-                addBullet = false;
-            }
-            
-            mainShaderProgram.useProgram();
-            bulletObject.bindData(mainShaderProgram);
-            
-            Iterator<Bullet> it = bullets.iterator();
-            Bullet bullet;
-            while (it.hasNext()) {
-                bullet = it.next();
-                bullet.update();
-                if (Ground.hitWallDetection(bullet.getPosition())) {
-                    bullet.setValid(false);
-                }
-                
-                if (bullet.isValid()) {
-                    if (EnemyManager.hitEnemyDetection(bullet.getPosition())) {
-                        bullet.setValid(false);
-                        bullet.setHit(true);
-                    }
-                }
-                if (bullet.isValid()) {
-                    drawBullet(bullet);
-                } else {
-                    it.remove();
-                }
-            }
-        }
-    }
-    */
     
     public static void draw() {
         
