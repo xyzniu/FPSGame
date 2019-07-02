@@ -12,6 +12,7 @@ public class Constants {
     public static final int MOB_SPAWNER = 3;
     public static final int GRASS = 4;
     public static final int SOIL = 5;
+    public static final int HOUSE = 6;
     
 }
 

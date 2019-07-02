@@ -113,6 +113,12 @@ public class Geometry {
             vector[2] = z;
             return vector;
         }
+        
+        public void add(float v1, float v2, float v3) {
+            x += v1;
+            y += v2;
+            z += v3;
+        }
     }
     
     public static Vector vectorBetween(Point from, Point to) {

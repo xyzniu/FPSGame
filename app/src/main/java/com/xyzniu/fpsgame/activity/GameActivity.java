@@ -19,7 +19,10 @@ import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.ShootTouchListener;
+import com.xyzniu.fpsgame.objects.BulletBag;
+import com.xyzniu.fpsgame.objects.TextureManager;
 import com.xyzniu.fpsgame.pojo.Camera;
+import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
 public class GameActivity extends Activity {
@@ -39,6 +42,9 @@ public class GameActivity extends Activity {
     private long startTime;
     private Handler timeHandler;
     private TimerRunnable timerRunnable;
+    
+    private Handler renderHandler;
+    private RenderRunnable renderRunnable;
     
     
     @Override
@@ -92,9 +98,17 @@ public class GameActivity extends Activity {
     private void init() {
         initCamera();
         initTimer();
+        initRender();
         initMovingButtons();
         initShootButton();
     }
+    
+    private void initRender() {
+        renderHandler = new Handler();
+        renderRunnable = new RenderRunnable(renderHandler);
+        renderHandler.postDelayed(renderRunnable, 0);
+    }
+    
     
     private void initCamera() {
         camera.init();
@@ -125,7 +139,7 @@ public class GameActivity extends Activity {
     
     private void initShootButton() {
         shootBtn = findViewById(R.id.btn_shoot);
-        shootBtn.setOnTouchListener(new ShootTouchListener());
+        shootBtn.setOnTouchListener(new ShootTouchListener(glSurfaceView, this));
     }
     
     public void goToHomePage(View view) {

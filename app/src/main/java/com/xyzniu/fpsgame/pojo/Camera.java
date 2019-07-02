@@ -32,7 +32,7 @@ public class Camera {
     }
     
     public void init() {
-        position = new Geometry.Vector(0, 0f, -6f);
+        position = new Geometry.Vector(0, -0.3f, -6f);
         direction = new Geometry.Vector(0, 0, 1);
     }
     

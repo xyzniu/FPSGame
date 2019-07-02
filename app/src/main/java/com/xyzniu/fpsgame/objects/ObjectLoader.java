@@ -82,18 +82,18 @@ public final class ObjectLoader {
         for (String face : faces) {
             String[] parts = face.split("/");
             
-            int index = 3 * (Short.valueOf(parts[0]) - 1);
+            int index = 3 * (Integer.valueOf(parts[0]) - 1);
             positions[positionIndex++] = vertices.get(index++);
             positions[positionIndex++] = vertices.get(index++);
             positions[positionIndex++] = vertices.get(index);
             
-            index = 2 * (Short.valueOf(parts[1]) - 1);
+            index = 2 * (Integer.valueOf(parts[1]) - 1);
             textureCoordinates[textureIndex++] = textures.get(index++);
             // NOTE: Bitmap gets y-inverted
             // textureCoordinates[textureIndex++] = textures.get(index);
             textureCoordinates[textureIndex++] = 1 - textures.get(index);
             
-            index = 3 * (Short.valueOf(parts[2]) - 1);
+            index = 3 * (Integer.valueOf(parts[2]) - 1);
             this.normals[normalIndex++] = normals.get(index++);
             this.normals[normalIndex++] = normals.get(index++);
             this.normals[normalIndex++] = normals.get(index);

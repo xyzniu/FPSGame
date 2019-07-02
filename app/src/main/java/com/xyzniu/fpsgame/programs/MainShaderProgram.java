@@ -2,6 +2,8 @@ package com.xyzniu.fpsgame.programs;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
+import com.xyzniu.fpsgame.pojo.Camera;
+import com.xyzniu.fpsgame.pojo.Light;
 
 import static android.opengl.GLES20.*;
 
@@ -18,6 +20,8 @@ public class MainShaderProgram extends ShaderProgram {
     private final int aPositionLocation;
     private final int aNormalLocation;
     private final int aTextureCoordinatesLocation;
+    private Light light = Light.getLight();
+    private Camera camera = Camera.getCamera();
     
     public MainShaderProgram(Context context) {
         super(context, R.raw.main_vertex_shader, R.raw.main_fragment_shader);
@@ -51,6 +55,24 @@ public class MainShaderProgram extends ShaderProgram {
         glUniform3fv(uLightPositionLocation, 1, lightPosition, 0);
         glUniform3fv(uLightColorLocation, 1, lightColor, 0);
         glUniform3fv(uViewPositionLocation, 1, viewPosition, 0);
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureId);
+        glUniform1i(uTextureUnitLocation, 0);
+    }
+    
+    
+    public void setUniforms(float[] model,
+                            float[] it_model,
+                            float[] modelViewProjection,
+                            int textureId) {
+        glUniformMatrix4fv(uModelLocation, 1, false, model, 0);
+        glUniformMatrix4fv(uITModelLocation, 1, false, it_model, 0);
+        glUniformMatrix4fv(uModelViewProjectionLocation, 1, false, modelViewProjection, 0);
+        
+        glUniform3fv(uLightPositionLocation, 1, light.getLightPosition(), 0);
+        glUniform3fv(uLightColorLocation, 1, light.getLightColor(), 0);
+        glUniform3fv(uViewPositionLocation, 1, camera.getPositionVec3(), 0);
         
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureId);

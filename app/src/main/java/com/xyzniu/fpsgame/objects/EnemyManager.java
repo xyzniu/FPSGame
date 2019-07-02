@@ -21,14 +21,13 @@ public class EnemyManager {
     
     public Object object;
     private int texture;
-    private List<Enemy> enemies;
+    private static List<Enemy> enemies;
     private List<Geometry.Vector> mobSpawner;
     private MainShaderProgram program;
     private Random random = new Random();
     private Matrix matrix = new Matrix();
     private Camera camera = Camera.getCamera();
     private Light light = Light.getLight();
-    private List<Bullet> bullets = BulletBag.getBullets();
     
     public EnemyManager(Context context, List<Geometry.Vector> mobSpawner) {
         object = new Object(context, R.raw.fox);
@@ -38,15 +37,35 @@ public class EnemyManager {
         this.mobSpawner = mobSpawner;
     }
     
+    public static boolean hitEnemyDetection(Geometry.Vector position) {
+        double min = 1;
+        Iterator<Enemy> iterator = enemies.iterator();
+        Enemy e;
+        Enemy minE = null;
+        while (iterator.hasNext()) {
+            e = iterator.next();
+            float distance = Geometry.distanceBetween(position, e.getPosition());
+            if (min < distance) {
+                min = distance;
+                minE = e;
+            }
+        }
+        if (minE != null) {
+            minE.hit();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public void draw() {
-        // detect bullets
-        detectBullets();
         // add enemies by spawner
         addEnemies();
         // loop to draw
         drawEnemies();
     }
     
+    /*
     private void detectBullets() {
         Iterator<Bullet> bulletIterator = bullets.iterator();
         Iterator<Enemy> enemyIterator = enemies.iterator();
@@ -66,7 +85,7 @@ public class EnemyManager {
                 }
             }
         }
-    }
+    }*/
     
     private void drawEnemies() {
         program.useProgram();
@@ -103,12 +122,6 @@ public class EnemyManager {
         
         object.draw();
     }
-
-//    private Geometry.Vector getRotation(Geometry.Vector enemyPosition, Geometry.Vector cameraPosition) {
-//
-//
-//
-//    }
     
     private void addEnemies() {
         if (enoughEnemies()) {

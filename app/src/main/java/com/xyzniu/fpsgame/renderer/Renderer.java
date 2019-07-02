@@ -27,7 +27,7 @@ public class Renderer implements GLSurfaceView.Renderer {
     private Ground ground;
     private EnemyManager enemyManager;
     private Camera camera = Camera.getCamera();
-    private List<Bullet> bullets = BulletBag.getBullets();
+    public volatile static boolean renderSet = false;
     
     public Renderer(Context context) {
         this.context = context;
@@ -41,13 +41,11 @@ public class Renderer implements GLSurfaceView.Renderer {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         new ShaderProgramManager(context);
         new TextureManager(context);
-        try {
-            ground = new Ground(context, R.raw.map1);
-        } catch (Exception e) {
-            Log.w("Ground", "There is something wrong with the map");
-        }
+        ground = new Ground(context, R.raw.map1);
         camera.setGround(ground);
         enemyManager = new EnemyManager(context, ground.getMobSpawner());
+        BulletBag.init(context);
+        renderSet = true;
     }
     
     @Override
@@ -59,10 +57,8 @@ public class Renderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        camera.updateCamera();
-        // drawBullets();
         ground.drawGround();
-        // enemyManager.draw();
+        BulletBag.draw();
         if (camera.atEndPoint()) {
             Intent home = new Intent();
             home.setClass(this.context, MainActivity.class);
@@ -70,23 +66,4 @@ public class Renderer implements GLSurfaceView.Renderer {
             ((Activity) context).finish();
         }
     }
-    
-    
-    private void drawBullets() {
-        Iterator<Bullet> it = bullets.iterator();
-        while (it.hasNext()) {
-            Bullet bullet = it.next();
-            bullet.update();
-            Log.w("bulletPosition", String.valueOf(bullet.getPosition()));
-            bullet.collisionDetect(new Geometry.Vector(0, 0, 0), 1f);
-            if (bullet.isHit()) {
-                Log.w("bulletHit", "true");
-                bullet.setValid(false);
-            }
-            if (!bullet.isValid()) {
-                it.remove();
-            }
-        }
-    }
-    
 }

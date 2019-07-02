@@ -1,5 +1,6 @@
 package com.xyzniu.fpsgame.objects;
 
+import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.data.BasicShape;
 import com.xyzniu.fpsgame.data.VertexArray;
 import com.xyzniu.fpsgame.data.VertexData;
@@ -15,14 +16,12 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.opengl.GLES20.GL_TRUE;
 import static android.opengl.GLES20.glDepthMask;
-import static android.opengl.Matrix.setIdentityM;
-import static android.opengl.Matrix.translateM;
+import static android.opengl.Matrix.*;
 import static com.xyzniu.fpsgame.util.Constants.*;
 
 public class Ground {
-    private int[][] materials;
+    private static int[][] materials;
     private MainShaderProgram mainShaderProgram;
     private EndPointShaderProgram endPointShaderProgram;
     private BasicShape square;
@@ -31,8 +30,9 @@ public class Ground {
     private Camera camera = Camera.getCamera();
     private Matrix matrix = new Matrix();
     private List<Geometry.Vector> mobSpawner = new ArrayList<>();
+    private Object house;
     
-    public Ground(Context context, int resourceId) throws Exception {
+    public Ground(Context context, int resourceId) {
         String map = TextResourceReader.readTextFileFromResource(context, resourceId);
         map = map.replace("\n", "");
         String[] materials = map.split(",");
@@ -52,14 +52,9 @@ public class Ground {
         endPointShaderProgram = ShaderProgramManager.endPointShaderProgram;
         square = new BasicShape(new VertexArray(VertexData.squareVertexData), 6);
         cube = new BasicShape(new VertexArray(VertexData.cubeWithoutUpAndDownSideVertexData), 24);
+        house = new Object(context, R.raw.house);
         
         init();
-        
-        // if there is anything wrong with the map, throw an exception
-        if (camera.getStartPoint() == null || camera.getEndPoint() == null) {
-            throw new Exception();
-        }
-        
         
     }
     
@@ -69,7 +64,7 @@ public class Ground {
                 switch (materials[i][j]) {
                     case START_POINT:
                         camera.init();
-                        camera.setStartPoint(computeVector(i, j));
+                        camera.setStartPoint(new Geometry.Vector(j, -0.3f, i));
                         break;
                     case END_POINT:
                         camera.setEndPoint(computeVector(i, j));
@@ -110,8 +105,12 @@ public class Ground {
                     case WALL:
                         drawWall(startX, startZ, TextureManager.wallTexture);
                         break;
+                    case HOUSE:
+                        drawHouse(startX, startZ);
+                        drawGround(startX, startZ, TextureManager.grassTexture);
+                        break;
                     default:
-                        drawGround(startX, startZ, TextureManager.soilTexture);
+                        drawGround(startX, startZ, TextureManager.grassTexture);
                         break;
                 }
             }
@@ -122,6 +121,24 @@ public class Ground {
         glDepthMask(true);
     }
     
+    private void drawHouse(int startX, int startZ) {
+        house.bindData(mainShaderProgram);
+        setIdentityM(matrix.modelMatrix, 0);
+        translateM(matrix.modelMatrix, 0, startX, -0.5f, startZ + 0.2f);
+        scaleM(matrix.modelMatrix, 0, 0.01f, 0.015f, 0.015f);
+        rotateM(matrix.modelMatrix, 0, 90, -1, 0, 0);
+        matrix.updateMatrix();
+        
+        mainShaderProgram.setUniforms(matrix.modelMatrix,
+                matrix.it_modelMatrix,
+                matrix.modelViewProjectionMatrix,
+                light.getLightPosition(),
+                light.getLightColor(),
+                camera.getPositionVec3(),
+                TextureManager.houseTexture);
+        house.draw();
+    }
+    
     private void drawEndPoint() {
         int startX = (int) camera.getEndPoint().getX();
         int startZ = (int) camera.getEndPoint().getZ();
@@ -130,6 +147,7 @@ public class Ground {
         for (int startY = 0; startY < 5; startY++) {
             setIdentityM(matrix.modelMatrix, 0);
             translateM(matrix.modelMatrix, 0, startX, startY, startZ);
+            scaleM(matrix.modelMatrix, 0, 0.9f, 1f, 0.9f);
             matrix.updateMatrix();
             endPointShaderProgram.setUniforms(matrix.modelViewProjectionMatrix);
             cube.draw();
@@ -164,7 +182,7 @@ public class Ground {
                 texture);
     }
     
-    public boolean hitWallDetection(Geometry.Vector position) {
+    public static boolean hitWallDetection(Geometry.Vector position) {
         int x1 = Math.round(position.getX() + 0.1f);
         int x2 = Math.round(position.getX() - 0.1f);
         int z1 = Math.round(position.getZ() + 0.1f);
@@ -172,9 +190,10 @@ public class Ground {
         return isWall(x1, z1) || isWall(x1, z2) || isWall(x2, z1) || isWall(x2, z2);
     }
     
-    private boolean isWall(int x, int z) {
+    private static boolean isWall(int x, int z) {
         switch (materials[z][x]) {
             case WALL:
+            case HOUSE:
                 return true;
             default:
                 return false;

@@ -42,4 +42,11 @@ public class Enemy {
     public void setValid(boolean valid) {
         this.valid = valid;
     }
+    
+    public void hit() {
+        hp -= 1;
+        if (hp <= 0) {
+            valid = false;
+        }
+    }
 }
