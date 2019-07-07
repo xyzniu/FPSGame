@@ -18,6 +18,7 @@ public class ShootTouchListener implements View.OnTouchListener {
     public HashMap<Integer, Integer> soundMap;
     private GLSurfaceView view;
     
+    @Deprecated
     public ShootTouchListener(GLSurfaceView view, Context context) {
         this.view = view;
         soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);

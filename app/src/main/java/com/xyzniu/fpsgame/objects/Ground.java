@@ -188,6 +188,9 @@ public class Ground {
     }
     
     private static boolean isWall(int x, int z) {
+        if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
+            return true;
+        }
         switch (materials[z][x]) {
             case WALL:
             case HOUSE:

@@ -6,7 +6,7 @@ public class Bullet {
     private Geometry.Vector direction;
     // if hit the wall => invalid
     // if hit the enemy => invalid
-    private boolean isValid;
+    private volatile boolean isValid;
     private boolean isHit;
     
     public Bullet(Geometry.Vector position, Geometry.Vector direction, boolean isValid, boolean isHit) {

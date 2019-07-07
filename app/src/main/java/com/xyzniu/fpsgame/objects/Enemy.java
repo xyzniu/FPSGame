@@ -1,32 +1,30 @@
 package com.xyzniu.fpsgame.objects;
 
 
+import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
 import static com.xyzniu.fpsgame.util.Constants.*;
 
 public class Enemy {
     
     private int hp;
-    private boolean valid;
+    private volatile boolean valid;
     private Geometry.Vector position;
     private Geometry.Vector direction;
+    private static Camera camera = Camera.getCamera();
     
-    public Enemy(Geometry.Vector position, Geometry.Vector userPosition) {
+    public Enemy(Geometry.Vector position) {
         this.position = position;
-        this.direction = Geometry.Vector.sub(userPosition, position);
-        this.direction.normalize();
+        this.direction = new Geometry.Vector(0, 0, 1);
         valid = true;
-        hp = 10;
+        hp = 3;
     }
     
-    public void update(Geometry.Vector userPosition) {
-        if (hp <= 0) {
-            valid = false;
-            return;
+    public void update() {
+        if (distanceBetween(camera.getPosition(), position) > 1) {
+            direction.normalize();
+            direction.scale(ENEMY_STEP_LENGTH);
+            position.add(direction);
         }
-        direction.normalize();
-        direction.scale(ENEMY_STEP_LENGTH);
-        position.add(direction);
-        direction = Geometry.Vector.sub(userPosition, position);
     }
     
     public boolean isValid() {
@@ -46,5 +44,13 @@ public class Enemy {
         if (hp <= 0) {
             valid = false;
         }
+    }
+    
+    public Geometry.Vector getDirection() {
+        return direction;
+    }
+    
+    public void setDirection(Geometry.Vector diretion) {
+        this.direction = diretion;
     }
 }

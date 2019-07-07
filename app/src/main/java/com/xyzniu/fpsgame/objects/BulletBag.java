@@ -83,10 +83,11 @@ public class BulletBag {
                 }
                 
                 if (bullet.isValid()) {
+                    /*
                     if (EnemyManager.hitEnemyDetection(bullet.getPosition())) {
                         bullet.setValid(false);
                         bullet.setHit(true);
-                    }
+                    }*/
                 }
             }
         }

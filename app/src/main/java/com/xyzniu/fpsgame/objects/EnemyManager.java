@@ -1,39 +1,53 @@
 package com.xyzniu.fpsgame.objects;
 
 import android.content.Context;
+import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.util.MatrixHelper;
 import com.xyzniu.fpsgame.util.TextureHelper;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static android.opengl.Matrix.*;
 
 public class EnemyManager {
     
-    public Object object;
-    private int texture;
+    public static Object enemyObject;
+    private static int enemyTexture;
     private static List<Enemy> enemies;
-    private List<Geometry.Vector> mobSpawner;
-    private MainShaderProgram program;
-    private Random random = new Random();
-    private Matrix matrix = new Matrix();
-    private Camera camera = Camera.getCamera();
-    private Light light = Light.getLight();
+    private static List<Geometry.Vector> mobSpawner;
+    private static MainShaderProgram program;
+    private static Random random = new Random();
+    private static Matrix matrix = new Matrix();
+    private static Camera camera = Camera.getCamera();
+    private static Light light = Light.getLight();
     
     public EnemyManager(Context context, List<Geometry.Vector> mobSpawner) {
-        object = new Object(context, R.raw.fox);
-        texture = TextureHelper.loadTexture(context, R.raw.foxuv);
-        enemies = new ArrayList<>();
+        enemyObject = new Object(context, R.raw.fox);
+        enemyTexture = TextureManager.foxTexture;
+        enemies = new LinkedList<>();
         program = new MainShaderProgram(context);
         this.mobSpawner = mobSpawner;
     }
     
-    public static boolean hitEnemyDetection(Geometry.Vector position) {
+    public static void updateEnemies() {
+        synchronized (enemies) {
+            addEnemies();
+            
+            Enemy e;
+            Iterator<Enemy> enemyIterator = enemies.iterator();
+            while (enemyIterator.hasNext()) {
+                e = enemyIterator.next();
+                e.update();
+                if (!e.isValid()) {
+                    enemyIterator.remove();
+                }
+            }
+        }
+    }
+    
+    public boolean hitEnemyDetection(Geometry.Vector position) {
         double min = 1;
         Iterator<Enemy> iterator = enemies.iterator();
         Enemy e;
@@ -54,58 +68,29 @@ public class EnemyManager {
         }
     }
     
-    public void draw() {
-        // add enemies by spawner
-        addEnemies();
-        // loop to draw
-        drawEnemies();
-    }
     
-    /*
-    private void detectBullets() {
-        Iterator<Bullet> bulletIterator = bullets.iterator();
-        Iterator<Enemy> enemyIterator = enemies.iterator();
-        Bullet b;
-        Enemy e;
-        while (bulletIterator.hasNext()) {
-            b = bulletIterator.next();
-            b.update();
-            while (enemyIterator.hasNext()) {
-                e = enemyIterator.next();
-                b.collisionDetect(e.getPosition(), 2f);
-                if (b.isHit()) {
-                    Log.w("bulletHit", "true");
-                    e.setValid(false);
-                } else {
-                    Log.w("bulletPosition", b.getPosition().toString());
+    public void draw() {
+        program.useProgram();
+        enemyObject.bindData(program);
+        
+        synchronized (enemies) {
+            
+            Enemy e;
+            Iterator<Enemy> iterator = enemies.iterator();
+            while (iterator.hasNext()) {
+                e = iterator.next();
+                if (e.isValid()) {
+                    drawEnemy(e);
                 }
             }
         }
-    }*/
-    
-    private void drawEnemies() {
-        program.useProgram();
-        object.bindData(program);
-        
-        Enemy e;
-        Iterator<Enemy> iterator = enemies.iterator();
-        while (iterator.hasNext()) {
-            e = iterator.next();
-            e.update(camera.getPosition());
-            if (e.isValid()) {
-                drawEnemy(e);
-            } else {
-                iterator.remove();
-            }
-        }
     }
     
-    private void drawEnemy(Enemy enemy) {
+    private void drawEnemy(Enemy e) {
         setIdentityM(matrix.modelMatrix, 0);
-        // MatrixHelper.rotateMatrix((matrix.modelMatrix, 0, getRotation(enemy.getPosition(), camera.getPosition()));
-        MatrixHelper.translateMatrix(matrix.modelMatrix, 0, enemy.getPosition());
-        MatrixHelper.translateMatrix(matrix.modelMatrix, 0, new Geometry.Vector(0, -1, 0));
-        scaleM(matrix.modelMatrix, 0, 0.01f, 0.01f, 0.01f);
+        MatrixHelper.translateMatrix(matrix.modelMatrix, 0, e.getPosition());
+        MatrixHelper.translateMatrix(matrix.modelMatrix, 0, new Geometry.Vector(0, -0.2f, 0));
+        rotateM(matrix.modelMatrix, 0, getRotation(e, camera.getPosition()), 0, 1, 0);
         matrix.updateMatrix();
         
         program.setUniforms(matrix.modelMatrix,
@@ -114,32 +99,42 @@ public class EnemyManager {
                 light.getLightPosition(),
                 light.getLightColor(),
                 camera.getPositionVec3(),
-                texture);
+                enemyTexture);
         
-        object.draw();
+        enemyObject.draw();
     }
     
-    private void addEnemies() {
+    private float getRotation(Enemy e, Geometry.Vector uPosition) {
+        Geometry.Vector ePosition = e.getPosition();
+        Geometry.Vector direction = Geometry.Vector.sub(uPosition, ePosition);
+        e.setDirection(new Geometry.Vector(direction.getX(), 0, direction.getZ()));
+        double radian = (Math.atan2(direction.getX(), direction.getZ()) - Math.atan2(0, 1));
+        return (float) Math.toDegrees(radian);
+    }
+    
+    private static void addEnemies() {
         if (enoughEnemies()) {
             return;
         }
         boolean notEnoughEnemies = notEnoughEnemies();
         for (int i = 0; i < mobSpawner.size(); i++) {
             if (notEnoughEnemies) {
-                enemies.add(new Enemy(mobSpawner.get(i), camera.getPosition()));
-            } else if (random.nextInt(1000) < 5) {
-                enemies.add(new Enemy(mobSpawner.get(i), camera.getPosition()));
+                enemies.add(new Enemy(mobSpawner.get(i)));
+            } else if (random.nextInt(10) < 3) {
+                enemies.add(new Enemy(mobSpawner.get(i)));
             }
         }
     }
     
-    private boolean notEnoughEnemies() {
+    private static boolean notEnoughEnemies() {
         return enemies.size() < mobSpawner.size();
     }
     
-    private boolean enoughEnemies() {
+    private static boolean enoughEnemies() {
         return enemies.size() >= 15;
     }
     
-    
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
 }

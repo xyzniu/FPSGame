@@ -40,6 +40,7 @@ public class Renderer implements GLSurfaceView.Renderer {
         camera.setGround(ground);
         enemyManager = new EnemyManager(context, ground.getMobSpawner());
         BulletBag.init(context);
+        new HitDetection(BulletBag.getBullets(), enemyManager.getEnemies());
         renderSet = true;
     }
     
@@ -54,6 +55,7 @@ public class Renderer implements GLSurfaceView.Renderer {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         ground.drawGround();
         BulletBag.draw();
+        enemyManager.draw();
         if (camera.atEndPoint()) {
             Intent home = new Intent();
             home.setClass(this.context, MainActivity.class);

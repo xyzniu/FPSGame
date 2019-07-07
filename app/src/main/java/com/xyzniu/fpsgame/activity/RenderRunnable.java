@@ -3,6 +3,8 @@ package com.xyzniu.fpsgame.activity;
 import android.os.Handler;
 import com.xyzniu.fpsgame.objects.BulletBag;
 import com.xyzniu.fpsgame.objects.Camera;
+import com.xyzniu.fpsgame.objects.EnemyManager;
+import com.xyzniu.fpsgame.objects.HitDetection;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
 
@@ -26,6 +28,8 @@ public class RenderRunnable implements Runnable {
         if (Renderer.renderSet) {
             camera.updateCamera();
             BulletBag.updateBullets();
+            EnemyManager.updateEnemies();
+            HitDetection.hitDetection();
         }
         renderHandler.postDelayed(this, 20);
     }
