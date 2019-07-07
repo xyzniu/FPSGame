@@ -13,15 +13,15 @@ import static android.opengl.Matrix.*;
 
 public class EnemyManager {
     
-    public static Object enemyObject;
-    private static int enemyTexture;
-    private static List<Enemy> enemies;
-    private static List<Geometry.Vector> mobSpawner;
-    private static MainShaderProgram program;
-    private static Random random = new Random();
-    private static Matrix matrix = new Matrix();
-    private static Camera camera = Camera.getCamera();
-    private static Light light = Light.getLight();
+    public Object enemyObject;
+    private int enemyTexture;
+    private List<Enemy> enemies;
+    private List<Geometry.Vector> mobSpawner;
+    private MainShaderProgram program;
+    private Random random = new Random();
+    private Matrix matrix = new Matrix();
+    private Camera camera = Camera.getCamera();
+    private Light light = Light.getLight();
     
     public EnemyManager(Context context, List<Geometry.Vector> mobSpawner) {
         enemyObject = new Object(context, R.raw.fox);
@@ -31,57 +31,19 @@ public class EnemyManager {
         this.mobSpawner = mobSpawner;
     }
     
-    public static void updateEnemies() {
-        synchronized (enemies) {
-            addEnemies();
-            
-            Enemy e;
-            Iterator<Enemy> enemyIterator = enemies.iterator();
-            while (enemyIterator.hasNext()) {
-                e = enemyIterator.next();
-                e.update();
-                if (!e.isValid()) {
-                    enemyIterator.remove();
-                }
-            }
-        }
-    }
-    
-    public boolean hitEnemyDetection(Geometry.Vector position) {
-        double min = 1;
-        Iterator<Enemy> iterator = enemies.iterator();
-        Enemy e;
-        Enemy minE = null;
-        while (iterator.hasNext()) {
-            e = iterator.next();
-            float distance = Geometry.distanceBetween(position, e.getPosition());
-            if (min < distance) {
-                min = distance;
-                minE = e;
-            }
-        }
-        if (minE != null) {
-            minE.hit();
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
     
     public void draw() {
         program.useProgram();
         enemyObject.bindData(program);
         
-        synchronized (enemies) {
-            
-            Enemy e;
-            Iterator<Enemy> iterator = enemies.iterator();
-            while (iterator.hasNext()) {
-                e = iterator.next();
-                if (e.isValid()) {
-                    drawEnemy(e);
-                }
+        Enemy e;
+        Iterator<Enemy> iterator = enemies.iterator();
+        while (iterator.hasNext()) {
+            e = iterator.next();
+            if (e.isValid()) {
+                drawEnemy(e);
+            } else {
+                iterator.remove();
             }
         }
     }
@@ -112,7 +74,21 @@ public class EnemyManager {
         return (float) Math.toDegrees(radian);
     }
     
-    private static void addEnemies() {
+    public void updateEnemies() {
+        addEnemies();
+        
+        Enemy e;
+        Iterator<Enemy> enemyIterator = enemies.iterator();
+        while (enemyIterator.hasNext()) {
+            e = enemyIterator.next();
+            e.update();
+            if (!e.isValid()) {
+                enemyIterator.remove();
+            }
+        }
+    }
+    
+    private void addEnemies() {
         if (enoughEnemies()) {
             return;
         }
@@ -126,11 +102,11 @@ public class EnemyManager {
         }
     }
     
-    private static boolean notEnoughEnemies() {
+    private boolean notEnoughEnemies() {
         return enemies.size() < mobSpawner.size();
     }
     
-    private static boolean enoughEnemies() {
+    private boolean enoughEnemies() {
         return enemies.size() >= 15;
     }
     

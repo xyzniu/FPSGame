@@ -1,3 +1,4 @@
+
 package com.xyzniu.fpsgame.objects;
 
 import android.util.Log;
@@ -9,15 +10,7 @@ import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
 
 public class HitDetection {
     
-    private static List<Bullet> bullets;
-    private static List<Enemy> enemies;
-    
-    public HitDetection(List<Bullet> bullets, List<Enemy> enemies) {
-        this.bullets = bullets;
-        this.enemies = enemies;
-    }
-    
-    public static void hitDetection() {
+    public static void hitDetection(List<Bullet> bullets, List<Enemy> enemies) {
         Iterator<Enemy> enemyIterator = enemies.iterator();
         Iterator<Bullet> bulletIterator = bullets.iterator();
         Bullet b;
@@ -37,9 +30,7 @@ public class HitDetection {
                     continue;
                 }
                 float distance = distanceBetween(b.getPosition(), e.getPosition());
-                if (distance > 1) {
-                    continue;
-                }
+                
                 if (minDistance > distance) {
                     minDistance = distance;
                     minDistanceEnemy = e;

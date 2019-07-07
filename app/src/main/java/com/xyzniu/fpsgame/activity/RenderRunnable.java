@@ -1,4 +1,4 @@
-package com.xyzniu.fpsgame.activity;
+/*package com.xyzniu.fpsgame.activity;
 
 import android.os.Handler;
 import com.xyzniu.fpsgame.objects.BulletBag;
@@ -13,6 +13,7 @@ import com.xyzniu.fpsgame.renderer.Renderer;
  * bullet update
  * enemy update
  */
+/*
 public class RenderRunnable implements Runnable {
     
     private Camera camera = Camera.getCamera();
@@ -34,3 +35,4 @@ public class RenderRunnable implements Runnable {
         renderHandler.postDelayed(this, 20);
     }
 }
+*/
