@@ -27,9 +27,10 @@ public class Renderer implements GLSurfaceView.Renderer {
     private Camera camera = Camera.getCamera();
     public volatile static boolean renderSet = false;
     
-    private long time;
+    private long now;
     public static float delta;
-    public static float elapsedtime;
+    public  float elapsedtime;
+    private int times;
     
     public Renderer(Context context) {
         this.context = context;
@@ -48,8 +49,9 @@ public class Renderer implements GLSurfaceView.Renderer {
         enemyManager = new EnemyManager(context, ground.getMobSpawner());
         bulletBag = new BulletBag(context);
         renderSet = true;
-        time = SystemClock.elapsedRealtime();
+        now = SystemClock.elapsedRealtime();
         elapsedtime = 0;
+        times = 150;
     }
     
     @Override
@@ -61,9 +63,10 @@ public class Renderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        long elapsed = SystemClock.elapsedRealtime() - time;
-        time = SystemClock.elapsedRealtime();
-        delta = elapsed / 1000f;
+        long elapsed = SystemClock.elapsedRealtime() - now;
+        now = SystemClock.elapsedRealtime();
+        Log.w("elapsed", String.valueOf(elapsed));
+        delta = elapsed / 10f;
         elapsedtime += elapsed;
         
         ground.drawGround();
@@ -73,6 +76,11 @@ public class Renderer implements GLSurfaceView.Renderer {
         
         if (elapsedtime > 20) {
             elapsedtime = 0;
+            times += 1;
+            if (times >= 150) {
+                enemyManager.addEnemies();
+                times = 0;
+            }
             camera.updateCamera();
             bulletBag.updateBullets();
             enemyManager.updateEnemies();

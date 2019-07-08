@@ -1,9 +1,10 @@
 package com.xyzniu.fpsgame.objects;
 
-import com.xyzniu.fpsgame.util.Constants;
+import com.xyzniu.fpsgame.config.Constants;
 
 import static android.opengl.Matrix.*;
 import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
+import static com.xyzniu.fpsgame.renderer.Renderer.delta;
 
 public class Camera {
     
@@ -82,7 +83,7 @@ public class Camera {
     
     private void movePosition(Geometry.Vector direction) {
         direction.normalize();
-        direction.scale(Constants.STEP_LENGTH);
+        direction.scale(Constants.STEP_LENGTH * delta);
         Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
         if (!ground.hitWallDetection(newPosition)) {
             position = newPosition;

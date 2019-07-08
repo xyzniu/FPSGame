@@ -75,8 +75,6 @@ public class EnemyManager {
     }
     
     public void updateEnemies() {
-        addEnemies();
-        
         Enemy e;
         Iterator<Enemy> enemyIterator = enemies.iterator();
         while (enemyIterator.hasNext()) {
@@ -88,7 +86,7 @@ public class EnemyManager {
         }
     }
     
-    private void addEnemies() {
+    public void addEnemies() {
         if (enoughEnemies()) {
             return;
         }

@@ -3,7 +3,7 @@ package com.xyzniu.fpsgame.data;
 import com.xyzniu.fpsgame.programs.EndPointShaderProgram;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgram;
-import com.xyzniu.fpsgame.util.Constants;
+import com.xyzniu.fpsgame.config.Constants;
 
 import static android.opengl.GLES20.GL_TRIANGLES;
 import static android.opengl.GLES20.glDrawArrays;

@@ -2,7 +2,8 @@ package com.xyzniu.fpsgame.objects;
 
 
 import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
-import static com.xyzniu.fpsgame.util.Constants.*;
+import static com.xyzniu.fpsgame.renderer.Renderer.delta;
+import static com.xyzniu.fpsgame.config.Constants.*;
 
 public class Enemy {
     
@@ -13,7 +14,7 @@ public class Enemy {
     private static Camera camera = Camera.getCamera();
     
     public Enemy(Geometry.Vector position) {
-        this.position = position;
+        this.position = new Geometry.Vector(position);
         this.direction = new Geometry.Vector(0, 0, 1);
         valid = true;
         hp = 3;
@@ -22,7 +23,7 @@ public class Enemy {
     public void update() {
         if (distanceBetween(camera.getPosition(), position) > 1) {
             direction.normalize();
-            direction.scale(ENEMY_STEP_LENGTH);
+            direction.scale(ENEMY_STEP_LENGTH * delta);
             position.add(direction);
         }
     }
@@ -52,5 +53,9 @@ public class Enemy {
     
     public void setDirection(Geometry.Vector diretion) {
         this.direction = diretion;
+    }
+    
+    public String getHP() {
+        return String.valueOf(hp);
     }
 }

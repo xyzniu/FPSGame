@@ -29,16 +29,17 @@ public class HitDetection {
                 if (!e.isValid()) {
                     continue;
                 }
+                
                 float distance = distanceBetween(b.getPosition(), e.getPosition());
                 
-                if (minDistance > distance) {
+                if (distance < minDistance) {
                     minDistance = distance;
                     minDistanceEnemy = e;
                 }
             }
             if (minDistanceEnemy != null) {
                 minDistanceEnemy.hit();
-                Log.w("Hit", "true");
+                Log.w("Hit", minDistanceEnemy.getHP() + minDistanceEnemy.isValid());
                 b.setValid(false);
             }
             enemyIterator = enemies.iterator();

@@ -5,7 +5,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import static android.opengl.GLES20.*;
-import static com.xyzniu.fpsgame.util.Constants.BYTES_PER_FLOAT;
+import static com.xyzniu.fpsgame.config.Constants.BYTES_PER_FLOAT;
 
 public class VertexArray {
     private final FloatBuffer floatBuffer;

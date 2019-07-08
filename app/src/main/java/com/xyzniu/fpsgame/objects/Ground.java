@@ -15,7 +15,7 @@ import java.util.List;
 
 import static android.opengl.GLES20.glDepthMask;
 import static android.opengl.Matrix.*;
-import static com.xyzniu.fpsgame.util.Constants.*;
+import static com.xyzniu.fpsgame.config.Constants.*;
 
 public class Ground {
     private static int[][] materials;

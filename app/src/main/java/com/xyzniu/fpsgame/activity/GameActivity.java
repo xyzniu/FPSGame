@@ -40,9 +40,6 @@ public class GameActivity extends Activity {
     private Handler timeHandler;
     private TimerRunnable timerRunnable;
     
-    // private Handler renderHandler;
-    // private RenderRunnable renderRunnable;
-    
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,17 +92,10 @@ public class GameActivity extends Activity {
     private void init() {
         initCamera();
         initTimer();
-        // initRender();
         initMovingButtons();
         initShootButton();
     }
     
-    /*
-    private void initRender() {
-        renderHandler = new Handler();
-        renderRunnable = new RenderRunnable(renderHandler);
-        renderHandler.postDelayed(renderRunnable, 0);
-    }*/
     
     
     private void initCamera() {
