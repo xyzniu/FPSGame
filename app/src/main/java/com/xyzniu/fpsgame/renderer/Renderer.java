@@ -65,7 +65,6 @@ public class Renderer implements GLSurfaceView.Renderer {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         long elapsed = SystemClock.elapsedRealtime() - now;
         now = SystemClock.elapsedRealtime();
-        Log.w("elapsed", String.valueOf(elapsed));
         delta = elapsed / 10f;
         elapsedtime += elapsed;
         
@@ -77,7 +76,7 @@ public class Renderer implements GLSurfaceView.Renderer {
         if (elapsedtime > 20) {
             elapsedtime = 0;
             times += 1;
-            if (times >= 150) {
+            if (times >= 100) {
                 enemyManager.addEnemies();
                 times = 0;
             }

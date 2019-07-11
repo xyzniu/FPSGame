@@ -142,4 +142,12 @@ public class Camera {
     public void setGround(Ground ground) {
         this.ground = ground;
     }
+    
+    public boolean hitCamera(Geometry.Vector otherPosition) {
+        if (distanceBetween(camera.getPosition(), otherPosition) < 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

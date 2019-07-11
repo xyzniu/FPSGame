@@ -1,12 +1,12 @@
 
 package com.xyzniu.fpsgame.objects;
 
-import android.util.Log;
 
 import java.util.Iterator;
 import java.util.List;
 
 import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
+import static com.xyzniu.fpsgame.objects.Sound.*;
 
 public class HitDetection {
     
@@ -22,7 +22,7 @@ public class HitDetection {
             if (!b.isValid()) {
                 continue;
             }
-            minDistance = 1;
+            minDistance = (float) 0.35;
             minDistanceEnemy = null;
             while (enemyIterator.hasNext()) {
                 e = enemyIterator.next();
@@ -39,8 +39,8 @@ public class HitDetection {
             }
             if (minDistanceEnemy != null) {
                 minDistanceEnemy.hit();
-                Log.w("Hit", minDistanceEnemy.getHP() + minDistanceEnemy.isValid());
                 b.setValid(false);
+                soundPool.play(soundMap.get(SCREAM_SOUND), 1, 1, 0, 0, 1);
             }
             enemyIterator = enemies.iterator();
         }

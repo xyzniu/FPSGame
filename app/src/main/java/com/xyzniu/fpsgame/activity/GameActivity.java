@@ -49,9 +49,7 @@ public class GameActivity extends Activity {
         if (!checkSupportEs2()) {
             return;
         }
-        
         addContentView();
-        
         init();
     }
     
@@ -95,8 +93,6 @@ public class GameActivity extends Activity {
         initMovingButtons();
         initShootButton();
     }
-    
-    
     
     private void initCamera() {
         camera.init();

@@ -9,21 +9,20 @@ import android.view.View;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.activity.GameActivity;
 import com.xyzniu.fpsgame.objects.BulletBag;
+import com.xyzniu.fpsgame.objects.Sound;
 
 import java.util.HashMap;
 
+import static com.xyzniu.fpsgame.objects.Sound.*;
+
 public class ShootTouchListener implements View.OnTouchListener {
     
-    private SoundPool soundPool;
-    public HashMap<Integer, Integer> soundMap;
     private GLSurfaceView view;
     
     @Deprecated
     public ShootTouchListener(GLSurfaceView view, Context context) {
         this.view = view;
-        soundPool = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
-        soundMap = new HashMap<>();
-        soundMap.put(0, soundPool.load(context, R.raw.shoot_sound, 1));
+        new Sound(context);
     }
     
     @Override
@@ -36,7 +35,7 @@ public class ShootTouchListener implements View.OnTouchListener {
                 view.queueEvent(new Runnable() {
                     @Override
                     public void run() {
-                        soundPool.play(soundMap.get(0), 1, 1, 0, 0, 1);
+                        soundPool.play(soundMap.get(SHOOT_SOUND), 1, 1, 0, 0, 1);
                     }
                 });
                 break;

@@ -10,6 +10,7 @@ import com.xyzniu.fpsgame.util.TextureHelper;
 import java.util.*;
 
 import static android.opengl.Matrix.*;
+import static com.xyzniu.fpsgame.objects.Sound.*;
 
 public class EnemyManager {
     
@@ -52,7 +53,12 @@ public class EnemyManager {
         setIdentityM(matrix.modelMatrix, 0);
         MatrixHelper.translateMatrix(matrix.modelMatrix, 0, e.getPosition());
         MatrixHelper.translateMatrix(matrix.modelMatrix, 0, new Geometry.Vector(0, -0.2f, 0));
+        
         rotateM(matrix.modelMatrix, 0, getRotation(e, camera.getPosition()), 0, 1, 0);
+        rotateM(matrix.modelMatrix, 0, e.getRotation(), 1, 0, 0);
+        if (e.getRotation() > 0) {
+            e.rotationDec();
+        }
         matrix.updateMatrix();
         
         program.setUniforms(matrix.modelMatrix,
@@ -91,7 +97,12 @@ public class EnemyManager {
             return;
         }
         boolean notEnoughEnemies = notEnoughEnemies();
+        Geometry.Vector mobSpawnerPosition;
         for (int i = 0; i < mobSpawner.size(); i++) {
+            mobSpawnerPosition = mobSpawner.get(i);
+            if (camera.hitCamera(mobSpawnerPosition)) {
+                continue;
+            }
             if (notEnoughEnemies) {
                 enemies.add(new Enemy(mobSpawner.get(i)));
             } else if (random.nextInt(10) < 3) {
