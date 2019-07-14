@@ -3,7 +3,7 @@ package com.xyzniu.fpsgame.listener;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.View;
-import com.xyzniu.fpsgame.objects.Camera;
+import com.xyzniu.fpsgame.objects.PlayerManager;
 
 public class CameraTouchListener implements View.OnTouchListener {
     
@@ -26,7 +26,7 @@ public class CameraTouchListener implements View.OnTouchListener {
                 view.queueEvent(new Runnable() {
                     @Override
                     public void run() {
-                        Camera.getCamera().dragCamera(deltaX);
+                        PlayerManager.dragCamera(deltaX);
                     }
                 });
             }

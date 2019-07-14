@@ -23,11 +23,10 @@ public class Ground {
     private EndPointShaderProgram endPointShaderProgram;
     private BasicShape square;
     private BasicShape cube;
-    private Light light = Light.getLight();
-    private Camera camera = Camera.getCamera();
     private Matrix matrix = new Matrix();
     private List<Geometry.Vector> mobSpawner = new ArrayList<>();
     private Object house;
+    private Geometry.Vector endPoint;
     
     public Ground(Context context, int resourceId) {
         String map = TextResourceReader.readTextFileFromResource(context, resourceId);
@@ -56,15 +55,15 @@ public class Ground {
     }
     
     private void init() {
+        Geometry.Vector startPoint = new Geometry.Vector(0, -0.3f, 0);
         for (int i = 0; i < materials.length; i++) {
             for (int j = 0; j < materials[0].length; j++) {
                 switch (materials[i][j]) {
                     case START_POINT:
-                        camera.init();
-                        camera.setStartPoint(new Geometry.Vector(j, -0.3f, i));
+                        startPoint = new Geometry.Vector(j, -0.3f, i);
                         break;
                     case END_POINT:
-                        camera.setEndPoint(computeVector(i, j));
+                        endPoint = computeVector(i, j);
                         break;
                     case MOB_SPAWNER:
                         mobSpawner.add(computeVector(i, j));
@@ -72,6 +71,8 @@ public class Ground {
                 }
             }
         }
+        PlayerManager.setStartPoint(startPoint);
+        PlayerManager.setEndPoint(endPoint);
     }
     
     private Geometry.Vector computeVector(int i, int j) {
@@ -129,16 +130,13 @@ public class Ground {
         mainShaderProgram.setUniforms(matrix.modelMatrix,
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
-                light.getLightPosition(),
-                light.getLightColor(),
-                camera.getPositionVec3(),
                 TextureManager.houseTexture);
         house.draw();
     }
     
     private void drawEndPoint() {
-        int startX = (int) camera.getEndPoint().getX();
-        int startZ = (int) camera.getEndPoint().getZ();
+        int startX = (int) endPoint.getX();
+        int startZ = (int) endPoint.getZ();
         endPointShaderProgram.useProgram();
         cube.bindData(endPointShaderProgram);
         for (int startY = 0; startY < 5; startY++) {
@@ -173,9 +171,6 @@ public class Ground {
         mainShaderProgram.setUniforms(matrix.modelMatrix,
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
-                light.getLightPosition(),
-                light.getLightColor(),
-                camera.getPositionVec3(),
                 texture);
     }
     

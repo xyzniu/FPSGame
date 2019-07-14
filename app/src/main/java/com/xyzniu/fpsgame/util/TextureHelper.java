@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-import com.xyzniu.fpsgame.config.LoggerConfig;
 
 import static android.opengl.GLES20.*;
 import static android.opengl.GLUtils.texImage2D;
+import static com.xyzniu.fpsgame.config.Configuration.LOG_ON;
 
 public class TextureHelper {
     
@@ -17,7 +17,7 @@ public class TextureHelper {
         final int[] textureObjectIds = new int[1];
         glGenTextures(1, textureObjectIds, 0);
         if (textureObjectIds[0] == 0) {
-            if (LoggerConfig.ON) {
+            if (LOG_ON) {
                 Log.w(TAG, "Could not generate a new texture object.");
             }
             return 0;
@@ -27,7 +27,7 @@ public class TextureHelper {
         options.inScaled = false;
         final Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId, options);
         if (bitmap == null) {
-            if (LoggerConfig.ON) {
+            if (LOG_ON) {
                 Log.w(TAG, "Resource ID " + resourceId + " could not be decoded.");
             }
             glDeleteTextures(1, textureObjectIds, 0);
@@ -55,7 +55,7 @@ public class TextureHelper {
         final int[] textureObjectIds = new int[1];
         glGenTextures(1, textureObjectIds, 0);
         if (textureObjectIds[0] == 0) {
-            if (LoggerConfig.ON) {
+            if (LOG_ON) {
                 Log.w(TAG, "Could not generate a new OpenGL texture object.");
             }
             return 0;
@@ -66,7 +66,7 @@ public class TextureHelper {
         for (int i = 0; i < 6; i++) {
             cubeBitmaps[i] = BitmapFactory.decodeResource(context.getResources(), cubeResources[i], options);
             if (cubeBitmaps[i] == null) {
-                if (LoggerConfig.ON) {
+                if (LOG_ON) {
                     Log.w(TAG, "Resource ID " + cubeResources[i] + " could not be decoded.");
                 }
                 glDeleteTextures(1, textureObjectIds, 0);

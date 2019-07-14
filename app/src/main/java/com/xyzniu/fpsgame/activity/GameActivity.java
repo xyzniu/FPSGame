@@ -15,11 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
-import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.ShootTouchListener;
-import com.xyzniu.fpsgame.objects.Camera;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
 public class GameActivity extends Activity {
@@ -27,8 +26,6 @@ public class GameActivity extends Activity {
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet = false;
     final Renderer objectRenderer = new Renderer(this);
-    
-    private Camera camera = Camera.getCamera();
     
     private Button forwardBtn;
     private Button backwardBtn;
@@ -95,7 +92,6 @@ public class GameActivity extends Activity {
     }
     
     private void initCamera() {
-        camera.init();
         glSurfaceView.setOnTouchListener(new CameraTouchListener(glSurfaceView));
     }
     

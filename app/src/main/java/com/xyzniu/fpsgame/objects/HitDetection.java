@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
-import static com.xyzniu.fpsgame.objects.Sound.*;
+import static com.xyzniu.fpsgame.objects.SoundManager.*;
 
 public class HitDetection {
     
@@ -41,8 +41,21 @@ public class HitDetection {
                 minDistanceEnemy.hit();
                 b.setValid(false);
                 soundPool.play(soundMap.get(SCREAM_SOUND), 1, 1, 0, 0, 1);
+                PlayerManager.killEnemy();
             }
             enemyIterator = enemies.iterator();
         }
+    }
+    
+    public static boolean hitCamera(Geometry.Vector otherPosition) {
+        if (distanceBetween(PlayerManager.getPosition(), otherPosition) < 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean hitWallDetection(Geometry.Vector position) {
+        return Ground.hitWallDetection(position);
     }
 }

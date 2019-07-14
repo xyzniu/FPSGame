@@ -1,19 +1,12 @@
 package com.xyzniu.fpsgame.listener;
 
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.View;
-import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.activity.GameActivity;
-import com.xyzniu.fpsgame.objects.BulletBag;
-import com.xyzniu.fpsgame.objects.Sound;
+import com.xyzniu.fpsgame.objects.BulletManager;
 
-import java.util.HashMap;
-
-import static com.xyzniu.fpsgame.objects.Sound.*;
+import static com.xyzniu.fpsgame.objects.SoundManager.*;
 
 public class ShootTouchListener implements View.OnTouchListener {
     
@@ -22,7 +15,6 @@ public class ShootTouchListener implements View.OnTouchListener {
     @Deprecated
     public ShootTouchListener(GLSurfaceView view, Context context) {
         this.view = view;
-        new Sound(context);
     }
     
     @Override
@@ -31,7 +23,7 @@ public class ShootTouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_DOWN:
                 break;
             case MotionEvent.ACTION_UP:
-                BulletBag.addBullet = true;
+                BulletManager.addBullet = true;
                 view.queueEvent(new Runnable() {
                     @Override
                     public void run() {

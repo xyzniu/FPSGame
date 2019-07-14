@@ -1,16 +1,17 @@
 package com.xyzniu.fpsgame.objects;
 
 import android.content.Context;
-import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.util.MatrixHelper;
-import com.xyzniu.fpsgame.util.TextureHelper;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-import static android.opengl.Matrix.*;
-import static com.xyzniu.fpsgame.objects.Sound.*;
+import static android.opengl.Matrix.rotateM;
+import static android.opengl.Matrix.setIdentityM;
 
 public class EnemyManager {
     
@@ -21,8 +22,6 @@ public class EnemyManager {
     private MainShaderProgram program;
     private Random random = new Random();
     private Matrix matrix = new Matrix();
-    private Camera camera = Camera.getCamera();
-    private Light light = Light.getLight();
     
     public EnemyManager(Context context, List<Geometry.Vector> mobSpawner) {
         enemyObject = new Object(context, R.raw.fox);
@@ -54,7 +53,7 @@ public class EnemyManager {
         MatrixHelper.translateMatrix(matrix.modelMatrix, 0, e.getPosition());
         MatrixHelper.translateMatrix(matrix.modelMatrix, 0, new Geometry.Vector(0, -0.2f, 0));
         
-        rotateM(matrix.modelMatrix, 0, getRotation(e, camera.getPosition()), 0, 1, 0);
+        rotateM(matrix.modelMatrix, 0, getRotation(e, PlayerManager.getPosition()), 0, 1, 0);
         rotateM(matrix.modelMatrix, 0, e.getRotation(), 1, 0, 0);
         if (e.getRotation() > 0) {
             e.rotationDec();
@@ -64,9 +63,6 @@ public class EnemyManager {
         program.setUniforms(matrix.modelMatrix,
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
-                light.getLightPosition(),
-                light.getLightColor(),
-                camera.getPositionVec3(),
                 enemyTexture);
         
         enemyObject.draw();
@@ -100,7 +96,7 @@ public class EnemyManager {
         Geometry.Vector mobSpawnerPosition;
         for (int i = 0; i < mobSpawner.size(); i++) {
             mobSpawnerPosition = mobSpawner.get(i);
-            if (camera.hitCamera(mobSpawnerPosition)) {
+            if (HitDetection.hitCamera(mobSpawnerPosition)) {
                 continue;
             }
             if (notEnoughEnemies) {

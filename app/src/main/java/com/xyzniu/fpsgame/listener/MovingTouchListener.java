@@ -3,14 +3,13 @@ package com.xyzniu.fpsgame.listener;
 import android.view.MotionEvent;
 import android.view.View;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.objects.Camera;
+import com.xyzniu.fpsgame.objects.PlayerManager;
 
 public class MovingTouchListener implements View.OnTouchListener {
-    private static Camera camera = Camera.getCamera();
     
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        boolean isHold = false;
+        boolean isHold;
         
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -25,16 +24,16 @@ public class MovingTouchListener implements View.OnTouchListener {
         
         switch (v.getId()) {
             case R.id.btn_forward:
-                camera.isMovingForward = isHold;
+                PlayerManager.isMovingForward = isHold;
                 break;
             case R.id.btn_backward:
-                camera.isMovingBackward = isHold;
+                PlayerManager.isMovingBackward = isHold;
                 break;
             case R.id.btn_left:
-                camera.isMovingLeft = isHold;
+                PlayerManager.isMovingLeft = isHold;
                 break;
             case R.id.btn_right:
-                camera.isMovingRight = isHold;
+                PlayerManager.isMovingRight = isHold;
                 break;
         }
         

@@ -1,52 +1,33 @@
 package com.xyzniu.fpsgame.objects;
 
+import android.util.Log;
 import com.xyzniu.fpsgame.config.Constants;
 
 import static android.opengl.Matrix.*;
 import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
+import static com.xyzniu.fpsgame.objects.PlayerManager.*;
 import static com.xyzniu.fpsgame.renderer.Renderer.delta;
 
 public class Camera {
-    
-    private static Camera camera = new Camera();
-    public volatile boolean isMovingForward = false;
-    public volatile boolean isMovingBackward = false;
-    public volatile boolean isMovingLeft = false;
-    public volatile boolean isMovingRight = false;
-    
-    public static Camera getCamera() {
-        return camera;
-    }
     
     private volatile float[] viewMatrix = new float[16];
     private Geometry.Vector position;
     private Geometry.Vector direction;
     private final Geometry.Vector UP = new Geometry.Vector(0, 1, 0);
     private float rotation = 0;
-    private Geometry.Vector startPoint;
     private Geometry.Vector endPoint;
-    private Ground ground;
     
-    private Camera() {
-        init();
-    }
-    
-    public void init() {
+    public Camera() {
         position = new Geometry.Vector(0, -0.3f, -6f);
         direction = new Geometry.Vector(0, 0, 1);
     }
     
     public void setStartPoint(Geometry.Vector startPoint) {
-        this.startPoint = startPoint;
-        this.position = startPoint;
+        this.position = new Geometry.Vector(startPoint);
     }
     
     public void setEndPoint(Geometry.Vector endPoint) {
         this.endPoint = endPoint;
-    }
-    
-    public Geometry.Vector getStartPoint() {
-        return startPoint;
     }
     
     public Geometry.Vector getEndPoint() {
@@ -55,10 +36,6 @@ public class Camera {
     
     public Geometry.Vector getPosition() {
         return position;
-    }
-    
-    public float[] getPositionVec3() {
-        return position.toArray3();
     }
     
     private void moveForward() {
@@ -85,7 +62,7 @@ public class Camera {
         direction.normalize();
         direction.scale(Constants.STEP_LENGTH * delta);
         Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
-        if (!ground.hitWallDetection(newPosition)) {
+        if (!HitDetection.hitWallDetection(newPosition)) {
             position = newPosition;
         }
     }
@@ -139,15 +116,5 @@ public class Camera {
         }
     }
     
-    public void setGround(Ground ground) {
-        this.ground = ground;
-    }
     
-    public boolean hitCamera(Geometry.Vector otherPosition) {
-        if (distanceBetween(camera.getPosition(), otherPosition) < 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

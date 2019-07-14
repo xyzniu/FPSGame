@@ -14,8 +14,6 @@ public class Matrix {
     public final float[] modelViewMatrix = new float[16];
     public final float[] modelViewProjectionMatrix = new float[16];
     public final float[] tempMatrix = new float[16];
-    private static Camera camera = Camera.getCamera();
-    
     
     public static void perspective(int width, int height) {
         MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 0.05f, 50f);
@@ -27,7 +25,7 @@ public class Matrix {
         transposeM(it_modelMatrix, 0, tempMatrix, 0);
         
         // ModelViewProjectionMatrix
-        multiplyMM(modelViewMatrix, 0, camera.getViewMatrix(), 0, modelMatrix, 0);
+        multiplyMM(modelViewMatrix, 0, PlayerManager.getViewMatrix(), 0, modelMatrix, 0);
         multiplyMM(modelViewProjectionMatrix, 0, projectionMatrix, 0, modelViewMatrix, 0);
     }
     

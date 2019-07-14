@@ -5,53 +5,58 @@ import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.SystemClock;
-import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.activity.MainActivity;
 import com.xyzniu.fpsgame.objects.*;
-import com.xyzniu.fpsgame.objects.Camera;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import static android.opengl.GLES20.*;
-import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;
 
 public class Renderer implements GLSurfaceView.Renderer {
     
     private final Context context;
     private Ground ground;
     private EnemyManager enemyManager;
-    private BulletBag bulletBag;
-    private Camera camera = Camera.getCamera();
+    private BulletManager bulletManager;
     public volatile static boolean renderSet = false;
     
     private long now;
     public static float delta;
-    public  float elapsedtime;
+    public float elapsedtime;
     private int times;
+    
+    private Player player;
     
     public Renderer(Context context) {
         this.context = context;
     }
     
     @Override
+    @Deprecated
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
+        player = new Player(3);
+        PlayerManager.setPlayer(player, new Camera());
+        
         new ShaderProgramManager(context);
         new TextureManager(context);
         ground = new Ground(context, R.raw.map1);
-        camera.setGround(ground);
+        // camera.setGround(ground);
         enemyManager = new EnemyManager(context, ground.getMobSpawner());
-        bulletBag = new BulletBag(context);
-        renderSet = true;
+        bulletManager = new BulletManager(context);
         now = SystemClock.elapsedRealtime();
         elapsedtime = 0;
         times = 150;
+        new SoundManager(context);
+        
+        renderSet = true;
     }
     
     @Override
@@ -69,7 +74,7 @@ public class Renderer implements GLSurfaceView.Renderer {
         elapsedtime += elapsed;
         
         ground.drawGround();
-        bulletBag.draw();
+        bulletManager.draw();
         enemyManager.draw();
         
         
@@ -80,17 +85,34 @@ public class Renderer implements GLSurfaceView.Renderer {
                 enemyManager.addEnemies();
                 times = 0;
             }
-            camera.updateCamera();
-            bulletBag.updateBullets();
+            PlayerManager.updateCamera();
+            bulletManager.updateBullets();
             enemyManager.updateEnemies();
-            HitDetection.hitDetection(bulletBag.getBullets(), enemyManager.getEnemies());
+            HitDetection.hitDetection(bulletManager.getBullets(), enemyManager.getEnemies());
+            
+            
+            // check player
+            if (player.dead()) {
+                dead();
+            }
         }
         
-        if (camera.atEndPoint()) {
-            Intent home = new Intent();
-            home.setClass(this.context, MainActivity.class);
-            context.startActivity(home);
-            ((Activity) context).finish();
+        if (PlayerManager.atEndPoint()) {
+            win();
         }
+    }
+    
+    private void dead() {
+        Intent home = new Intent();
+        home.setClass(this.context, MainActivity.class);
+        context.startActivity(home);
+        ((Activity) context).finish();
+    }
+    
+    private void win() {
+        Intent home = new Intent();
+        home.setClass(this.context, MainActivity.class);
+        context.startActivity(home);
+        ((Activity) context).finish();
     }
 }

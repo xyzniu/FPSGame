@@ -2,33 +2,27 @@ package com.xyzniu.fpsgame.objects;
 
 public class Player {
     
-    private static Player player = new Player();
-    
-    public static Player getPlayer() {
-        return player;
-    }
-    
-    private Player() {
-        hp = 3;
-        kill = 0;
-    }
-    
     private int hp;
     private int kill;
     
-    public int getHp() {
-        return hp;
+    public Player(int hp) {
+        this.hp = hp;
+        kill = 0;
     }
     
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void hit() {
+        hp--;
+    }
+    
+    public void killEnemy() {
+        kill++;
+    }
+    
+    public boolean dead() {
+        return hp <= 0;
     }
     
     public int getKill() {
         return kill;
-    }
-    
-    public void setKill(int kill) {
-        this.kill = kill;
     }
 }

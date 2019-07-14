@@ -1,9 +1,9 @@
 package com.xyzniu.fpsgame.util;
 
 import android.util.Log;
-import com.xyzniu.fpsgame.config.LoggerConfig;
 
 import static android.opengl.GLES20.*;
+import static com.xyzniu.fpsgame.config.Configuration.LOG_ON;
 
 public class ShaderHelper {
     
@@ -21,7 +21,7 @@ public class ShaderHelper {
         // create a new shader object and check if the creation was successful
         final int shaderObjectId = glCreateShader(type);
         if (shaderObjectId == 0) {
-            if (LoggerConfig.ON) {
+            if (LOG_ON) {
                 Log.w(TAG, "Could not create new shader.");
             }
             return 0;
@@ -36,13 +36,13 @@ public class ShaderHelper {
         // this tells OPENGL to read the compile status associated with shaderObjectId
         // and write it to the 0th element of compile status
         glGetShaderiv(shaderObjectId, GL_COMPILE_STATUS, compileStatus, 0);
-        if (LoggerConfig.ON) {
+        if (LOG_ON) {
             Log.v(TAG, "Results of compiling source: " + "\n" + shaderCode + "\n:" + glGetShaderInfoLog(shaderObjectId));
         }
         
         if (compileStatus[0] == 0) {
             glDeleteShader(shaderObjectId);
-            if (LoggerConfig.ON) {
+            if (LOG_ON) {
                 Log.w(TAG, "Compilation of shader failed.");
             }
             return 0;
@@ -55,7 +55,7 @@ public class ShaderHelper {
     public static int linkProgram(int vertexShaderId, int fragmentShaderId) {
         final int programObjectId = glCreateProgram();
         if (programObjectId == 0) {
-            if (LoggerConfig.ON) {
+            if (LOG_ON) {
                 Log.w(TAG, "Could not create new program");
             }
             return 0;
@@ -68,14 +68,14 @@ public class ShaderHelper {
         
         final int[] linkStatus = new int[1];
         glGetProgramiv(programObjectId, GL_LINK_STATUS, linkStatus, 0);
-        if (LoggerConfig.ON) {
+        if (LOG_ON) {
             Log.v(TAG, "Results of linking program:\n"
                     + glGetProgramInfoLog(programObjectId));
         }
         
         if (linkStatus[0] == 0) {
             glDeleteProgram(programObjectId);
-            if (LoggerConfig.ON) {
+            if (LOG_ON) {
                 Log.w(TAG, "Linking of program failed.");
             }
             return 0;
@@ -96,7 +96,7 @@ public class ShaderHelper {
         int vertexShader = compileVertexShader(vertexShaderSource);
         int fragmentShader = compileFragmentShader(fragmentShaderSource);
         program = linkProgram(vertexShader, fragmentShader);
-        if (LoggerConfig.ON) {
+        if (LOG_ON) {
             validateProgram(program);
         }
         return program;

@@ -1,10 +1,7 @@
 package com.xyzniu.fpsgame.objects;
 
-
-import java.util.Random;
-
 import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
-import static com.xyzniu.fpsgame.objects.Sound.*;
+import static com.xyzniu.fpsgame.objects.SoundManager.*;
 import static com.xyzniu.fpsgame.renderer.Renderer.delta;
 import static com.xyzniu.fpsgame.config.Constants.*;
 
@@ -14,7 +11,6 @@ public class Enemy {
     private volatile boolean valid;
     private Geometry.Vector position;
     private Geometry.Vector direction;
-    private static Camera camera = Camera.getCamera();
     private int rotation;
     private int wait;
     
@@ -31,7 +27,7 @@ public class Enemy {
         if (Ground.hitWallDetection(position)) {
             return;
         }
-        if (distanceBetween(camera.getPosition(), position) < 1) {
+        if (distanceBetween(PlayerManager.getPosition(), position) < 1) {
             bite();
             return;
         }
@@ -48,10 +44,6 @@ public class Enemy {
     
     public Geometry.Vector getPosition() {
         return position;
-    }
-    
-    public void setValid(boolean valid) {
-        this.valid = valid;
     }
     
     public void hit() {
@@ -78,6 +70,7 @@ public class Enemy {
             rotation = 30;
             wait = 30;
             soundPool.play(soundMap.get(CRUNCH_SOUND), 1, 1, 0, 0, 1);
+            PlayerManager.hitPlayer();
         } else {
             if (wait > 0) {
                 wait--;
