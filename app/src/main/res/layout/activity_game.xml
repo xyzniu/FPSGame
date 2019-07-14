@@ -37,7 +37,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/view_kill"
-                    android:text="KILL: 20"/>
+                    android:text="KILL: 0"/>
 
             <TextView
                     android:layout_width="wrap_content"

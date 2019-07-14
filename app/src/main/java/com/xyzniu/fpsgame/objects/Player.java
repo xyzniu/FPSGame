@@ -10,7 +10,7 @@ public class Player {
         kill = 0;
     }
     
-    public void hit() {
+    public void bite() {
         hp--;
     }
     

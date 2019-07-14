@@ -36,11 +36,12 @@ public class GameActivity extends Activity {
     private long startTime;
     private Handler timeHandler;
     private TimerRunnable timerRunnable;
+    private Handler killCountHandler;
+    private KillCountRunnable killCountRunnable;
     
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // check if the system actually supports OpenGL ES 2.0
         super.onCreate(savedInstanceState);
         
         if (!checkSupportEs2()) {
@@ -50,6 +51,11 @@ public class GameActivity extends Activity {
         init();
     }
     
+    /**
+     * check if the system actually supports OpenGL ES 2.0
+     *
+     * @return
+     */
     private boolean checkSupportEs2() {
         glSurfaceView = new GLSurfaceView(this);
         final ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -87,8 +93,16 @@ public class GameActivity extends Activity {
     private void init() {
         initCamera();
         initTimer();
+        initKillCount();
         initMovingButtons();
         initShootButton();
+    }
+    
+    private void initKillCount() {
+        TextView killCountView = findViewById(R.id.view_kill);
+        killCountHandler = new Handler();
+        killCountRunnable = new KillCountRunnable(killCountView, killCountHandler);
+        killCountHandler.postDelayed(killCountRunnable, 0);
     }
     
     private void initCamera() {
@@ -135,6 +149,7 @@ public class GameActivity extends Activity {
         if (rendererSet) {
             glSurfaceView.onPause();
             timeHandler.removeCallbacks(timerRunnable);
+            killCountHandler.removeCallbacks(killCountRunnable);
         }
     }
     
@@ -144,6 +159,7 @@ public class GameActivity extends Activity {
         if (rendererSet) {
             glSurfaceView.onResume();
             timeHandler.postDelayed(timerRunnable, 0);
+            killCountHandler.postDelayed(killCountRunnable, 0);
         }
     }
     

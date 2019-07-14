@@ -15,8 +15,8 @@ public class PlayerManager {
         PlayerManager.camera = camera;
     }
     
-    public static void hitPlayer() {
-        player.hit();
+    public static void bitePlayer() {
+        player.bite();
     }
     
     public static void killEnemy() {
@@ -62,5 +62,9 @@ public class PlayerManager {
     
     public static void setStartPoint(Geometry.Vector startPoint) {
         camera.setStartPoint(startPoint);
+    }
+    
+    public static int getKillCount() {
+        return player.getKill();
     }
 }

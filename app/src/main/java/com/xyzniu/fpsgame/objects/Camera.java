@@ -1,11 +1,11 @@
 package com.xyzniu.fpsgame.objects;
 
-import android.util.Log;
 import com.xyzniu.fpsgame.config.Constants;
 
-import static android.opengl.Matrix.*;
+import static android.opengl.Matrix.setLookAtM;
 import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
 import static com.xyzniu.fpsgame.objects.PlayerManager.*;
+import static com.xyzniu.fpsgame.objects.PlayerManager.isMovingRight;
 import static com.xyzniu.fpsgame.renderer.Renderer.delta;
 
 public class Camera {
@@ -18,7 +18,7 @@ public class Camera {
     private Geometry.Vector endPoint;
     
     public Camera() {
-        position = new Geometry.Vector(0, -0.3f, -6f);
+        position = new Geometry.Vector(0, -0.3f, 0f);
         direction = new Geometry.Vector(0, 0, 1);
     }
     
@@ -30,12 +30,23 @@ public class Camera {
         this.endPoint = endPoint;
     }
     
-    public Geometry.Vector getEndPoint() {
-        return endPoint;
-    }
-    
     public Geometry.Vector getPosition() {
         return position;
+    }
+    
+    public void updateCamera() {
+        if (isMovingForward) {
+            moveForward();
+        }
+        if (isMovingBackward) {
+            moveBackward();
+        }
+        if (isMovingLeft) {
+            moveLeft();
+        }
+        if (isMovingRight) {
+            moveRight();
+        }
     }
     
     private void moveForward() {
@@ -71,20 +82,6 @@ public class Camera {
         return direction.crossProduct(UP);
     }
     
-    public void updateCamera() {
-        if (isMovingForward) {
-            moveForward();
-        }
-        if (isMovingBackward) {
-            moveBackward();
-        }
-        if (isMovingLeft) {
-            moveLeft();
-        }
-        if (isMovingRight) {
-            moveRight();
-        }
-    }
     
     public void dragCamera(float deltaX) {
         rotation += deltaX / 16f;

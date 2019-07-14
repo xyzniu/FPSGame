@@ -15,13 +15,13 @@ public class SoundManager {
     public static final int SCREAM_SOUND = 1;
     public static final int CRUNCH_SOUND = 2;
     
-    
     @Deprecated
-    public SoundManager(Context context) {
+    public static void init(Context context) {
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 5);
         soundMap = new HashMap<>();
         soundMap.put(SHOOT_SOUND, soundPool.load(context, R.raw.shoot_sound, 1));
         soundMap.put(SCREAM_SOUND, soundPool.load(context, R.raw.male_scream, 1));
         soundMap.put(CRUNCH_SOUND, soundPool.load(context, R.raw.crunch, 1));
     }
+    
 }

@@ -14,7 +14,7 @@ public class TextureManager {
     public static int houseTexture;
     public static int bulletTexture;
     
-    public TextureManager(Context context) {
+    public static void init(Context context) {
         grassTexture = TextureHelper.loadTexture(context, R.drawable.grass);
         soilTexture = TextureHelper.loadTexture(context, R.drawable.soil);
         wallTexture = TextureHelper.loadTexture(context, R.drawable.wall);
@@ -23,6 +23,7 @@ public class TextureManager {
         houseTexture = TextureHelper.loadTexture(context, R.raw.houseuv);
         bulletTexture = TextureHelper.loadTexture(context, R.raw.bulletuv);
     }
+    
 }
 
 

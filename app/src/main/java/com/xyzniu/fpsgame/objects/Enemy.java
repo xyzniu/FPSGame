@@ -46,11 +46,13 @@ public class Enemy {
         return position;
     }
     
-    public void hit() {
+    public boolean hit() {
         hp -= 1;
         if (hp <= 0) {
             valid = false;
+            return true;
         }
+        return false;
     }
     
     public void setDirection(Geometry.Vector diretion) {
@@ -70,7 +72,7 @@ public class Enemy {
             rotation = 30;
             wait = 30;
             soundPool.play(soundMap.get(CRUNCH_SOUND), 1, 1, 0, 0, 1);
-            PlayerManager.hitPlayer();
+            PlayerManager.bitePlayer();
         } else {
             if (wait > 0) {
                 wait--;

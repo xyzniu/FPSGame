@@ -38,10 +38,12 @@ public class HitDetection {
                 }
             }
             if (minDistanceEnemy != null) {
-                minDistanceEnemy.hit();
+                if (minDistanceEnemy.hit()) {
+                    PlayerManager.killEnemy();
+                }
+                
                 b.setValid(false);
                 soundPool.play(soundMap.get(SCREAM_SOUND), 1, 1, 0, 0, 1);
-                PlayerManager.killEnemy();
             }
             enemyIterator = enemies.iterator();
         }

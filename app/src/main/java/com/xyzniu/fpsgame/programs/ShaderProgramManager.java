@@ -7,7 +7,7 @@ public class ShaderProgramManager {
     public static MainShaderProgram mainShaderProgram;
     public static EndPointShaderProgram endPointShaderProgram;
     
-    public ShaderProgramManager(Context context) {
+    public static void init(Context context) {
         mainShaderProgram = new MainShaderProgram(context);
         endPointShaderProgram = new EndPointShaderProgram(context);
     }

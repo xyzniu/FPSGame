@@ -42,21 +42,35 @@ public class Renderer implements GLSurfaceView.Renderer {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
-        player = new Player(3);
-        PlayerManager.setPlayer(player, new Camera());
+        initPlayer();
+        loadResources(context);
+        initMap(context);
+        initTimer();
         
-        new ShaderProgramManager(context);
-        new TextureManager(context);
-        ground = new Ground(context, R.raw.map1);
-        // camera.setGround(ground);
-        enemyManager = new EnemyManager(context, ground.getMobSpawner());
-        bulletManager = new BulletManager(context);
+        renderSet = true;
+    }
+    
+    private void initTimer() {
         now = SystemClock.elapsedRealtime();
         elapsedtime = 0;
         times = 150;
-        new SoundManager(context);
-        
-        renderSet = true;
+    }
+    
+    private void initMap(Context context) {
+        ground = new Ground(context, R.raw.map1);
+        enemyManager = new EnemyManager(context, ground.getMobSpawner());
+        bulletManager = new BulletManager(context);
+    }
+    
+    private void loadResources(Context context) {
+        ShaderProgramManager.init(context);
+        TextureManager.init(context);
+        SoundManager.init(context);
+    }
+    
+    private void initPlayer() {
+        player = new Player(3);
+        PlayerManager.setPlayer(player, new Camera());
     }
     
     @Override
@@ -90,10 +104,11 @@ public class Renderer implements GLSurfaceView.Renderer {
             enemyManager.updateEnemies();
             HitDetection.hitDetection(bulletManager.getBullets(), enemyManager.getEnemies());
             
-            
             // check player
             if (player.dead()) {
                 dead();
+            } else {
+            
             }
         }
         
