@@ -15,4 +15,5 @@
     <string name="backward">BACKWARD</string>
     <string name="forward">FORWARD</string>
     <string name="shoot">ATTACK</string>
+    <string name="kill_count">KILL: 0</string>
 </resources>

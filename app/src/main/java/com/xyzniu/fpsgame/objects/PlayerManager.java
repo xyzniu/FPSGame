@@ -67,4 +67,8 @@ public class PlayerManager {
     public static int getKillCount() {
         return player.getKill();
     }
+    
+    public static int getHp(){
+        return player.getHp();
+    }
 }

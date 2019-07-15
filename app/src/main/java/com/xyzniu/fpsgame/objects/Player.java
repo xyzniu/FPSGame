@@ -25,4 +25,8 @@ public class Player {
     public int getKill() {
         return kill;
     }
+    
+    public int getHp() {
+        return hp;
+    }
 }

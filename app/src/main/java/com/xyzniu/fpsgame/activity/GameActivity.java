@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.xyzniu.fpsgame.R;
@@ -25,19 +26,10 @@ public class GameActivity extends Activity {
     
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet = false;
-    final Renderer objectRenderer = new Renderer(this);
+    private final Renderer objectRenderer = new Renderer(this);
     
-    private Button forwardBtn;
-    private Button backwardBtn;
-    private Button leftBtn;
-    private Button rightBtn;
-    private Button shootBtn;
-    
-    private long startTime;
-    private Handler timeHandler;
-    private TimerRunnable timerRunnable;
-    private Handler killCountHandler;
-    private KillCountRunnable killCountRunnable;
+    private Handler handler;
+    private GameRunnable gameRunnable;
     
     
     @Override
@@ -92,47 +84,43 @@ public class GameActivity extends Activity {
     
     private void init() {
         initCamera();
-        initTimer();
-        initKillCount();
+        initGameRunnable();
         initMovingButtons();
         initShootButton();
     }
     
-    private void initKillCount() {
-        TextView killCountView = findViewById(R.id.view_kill);
-        killCountHandler = new Handler();
-        killCountRunnable = new KillCountRunnable(killCountView, killCountHandler);
-        killCountHandler.postDelayed(killCountRunnable, 0);
+    private void initGameRunnable() {
+        TextView killCountTextViwe = findViewById(R.id.kill_count);
+        TextView timerTextView = findViewById(R.id.view_timer);
+        ImageView[] imageViews = new ImageView[3];
+        imageViews[0] = findViewById(R.id.heart1);
+        imageViews[1] = findViewById(R.id.heart2);
+        imageViews[2] = findViewById(R.id.heart3);
+        handler = new Handler();
+        gameRunnable = new GameRunnable(killCountTextViwe, timerTextView, handler, imageViews);
+        handler.postDelayed(gameRunnable, 0);
     }
     
     private void initCamera() {
         glSurfaceView.setOnTouchListener(new CameraTouchListener(glSurfaceView));
     }
     
-    private void initTimer() {
-        TextView timerView = findViewById(R.id.view_timer);
-        startTime = System.currentTimeMillis();
-        timeHandler = new Handler();
-        timerRunnable = new TimerRunnable(startTime, timerView, timeHandler);
-        timeHandler.postDelayed(timerRunnable, 0);
-    }
-    
     private void initMovingButtons() {
-        forwardBtn = findViewById(R.id.btn_forward);
+        Button forwardBtn = findViewById(R.id.btn_forward);
         forwardBtn.setOnTouchListener(new MovingTouchListener());
         
-        backwardBtn = findViewById(R.id.btn_backward);
+        Button backwardBtn = findViewById(R.id.btn_backward);
         backwardBtn.setOnTouchListener(new MovingTouchListener());
         
-        leftBtn = findViewById(R.id.btn_left);
+        Button leftBtn = findViewById(R.id.btn_left);
         leftBtn.setOnTouchListener(new MovingTouchListener());
         
-        rightBtn = findViewById(R.id.btn_right);
+        Button rightBtn = findViewById(R.id.btn_right);
         rightBtn.setOnTouchListener(new MovingTouchListener());
     }
     
     private void initShootButton() {
-        shootBtn = findViewById(R.id.btn_shoot);
+        Button shootBtn = findViewById(R.id.btn_shoot);
         shootBtn.setOnTouchListener(new ShootTouchListener(glSurfaceView, this));
     }
     
@@ -148,8 +136,7 @@ public class GameActivity extends Activity {
         super.onPause();
         if (rendererSet) {
             glSurfaceView.onPause();
-            timeHandler.removeCallbacks(timerRunnable);
-            killCountHandler.removeCallbacks(killCountRunnable);
+            handler.removeCallbacks(gameRunnable);
         }
     }
     
@@ -158,8 +145,7 @@ public class GameActivity extends Activity {
         super.onResume();
         if (rendererSet) {
             glSurfaceView.onResume();
-            timeHandler.postDelayed(timerRunnable, 0);
-            killCountHandler.postDelayed(killCountRunnable, 0);
+            handler.postDelayed(gameRunnable, 0);
         }
     }
     

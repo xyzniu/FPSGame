@@ -4,10 +4,7 @@
 This game is a first-person shoot game designed and conducted by @xyzniu.
 
 ## ToDo List
-1. Drop loot
-2. Collect loot
-3. Fix the game layout
-4. Collision detection(Enemy AI)
+1. Fix the game layout
 
 ## License
 
