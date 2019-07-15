@@ -4,7 +4,10 @@
 This game is a first-person shoot game designed and conducted by @xyzniu.
 
 ## ToDo List
-1. Fix the game layout
+1. Add content to other pages (about, howto, main, settings)
+2. Add more map
+3. Make it fun!!! 
+4. Render some trees maybe?
 
 ## License
 
