@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
     }
     
     public void goToGamePage(View view) {
-        goToActivity(GameActivity.class);
+        goToActivity(MapActivity.class);
     }
     
     public void goToAboutPage(View view) {

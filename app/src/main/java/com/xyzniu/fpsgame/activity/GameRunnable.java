@@ -38,6 +38,9 @@ public class GameRunnable implements Runnable {
             killCountTextView.setText(String.format("Kill: %d", PlayerManager.getKillCount()));
             if (hp != PlayerManager.getHp()) {
                 hp = PlayerManager.getHp();
+                for (int i = 0; i < hp; i++) {
+                    imageViews[i].setImageResource(R.drawable.heart_red);
+                }
                 for (int i = imageViews.length - 1; i >= hp; i--) {
                     imageViews[i].setImageResource(R.drawable.heart_white);
                 }

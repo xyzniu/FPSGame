@@ -20,3 +20,7 @@ Sound
 > ShootSound: [Download](https://freesound.org/people/volivieri/sounds/37155/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)  
 > ZombieSound: [Download](https://freesound.org/people/mrh4hn/sounds/426627/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)  
 > CrunchSound: [Download](https://freesound.org/people/MATTIX/sounds/348112/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)
+
+Image
+> Heart(White): [Download](https://www.flaticon.com/free-icon/like_149219) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
+> Heart(Red): [Download](https://www.flaticon.com/free-icon/like_148838) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)

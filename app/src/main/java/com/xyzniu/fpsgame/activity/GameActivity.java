@@ -26,11 +26,10 @@ public class GameActivity extends Activity {
     
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet = false;
-    private final Renderer objectRenderer = new Renderer(this);
+    private Renderer objectRenderer;
     
     private Handler handler;
     private GameRunnable gameRunnable;
-    
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +59,8 @@ public class GameActivity extends Activity {
                 || Build.MODEL.contains("Android SDK built for x86")));
         if (supportsEs2) {
             glSurfaceView.setEGLContextClientVersion(2);
+            int mapResourceId = getIntent().getIntExtra("mapResourceId", R.raw.map1);
+            objectRenderer = new Renderer(this, mapResourceId);
             glSurfaceView.setRenderer(objectRenderer);
             rendererSet = true;
             return true;

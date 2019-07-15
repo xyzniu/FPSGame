@@ -27,7 +27,6 @@ public class SettingsActivity extends Activity {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        soundEffectBtn = super.findViewById(R.id.sound_effect);
         volumeBar = super.findViewById(R.id.volume_bar);
         
         initSoundEffect();

@@ -30,25 +30,6 @@
             <TextView
                     android:layout_width="@dimen/text_width"
                     android:layout_height="wrap_content"
-                    android:text="@string/sound_effect"/>
-
-
-            <Switch
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/Base.Theme.AppCompat.Light"
-                    android:id="@+id/sound_effect"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="@dimen/text_width"
-                    android:layout_height="wrap_content"
                     android:text="@string/volume"/>
 
             <SeekBar

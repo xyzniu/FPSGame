@@ -27,11 +27,13 @@ public class Renderer implements GLSurfaceView.Renderer {
     public static float delta;
     public float elapsedtime;
     private int times;
+    private int mapId;
     
     private Player player;
     
-    public Renderer(Context context) {
+    public Renderer(Context context, int mapId) {
         this.context = context;
+        this.mapId = mapId;
     }
     
     @Override
@@ -57,7 +59,7 @@ public class Renderer implements GLSurfaceView.Renderer {
     }
     
     private void initMap(Context context) {
-        ground = new Ground(context, R.raw.map1);
+        ground = new Ground(context, mapId);
         enemyManager = new EnemyManager(context, ground.getMobSpawner());
         bulletManager = new BulletManager(context);
     }
@@ -107,8 +109,6 @@ public class Renderer implements GLSurfaceView.Renderer {
             // check player
             if (player.dead()) {
                 dead();
-            } else {
-            
             }
         }
         
