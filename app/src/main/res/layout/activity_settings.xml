@@ -8,39 +8,75 @@
         tools:context=".activity.SettingsActivity">
 
     <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:orientation="vertical">
 
+
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="invisible" />
+
+        <Button
+                android:layout_width="@dimen/btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
                 android:text="@string/back"
                 android:onClick="goMainActivity"/>
 
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:visibility="invisible" />
+
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/map_view"
+                android:orientation="vertical"
+                android:gravity="center|top">
 
-            <TextView
-                    android:layout_width="@dimen/text_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/volume"/>
+            <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/settings"
+                    android:layout_marginTop="@dimen/margin"
+                    android:id="@+id/award"/>
 
-            <SeekBar
-                    android:layout_width="250dp"
+            <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:theme="@style/Base.Theme.AppCompat.Light"
-                    android:id="@+id/volume_bar"/>
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/margin">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="VOLUME: "/>
+
+
+                <SeekBar
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Base.Theme.AppCompat.Light"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/volume_bar"/>
+            </LinearLayout>
 
         </LinearLayout>
-
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

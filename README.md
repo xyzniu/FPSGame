@@ -5,9 +5,9 @@ This game is a first-person shoot game designed and conducted by @xyzniu.
 
 ## ToDo List
 1. Add content to other pages (about, howto, main, settings)
-2. Add more map
-3. Make it fun!!! 
-4. Render some trees maybe?
+2. Fix the layout
+3. Add more map
+4. Make it fun!!! 
 
 ## License
 
@@ -26,3 +26,5 @@ Image
 > Heart_color: [Download](https://www.flaticon.com/free-icon/like_148838) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
 > Award_noncolor: [Download](https://www.flaticon.com/free-icon/award_1592707) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)    
 > Award_color: [Download](https://www.flaticon.com/free-icon/award_1592809) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
+> Game: [Download](https://www.flaticon.com/free-icon/game-controller_1670772) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
+> Settings: [Download](https://www.flaticon.com/free-icon/settings_148912) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)    
