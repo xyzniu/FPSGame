@@ -100,6 +100,7 @@ public class GameActivity extends Activity {
         handler = new Handler();
         gameRunnable = new GameRunnable(killCountTextViwe, timerTextView, handler, imageViews);
         handler.postDelayed(gameRunnable, 0);
+        objectRenderer.setGameRunnable(gameRunnable);
     }
     
     private void initCamera() {

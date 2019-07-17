@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.SystemClock;
+import com.xyzniu.fpsgame.activity.GameRunnable;
 import com.xyzniu.fpsgame.activity.ResultActivity;
 import com.xyzniu.fpsgame.activity.MainActivity;
 import com.xyzniu.fpsgame.objects.*;
@@ -30,6 +31,7 @@ public class Renderer implements GLSurfaceView.Renderer {
     private int mapId;
     
     private Player player;
+    private GameRunnable gameRunnable;
     
     public Renderer(Context context, int mapId) {
         this.context = context;
@@ -117,17 +119,25 @@ public class Renderer implements GLSurfaceView.Renderer {
         }
     }
     
-    private void dead() {
-        Intent home = new Intent();
-        home.setClass(this.context, MainActivity.class);
-        context.startActivity(home);
+    private void goToActivity(boolean win) {
+        Intent activity = new Intent();
+        activity.setClass(this.context, ResultActivity.class);
+        activity.putExtra(ResultActivity.TIME, gameRunnable.getTime());
+        activity.putExtra(ResultActivity.WIN, win);
+        activity.putExtra(ResultActivity.KILL, player.getKill());
+        context.startActivity(activity);
         ((Activity) context).finish();
     }
     
+    private void dead() {
+        goToActivity(false);
+    }
+    
     private void win() {
-        Intent home = new Intent();
-        home.setClass(this.context, MainActivity.class);
-        context.startActivity(home);
-        ((Activity) context).finish();
+        goToActivity(true);
+    }
+    
+    public void setGameRunnable(GameRunnable gameRunnable) {
+        this.gameRunnable = gameRunnable;
     }
 }

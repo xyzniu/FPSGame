@@ -11,8 +11,7 @@
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <activity
                 android:name=".activity.ResultActivity"
-                android:screenOrientation="landscape"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+                android:screenOrientation="landscape">
         </activity>
         <activity
                 android:name=".activity.MapActivity"

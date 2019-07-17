@@ -28,11 +28,7 @@ public class GameRunnable implements Runnable {
     
     @Override
     public void run() {
-        long millis = SystemClock.elapsedRealtime() - startTime;
-        int seconds = (int) millis / 1000;
-        int minutes = seconds / 60;
-        seconds = seconds % 60;
-        timerTextView.setText(String.format("Time: %02d:%02d", minutes, seconds));
+        timerTextView.setText(getTime());
         
         if (Renderer.renderSet) {
             killCountTextView.setText(String.format("Kill: %d", PlayerManager.getKillCount()));
@@ -48,5 +44,13 @@ public class GameRunnable implements Runnable {
         }
         
         handler.postDelayed(this, 500);
+    }
+    
+    public String getTime() {
+        long millis = SystemClock.elapsedRealtime() - startTime;
+        int seconds = (int) millis / 1000;
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        return String.format("Time: %02d:%02d", minutes, seconds);
     }
 }
