@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.SystemClock;
-import com.xyzniu.fpsgame.R;
+import com.xyzniu.fpsgame.activity.ResultActivity;
 import com.xyzniu.fpsgame.activity.MainActivity;
 import com.xyzniu.fpsgame.objects.*;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;

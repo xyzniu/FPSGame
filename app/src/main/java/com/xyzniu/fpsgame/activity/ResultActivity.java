@@ -1,17 +1,16 @@
 package com.xyzniu.fpsgame.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import com.xyzniu.fpsgame.R;
 
-public class AboutActivity extends Activity {
+public class ResultActivity extends Activity {
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_result);
     }
     
     public void goMainActivity(View view) {

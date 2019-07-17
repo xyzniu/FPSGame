@@ -14,10 +14,7 @@ public class HowtoActivity extends Activity {
         setContentView(R.layout.activity_howto);
     }
     
-    public void goToHomePage(View view) {
-        Intent home = new Intent();
-        home.setClass(this, MainActivity.class);
-        startActivity(home);
-        this.finish();
+    public void goMainActivity(View view) {
+        ActivityHelper.goToActivity(this, MainActivity.class);
     }
 }

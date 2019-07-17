@@ -39,10 +39,10 @@ public class GameRunnable implements Runnable {
             if (hp != PlayerManager.getHp()) {
                 hp = PlayerManager.getHp();
                 for (int i = 0; i < hp; i++) {
-                    imageViews[i].setImageResource(R.drawable.heart_red);
+                    imageViews[i].setImageResource(R.drawable.heart_color);
                 }
                 for (int i = imageViews.length - 1; i >= hp; i--) {
-                    imageViews[i].setImageResource(R.drawable.heart_white);
+                    imageViews[i].setImageResource(R.drawable.heart_noncolor);
                 }
             }
         }

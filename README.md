@@ -22,5 +22,7 @@ Sound
 > CrunchSound: [Download](https://freesound.org/people/MATTIX/sounds/348112/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)
 
 Image
-> Heart(White): [Download](https://www.flaticon.com/free-icon/like_149219) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
-> Heart(Red): [Download](https://www.flaticon.com/free-icon/like_148838) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)
+> Heart_noncolor: [Download](https://www.flaticon.com/free-icon/like_149219) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
+> Heart_color: [Download](https://www.flaticon.com/free-icon/like_148838) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
+> Award_noncolor: [Download](https://www.flaticon.com/free-icon/award_1592707) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)    
+> Award_color: [Download](https://www.flaticon.com/free-icon/award_1592809) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  

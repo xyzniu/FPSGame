@@ -21,34 +21,39 @@
                 android:layout_height="@dimen/btn_height"
                 android:id="@+id/btn_start"
                 android:text="@string/start"
-                android:onClick="goToGamePage"/>
+                android:textSize="@dimen/text_size"
+                android:onClick="goMapActivity"/>
 
         <Button
                 android:layout_width="@dimen/btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:id="@+id/btn_howto"
                 android:text="@string/how_to"
-                android:onClick="goToHowtoPage"/>
+                android:textSize="@dimen/text_size"
+                android:onClick="goHowtoActivity"/>
 
         <Button
                 android:layout_width="@dimen/btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:id="@+id/btn_settings"
                 android:text="@string/settings"
-                android:onClick="goToSettingsPage"/>
+                android:textSize="@dimen/text_size"
+                android:onClick="goSettingsActivity"/>
 
         <Button
                 android:layout_width="@dimen/btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:id="@+id/btn_about"
                 android:text="@string/about"
-                android:onClick="goToAboutPage"/>
+                android:textSize="@dimen/text_size"
+                android:onClick="goAboutActivity"/>
 
         <Button
                 android:layout_width="@dimen/btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:id="@+id/btn_exit"
                 android:text="@string/exit"
+                android:textSize="@dimen/text_size"
                 android:onClick="exit"/>
     </LinearLayout>
 

@@ -28,30 +28,31 @@
                     android:layout_height="@dimen/btn_height"
                     android:text="@string/back"
                     android:background="@android:drawable/screen_background_light_transparent"
-                    android:onClick="goToHomePage"/>
+                    android:onClick="goMainActivity"/>
 
             <!--      Health      -->
             <ImageView
                     android:layout_width="10dp"
                     android:layout_height="@dimen/icon_height"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible"
+                    android:contentDescription="TODO"/>
 
             <ImageView
                     android:layout_width="@dimen/icon_width"
                     android:layout_height="@dimen/icon_height"
-                    android:src="@drawable/heart_red"
+                    android:src="@drawable/heart_color"
                     android:id="@+id/heart1"/>
 
             <ImageView
                     android:layout_width="@dimen/icon_width"
                     android:layout_height="@dimen/icon_height"
-                    android:src="@drawable/heart_red"
+                    android:src="@drawable/heart_color"
                     android:id="@+id/heart2"/>
 
             <ImageView
                     android:layout_width="@dimen/icon_width"
                     android:layout_height="@dimen/icon_height"
-                    android:src="@drawable/heart_red"
+                    android:src="@drawable/heart_color"
                     android:id="@+id/heart3"/>
             <!--      Health      -->
 

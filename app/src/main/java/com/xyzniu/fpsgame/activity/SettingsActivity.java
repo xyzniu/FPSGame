@@ -16,7 +16,6 @@ public class SettingsActivity extends Activity {
     private AudioManager audioManager;
     private int maxVolume;
     private int currentVolume;
-    private CompoundButton soundEffectBtn;
     private SeekBar volumeBar;
     
     @Override
@@ -29,7 +28,6 @@ public class SettingsActivity extends Activity {
         currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         volumeBar = super.findViewById(R.id.volume_bar);
         
-        initSoundEffect();
         initVolume();
         
     }
@@ -58,21 +56,8 @@ public class SettingsActivity extends Activity {
         
     }
     
-    private void initSoundEffect() {
-        soundEffectBtn.setChecked(Configuration.openSoundEffect);
-        soundEffectBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Configuration.openSoundEffect = isChecked;
-            }
-        });
-    }
-    
-    public void goToHomePage(View view) {
-        Intent home = new Intent();
-        home.setClass(this, MainActivity.class);
-        startActivity(home);
-        this.finish();
+    public void goMainActivity(View view) {
+        ActivityHelper.goToActivity(this, MainActivity.class);
     }
     
     

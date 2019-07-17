@@ -14,27 +14,20 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
     
-    public void goToGamePage(View view) {
-        goToActivity(MapActivity.class);
+    public void goMapActivity(View view) {
+        ActivityHelper.goToActivity(this, MapActivity.class);
     }
     
-    public void goToAboutPage(View view) {
-        goToActivity(AboutActivity.class);
+    public void goAboutActivity(View view) {
+        ActivityHelper.goToActivity(this, AboutActivity.class);
     }
     
-    public void goToHowtoPage(View view) {
-        goToActivity(HowtoActivity.class);
+    public void goHowtoActivity(View view) {
+        ActivityHelper.goToActivity(this, HowtoActivity.class);
     }
     
-    public void goToSettingsPage(View view) {
-        goToActivity(SettingsActivity.class);
-    }
-    
-    private void goToActivity(Class clazz) {
-        Intent intent = new Intent();
-        intent.setClass(this, clazz);
-        startActivity(intent);
-        this.finish();
+    public void goSettingsActivity(View view) {
+        ActivityHelper.goToActivity(this, SettingsActivity.class);
     }
     
     public void exit(View view) {
