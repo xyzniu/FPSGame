@@ -16,4 +16,10 @@
     <string name="forward">FORWARD</string>
     <string name="shoot">ATTACK</string>
     <string name="kill_count">KILL: 0</string>
+    <string name="string_left"><![CDATA[<]]></string>
+    <string name="string_right"><![CDATA[>]]></string>
+    <string name="game_name">NAME : TBD&#160;</string>
+    <string name="game_email">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;E-MAIL : xzniu@dundee.ac.uk</string>
+    <string name="game_author">&#160;AUTHOR : @xyzniu</string>
+    <string name="game_version">&#160;VERSION : Alpha V1</string>
 </resources>
