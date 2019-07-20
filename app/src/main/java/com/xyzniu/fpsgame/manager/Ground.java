@@ -125,6 +125,8 @@ public class Ground {
                         treeManager.draw(TREE_3, startX, startZ);
                         drawGround(startX, startZ, TextureManager.soilTexture);
                         break;
+                    case NOTHING:
+                        break;
                     default:
                         drawGround(startX, startZ, TextureManager.grassTexture);
                         break;
@@ -193,63 +195,42 @@ public class Ground {
     }
     
     public static boolean hitDetection(Geometry.Vector position) {
-        
         int x1 = Math.round(position.getX() + 0.1f);
         int x2 = Math.round(position.getX() - 0.1f);
         int z1 = Math.round(position.getZ() + 0.1f);
         int z2 = Math.round(position.getZ() - 0.1f);
         
-        // Test if it is a wall, a house or a tree3
-        if (isWall(x1, z1) || isWall(x1, z2) || isWall(x2, z1) || isWall(x2, z2)) {
-            return true;
-        }
-        
-        return hitTreeDetection(position, x1, z1) || hitTreeDetection(position, x1, z2)
-                || hitTreeDetection(position, x2, z1) || hitTreeDetection(position, x2, z2);
+        return detectWallOrTree(position, x1, z1) || detectWallOrTree(position, x1, z2)
+                || detectWallOrTree(position, x2, z1) || detectWallOrTree(position, x2, z2);
         
     }
     
-    private static boolean hitTreeDetection(Geometry.Vector position, int x, int z) {
+    private static boolean detectWallOrTree(Geometry.Vector position, int x, int z) {
         if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
             return true;
         }
         
-        float xx = position.getX();
-        float zz = position.getZ();
-        
-        switch (materials[z][x]) {
-            case TREE_1:
-            case TREE_2:
-                double distance = Math.sqrt(Math.pow(xx - x, 2) + Math.pow(zz - z, 2));
-                if (distance > 0.16) {
-                    return false;
-                } else {
-                    return true;
-                }
-        }
-        return false;
-    }
-    
-    public static boolean hitWallDetection(Geometry.Vector position) {
-        int x1 = Math.round(position.getX() + 0.1f);
-        int x2 = Math.round(position.getX() - 0.1f);
-        int z1 = Math.round(position.getZ() + 0.1f);
-        int z2 = Math.round(position.getZ() - 0.1f);
-        return isWall(x1, z1) || isWall(x1, z2) || isWall(x2, z1) || isWall(x2, z2);
-    }
-    
-    private static boolean isWall(int x, int z) {
-        if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
-            return true;
-        }
         switch (materials[z][x]) {
             case WALL:
             case HOUSE:
             case TREE_3:
+            case NOTHING:
                 return true;
+            case TREE_1:
+            case TREE_2:
+                float xx = position.getX();
+                float zz = position.getZ();
+                
+                double distance = Math.sqrt(Math.pow(xx - x, 2) + Math.pow(zz - z, 2));
+                if (distance > 0.20) {
+                    return false;
+                } else {
+                    return true;
+                }
             default:
                 return false;
         }
+        
     }
     
     
