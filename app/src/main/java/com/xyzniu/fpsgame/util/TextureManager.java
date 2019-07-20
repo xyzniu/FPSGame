@@ -1,4 +1,4 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.util;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
@@ -14,6 +14,10 @@ public class TextureManager {
     public static int houseTexture;
     public static int bulletTexture;
     
+    public static int tree1Texture;
+    public static int tree2Texture;
+    public static int tree3Texture;
+    
     public static void init(Context context) {
         grassTexture = TextureHelper.loadTexture(context, R.drawable.grass);
         soilTexture = TextureHelper.loadTexture(context, R.drawable.soil);
@@ -22,6 +26,10 @@ public class TextureManager {
         foxTexture = TextureHelper.loadTexture(context, R.raw.foxuv);
         houseTexture = TextureHelper.loadTexture(context, R.raw.houseuv);
         bulletTexture = TextureHelper.loadTexture(context, R.raw.bulletuv);
+        
+        tree1Texture = TextureHelper.loadTexture(context, R.raw.tree1uv);
+        tree2Texture = TextureHelper.loadTexture(context, R.raw.tree2uv);
+        tree3Texture = TextureHelper.loadTexture(context, R.raw.tree3uv);
     }
     
 }

@@ -1,4 +1,4 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.pojo;
 
 public class Player {
     

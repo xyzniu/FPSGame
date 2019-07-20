@@ -13,6 +13,9 @@ public class Constants {
     public static final int GRASS = 4;
     public static final int SOIL = 5;
     public static final int HOUSE = 6;
+    public static final int TREE_1 = 7;
+    public static final int TREE_2 = 8;
+    public static final int TREE_3 = 9;
     
 }
 

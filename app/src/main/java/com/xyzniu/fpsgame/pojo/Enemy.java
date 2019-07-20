@@ -1,7 +1,11 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.pojo;
 
-import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
-import static com.xyzniu.fpsgame.objects.SoundManager.*;
+import com.xyzniu.fpsgame.util.Geometry;
+import com.xyzniu.fpsgame.manager.Ground;
+import com.xyzniu.fpsgame.manager.PlayerManager;
+
+import static com.xyzniu.fpsgame.util.Geometry.distanceBetween;
+import static com.xyzniu.fpsgame.util.SoundHelper.*;
 import static com.xyzniu.fpsgame.renderer.Renderer.delta;
 import static com.xyzniu.fpsgame.config.Constants.*;
 

@@ -1,4 +1,8 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.manager;
+
+import com.xyzniu.fpsgame.pojo.Camera;
+import com.xyzniu.fpsgame.pojo.Player;
+import com.xyzniu.fpsgame.util.Geometry;
 
 public class PlayerManager {
     

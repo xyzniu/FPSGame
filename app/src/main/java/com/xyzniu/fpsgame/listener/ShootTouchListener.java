@@ -4,9 +4,9 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.View;
-import com.xyzniu.fpsgame.objects.BulletManager;
+import com.xyzniu.fpsgame.manager.BulletManager;
 
-import static com.xyzniu.fpsgame.objects.SoundManager.*;
+import static com.xyzniu.fpsgame.util.SoundHelper.*;
 
 public class ShootTouchListener implements View.OnTouchListener {
     

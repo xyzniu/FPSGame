@@ -5,7 +5,7 @@ import android.os.SystemClock;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.objects.PlayerManager;
+import com.xyzniu.fpsgame.manager.PlayerManager;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
 public class GameRunnable implements Runnable {

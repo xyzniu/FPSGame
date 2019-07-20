@@ -1,4 +1,6 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.pojo;
+
+import com.xyzniu.fpsgame.util.Geometry;
 
 public class Bullet {
     

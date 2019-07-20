@@ -1,7 +1,5 @@
 package com.xyzniu.fpsgame.util;
 
-import com.xyzniu.fpsgame.objects.Geometry;
-
 import static android.opengl.Matrix.translateM;
 
 public class MatrixHelper {

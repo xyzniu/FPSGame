@@ -1,4 +1,4 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.util;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -7,7 +7,7 @@ import com.xyzniu.fpsgame.R;
 
 import java.util.HashMap;
 
-public class SoundManager {
+public class SoundHelper {
     
     public static SoundPool soundPool;
     public static HashMap<Integer, Integer> soundMap;

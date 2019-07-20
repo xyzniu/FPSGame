@@ -2,7 +2,7 @@ package com.xyzniu.fpsgame.programs;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.objects.PlayerManager;
+import com.xyzniu.fpsgame.manager.PlayerManager;
 
 import static android.opengl.GLES20.*;
 
@@ -37,28 +37,6 @@ public class MainShaderProgram extends ShaderProgram {
         aNormalLocation = glGetAttribLocation(program, A_NORMAL);
         aTextureCoordinatesLocation = glGetAttribLocation(program, A_TEXTURE_COORDINATES);
     }
-    
-    /*
-    public void setUniforms(float[] model,
-                            float[] it_model,
-                            float[] modelViewProjection,
-                            float[] lightPosition,
-                            float[] lightColor,
-                            float[] viewPosition,
-                            int textureId) {
-        glUniformMatrix4fv(uModelLocation, 1, false, model, 0);
-        glUniformMatrix4fv(uITModelLocation, 1, false, it_model, 0);
-        glUniformMatrix4fv(uModelViewProjectionLocation, 1, false, modelViewProjection, 0);
-        
-        glUniform3fv(uLightPositionLocation, 1, lightPosition, 0);
-        glUniform3fv(uLightColorLocation, 1, lightColor, 0);
-        glUniform3fv(uViewPositionLocation, 1, viewPosition, 0);
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureId);
-        glUniform1i(uTextureUnitLocation, 0);
-    }
-    */
     
     public void setUniforms(float[] model,
                             float[] it_model,

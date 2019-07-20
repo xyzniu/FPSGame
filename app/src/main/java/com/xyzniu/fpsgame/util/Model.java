@@ -1,12 +1,13 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.util;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.data.VertexArray;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
+import com.xyzniu.fpsgame.util.ObjectLoader;
 
 import static android.opengl.GLES20.*;
 
-public class Object {
+public class Model {
     
     private static final int POSITION_COMPONENT_COUNT = 3;
     private static final int TEXTURE_COMPONENT_COUNT = 2;
@@ -21,7 +22,7 @@ public class Object {
     private VertexArray normals;
     private VertexArray textureCoordinates;
     
-    public Object(Context context, int file) {
+    public Model(Context context, int file) {
         ObjectLoader objectLoader = new ObjectLoader(context, file);
         
         numFaces = objectLoader.numFaces;

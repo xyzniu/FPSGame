@@ -1,4 +1,4 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.util;
 
 
 public class Geometry {

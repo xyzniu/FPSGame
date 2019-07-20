@@ -1,4 +1,4 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.util;
 import android.content.Context;
 
 import java.io.BufferedReader;

@@ -3,7 +3,7 @@ package com.xyzniu.fpsgame.listener;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.View;
-import com.xyzniu.fpsgame.objects.PlayerManager;
+import com.xyzniu.fpsgame.manager.PlayerManager;
 
 public class CameraTouchListener implements View.OnTouchListener {
     

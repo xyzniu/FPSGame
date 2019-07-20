@@ -1,13 +1,14 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.manager;
 
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.data.BasicShape;
 import com.xyzniu.fpsgame.data.VertexArray;
 import com.xyzniu.fpsgame.data.VertexData;
+import com.xyzniu.fpsgame.pojo.Tree;
 import com.xyzniu.fpsgame.programs.EndPointShaderProgram;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
-import com.xyzniu.fpsgame.util.TextResourceReader;
+import com.xyzniu.fpsgame.util.*;
 import android.content.Context;
 
 import java.util.ArrayList;
@@ -25,8 +26,9 @@ public class Ground {
     private BasicShape cube;
     private Matrix matrix = new Matrix();
     private List<Geometry.Vector> mobSpawner = new ArrayList<>();
-    private Object house;
+    private Model house;
     private Geometry.Vector endPoint;
+    private TreeManager treeManager;
     
     public Ground(Context context, int resourceId) {
         String map = TextResourceReader.readTextFileFromResource(context, resourceId);
@@ -48,8 +50,9 @@ public class Ground {
         endPointShaderProgram = ShaderProgramManager.endPointShaderProgram;
         square = new BasicShape(new VertexArray(VertexData.squareVertexData), 6);
         cube = new BasicShape(new VertexArray(VertexData.cubeWithoutUpAndDownSideVertexData), 24);
-        house = new Object(context, R.raw.house);
+        house = new Model(context, R.raw.house);
         
+        treeManager = new TreeManager(context);
         init();
         
     }
@@ -86,7 +89,7 @@ public class Ground {
     public void drawGround() {
         mainShaderProgram.useProgram();
         glDepthMask(true);
-        // draw the opaque objects first
+        // draw the opaque manager first
         int startX = 0;
         int startZ = 0;
         for (int i = 0; i < materials.length; i++) {
@@ -101,11 +104,23 @@ public class Ground {
                         drawGround(startX, startZ, TextureManager.soilTexture);
                         break;
                     case WALL:
-                        drawWall(startX, startZ, TextureManager.wallTexture);
+                        // drawWall(startX, startZ, TextureManager.grassTexture);
                         break;
                     case HOUSE:
                         drawHouse(startX, startZ);
                         drawGround(startX, startZ, TextureManager.grassTexture);
+                        break;
+                    case TREE_1:
+                        treeManager.draw(TREE_1, startX, startZ);
+                        drawGround(startX, startZ, TextureManager.soilTexture);
+                        break;
+                    case TREE_2:
+                        treeManager.draw(TREE_2, startX, startZ);
+                        drawGround(startX, startZ, TextureManager.soilTexture);
+                        break;
+                    case TREE_3:
+                        treeManager.draw(TREE_3, startX, startZ);
+                        drawGround(startX, startZ, TextureManager.soilTexture);
                         break;
                     default:
                         drawGround(startX, startZ, TextureManager.grassTexture);
@@ -113,7 +128,7 @@ public class Ground {
                 }
             }
         }
-        // draw the transparent objects
+        // draw the transparent manager
         glDepthMask(false);
         drawEndPoint();
         glDepthMask(true);

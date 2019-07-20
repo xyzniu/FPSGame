@@ -1,7 +1,6 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.manager;
 
 import android.content.Context;
-import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.util.TextResourceReader;
 

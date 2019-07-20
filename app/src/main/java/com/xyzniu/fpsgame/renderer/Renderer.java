@@ -7,9 +7,13 @@ import android.opengl.GLSurfaceView;
 import android.os.SystemClock;
 import com.xyzniu.fpsgame.activity.GameRunnable;
 import com.xyzniu.fpsgame.activity.ResultActivity;
-import com.xyzniu.fpsgame.activity.MainActivity;
-import com.xyzniu.fpsgame.objects.*;
+import com.xyzniu.fpsgame.manager.*;
+import com.xyzniu.fpsgame.pojo.Camera;
+import com.xyzniu.fpsgame.pojo.Player;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
+import com.xyzniu.fpsgame.util.Matrix;
+import com.xyzniu.fpsgame.util.SoundHelper;
+import com.xyzniu.fpsgame.util.TextureManager;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -69,7 +73,7 @@ public class Renderer implements GLSurfaceView.Renderer {
     private void loadResources(Context context) {
         ShaderProgramManager.init(context);
         TextureManager.init(context);
-        SoundManager.init(context);
+        SoundHelper.init(context);
     }
     
     private void initPlayer() {

@@ -1,9 +1,11 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.manager;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
+import com.xyzniu.fpsgame.pojo.Enemy;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
-import com.xyzniu.fpsgame.util.MatrixHelper;
+import com.xyzniu.fpsgame.programs.ShaderProgramManager;
+import com.xyzniu.fpsgame.util.*;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,7 +17,7 @@ import static android.opengl.Matrix.setIdentityM;
 
 public class EnemyManager {
     
-    public Object enemyObject;
+    public Model enemyModel;
     private int enemyTexture;
     private List<Enemy> enemies;
     private List<Geometry.Vector> mobSpawner;
@@ -24,17 +26,17 @@ public class EnemyManager {
     private Matrix matrix = new Matrix();
     
     public EnemyManager(Context context, List<Geometry.Vector> mobSpawner) {
-        enemyObject = new Object(context, R.raw.fox);
+        enemyModel = new Model(context, R.raw.fox);
         enemyTexture = TextureManager.foxTexture;
         enemies = new LinkedList<>();
-        program = new MainShaderProgram(context);
+        program = ShaderProgramManager.mainShaderProgram;
         this.mobSpawner = mobSpawner;
     }
     
     
     public void draw() {
         program.useProgram();
-        enemyObject.bindData(program);
+        enemyModel.bindData(program);
         
         Enemy e;
         Iterator<Enemy> iterator = enemies.iterator();
@@ -65,7 +67,7 @@ public class EnemyManager {
                 matrix.modelViewProjectionMatrix,
                 enemyTexture);
         
-        enemyObject.draw();
+        enemyModel.draw();
     }
     
     private float getRotation(Enemy e, Geometry.Vector uPosition) {

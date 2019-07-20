@@ -1,14 +1,13 @@
 package com.xyzniu.fpsgame.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.MapClickListener;
-import com.xyzniu.fpsgame.objects.MapManager;
+import com.xyzniu.fpsgame.manager.MapManager;
 
 public class MapActivity extends Activity {
     private static final String TAG = "MapActivity";

@@ -1,9 +1,14 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.manager;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
+import com.xyzniu.fpsgame.pojo.Bullet;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
+import com.xyzniu.fpsgame.util.Geometry;
+import com.xyzniu.fpsgame.util.Matrix;
+import com.xyzniu.fpsgame.util.Model;
+import com.xyzniu.fpsgame.util.TextureManager;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,7 +18,7 @@ import static android.opengl.Matrix.*;
 
 public class BulletManager {
     
-    private Object bulletObject;
+    private Model bulletModel;
     private MainShaderProgram mainShaderProgram;
     private Matrix matrix = new Matrix();
     private int bulletTexture;
@@ -21,7 +26,7 @@ public class BulletManager {
     public static volatile boolean addBullet;
     
     public BulletManager(Context context) {
-        bulletObject = new Object(context, R.raw.ball);
+        bulletModel = new Model(context, R.raw.ball);
         mainShaderProgram = ShaderProgramManager.mainShaderProgram;
         bulletTexture = TextureManager.bulletTexture;
         bullets = new LinkedList<>();
@@ -39,7 +44,7 @@ public class BulletManager {
         }
         
         mainShaderProgram.useProgram();
-        bulletObject.bindData(mainShaderProgram);
+        bulletModel.bindData(mainShaderProgram);
         
         Iterator<Bullet> it = bullets.iterator();
         Bullet bullet;
@@ -64,7 +69,7 @@ public class BulletManager {
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
                 bulletTexture);
-        bulletObject.draw();
+        bulletModel.draw();
     }
     
     public void updateBullets() {

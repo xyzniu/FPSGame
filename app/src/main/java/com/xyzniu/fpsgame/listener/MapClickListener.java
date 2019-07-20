@@ -3,12 +3,10 @@ package com.xyzniu.fpsgame.listener;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import com.xyzniu.fpsgame.activity.GameActivity;
-import com.xyzniu.fpsgame.objects.MapManager;
+import com.xyzniu.fpsgame.manager.MapManager;
 
 public class MapClickListener implements View.OnClickListener {
     private static final String TAG = "MapClickListener";

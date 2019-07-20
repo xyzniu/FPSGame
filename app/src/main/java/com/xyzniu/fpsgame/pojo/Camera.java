@@ -1,11 +1,13 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.pojo;
 
 import com.xyzniu.fpsgame.config.Constants;
+import com.xyzniu.fpsgame.util.Geometry;
+import com.xyzniu.fpsgame.manager.HitDetection;
 
 import static android.opengl.Matrix.setLookAtM;
-import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
-import static com.xyzniu.fpsgame.objects.PlayerManager.*;
-import static com.xyzniu.fpsgame.objects.PlayerManager.isMovingRight;
+import static com.xyzniu.fpsgame.util.Geometry.distanceBetween;
+import static com.xyzniu.fpsgame.manager.PlayerManager.*;
+import static com.xyzniu.fpsgame.manager.PlayerManager.isMovingRight;
 import static com.xyzniu.fpsgame.renderer.Renderer.delta;
 
 public class Camera {

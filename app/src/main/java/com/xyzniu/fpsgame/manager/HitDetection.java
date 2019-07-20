@@ -1,12 +1,16 @@
 
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.manager;
 
+
+import com.xyzniu.fpsgame.pojo.Bullet;
+import com.xyzniu.fpsgame.pojo.Enemy;
+import com.xyzniu.fpsgame.util.Geometry;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static com.xyzniu.fpsgame.objects.Geometry.distanceBetween;
-import static com.xyzniu.fpsgame.objects.SoundManager.*;
+import static com.xyzniu.fpsgame.util.Geometry.distanceBetween;
+import static com.xyzniu.fpsgame.util.SoundHelper.*;
 
 public class HitDetection {
     

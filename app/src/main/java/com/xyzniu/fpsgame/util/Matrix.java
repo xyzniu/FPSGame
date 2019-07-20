@@ -1,6 +1,6 @@
-package com.xyzniu.fpsgame.objects;
+package com.xyzniu.fpsgame.util;
 
-import com.xyzniu.fpsgame.util.MatrixHelper;
+import com.xyzniu.fpsgame.manager.PlayerManager;
 
 import static android.opengl.Matrix.*;
 import static android.opengl.Matrix.multiplyMM;

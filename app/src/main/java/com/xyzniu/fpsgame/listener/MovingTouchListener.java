@@ -3,7 +3,7 @@ package com.xyzniu.fpsgame.listener;
 import android.view.MotionEvent;
 import android.view.View;
 import com.xyzniu.fpsgame.R;
-import com.xyzniu.fpsgame.objects.PlayerManager;
+import com.xyzniu.fpsgame.manager.PlayerManager;
 
 public class MovingTouchListener implements View.OnTouchListener {
     
