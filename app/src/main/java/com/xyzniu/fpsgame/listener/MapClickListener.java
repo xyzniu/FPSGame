@@ -22,7 +22,7 @@ public class MapClickListener implements View.OnClickListener {
         Button button = (Button) v;
         String text = String.valueOf(button.getText());
         int count = Integer.parseInt(text.replace("MAP", ""));
-        int resourceId = MapManager.getResourceId(count);
+        int resourceId = MapManager.getResourceId(count - 1);
         
         Intent game = new Intent();
         game.putExtra("mapResourceId", resourceId);

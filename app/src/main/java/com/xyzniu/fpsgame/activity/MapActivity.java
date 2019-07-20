@@ -20,7 +20,7 @@ public class MapActivity extends Activity {
         int mapSize = MapManager.getSize();
         MapClickListener mapListener = new MapClickListener(this);
         LinearLayout layout = findViewById(R.id.map_view);
-        for (int i = 0; i < mapSize; i++) {
+        for (int i = 1; i <= mapSize; i++) {
             Button button = new Button(this);
             button.setText("MAP" + i);
             button.setOnClickListener(mapListener);
