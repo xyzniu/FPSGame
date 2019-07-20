@@ -1,5 +1,6 @@
 package com.xyzniu.fpsgame.manager;
 
+import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.data.BasicShape;
 import com.xyzniu.fpsgame.data.VertexArray;
@@ -19,6 +20,8 @@ import static android.opengl.Matrix.*;
 import static com.xyzniu.fpsgame.config.Constants.*;
 
 public class Ground {
+    
+    private static final String TAG = "Ground";
     private static int[][] materials;
     private MainShaderProgram mainShaderProgram;
     private EndPointShaderProgram endPointShaderProgram;
@@ -189,6 +192,44 @@ public class Ground {
                 texture);
     }
     
+    public static boolean hitDetection(Geometry.Vector position) {
+        
+        int x1 = Math.round(position.getX() + 0.1f);
+        int x2 = Math.round(position.getX() - 0.1f);
+        int z1 = Math.round(position.getZ() + 0.1f);
+        int z2 = Math.round(position.getZ() - 0.1f);
+        
+        // Test if it is a wall, a house or a tree3
+        if (isWall(x1, z1) || isWall(x1, z2) || isWall(x2, z1) || isWall(x2, z2)) {
+            return true;
+        }
+        
+        return hitTreeDetection(position, x1, z1) || hitTreeDetection(position, x1, z2)
+                || hitTreeDetection(position, x2, z1) || hitTreeDetection(position, x2, z2);
+        
+    }
+    
+    private static boolean hitTreeDetection(Geometry.Vector position, int x, int z) {
+        if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
+            return true;
+        }
+        
+        float xx = position.getX();
+        float zz = position.getZ();
+        
+        switch (materials[z][x]) {
+            case TREE_1:
+            case TREE_2:
+                double distance = Math.sqrt(Math.pow(xx - x, 2) + Math.pow(zz - z, 2));
+                if (distance > 0.16) {
+                    return false;
+                } else {
+                    return true;
+                }
+        }
+        return false;
+    }
+    
     public static boolean hitWallDetection(Geometry.Vector position) {
         int x1 = Math.round(position.getX() + 0.1f);
         int x2 = Math.round(position.getX() - 0.1f);
@@ -204,6 +245,7 @@ public class Ground {
         switch (materials[z][x]) {
             case WALL:
             case HOUSE:
+            case TREE_3:
                 return true;
             default:
                 return false;

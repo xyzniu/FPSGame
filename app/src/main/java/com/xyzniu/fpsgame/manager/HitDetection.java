@@ -61,7 +61,4 @@ public class HitDetection {
         }
     }
     
-    public static boolean hitWallDetection(Geometry.Vector position) {
-        return Ground.hitWallDetection(position);
-    }
 }

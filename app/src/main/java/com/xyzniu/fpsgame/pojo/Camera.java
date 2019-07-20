@@ -1,6 +1,7 @@
 package com.xyzniu.fpsgame.pojo;
 
 import com.xyzniu.fpsgame.config.Constants;
+import com.xyzniu.fpsgame.manager.Ground;
 import com.xyzniu.fpsgame.util.Geometry;
 import com.xyzniu.fpsgame.manager.HitDetection;
 
@@ -75,7 +76,7 @@ public class Camera {
         direction.normalize();
         direction.scale(Constants.STEP_LENGTH * delta);
         Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
-        if (!HitDetection.hitWallDetection(newPosition)) {
+        if (!Ground.hitDetection(newPosition)) {
             position = newPosition;
         }
     }
