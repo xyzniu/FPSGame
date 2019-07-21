@@ -17,6 +17,10 @@ public class PlayerManager {
     public static void setPlayer(Player player, Camera camera) {
         PlayerManager.player = player;
         PlayerManager.camera = camera;
+        isMovingForward = false;
+        isMovingBackward = false;
+        isMovingLeft = false;
+        isMovingRight = false;
     }
     
     public static void bitePlayer() {
@@ -72,7 +76,7 @@ public class PlayerManager {
         return player.getKill();
     }
     
-    public static int getHp(){
+    public static int getHp() {
         return player.getHp();
     }
 }

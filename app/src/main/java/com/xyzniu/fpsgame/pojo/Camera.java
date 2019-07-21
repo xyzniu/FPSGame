@@ -6,6 +6,7 @@ import com.xyzniu.fpsgame.util.Geometry;
 import com.xyzniu.fpsgame.manager.HitDetection;
 
 import static android.opengl.Matrix.setLookAtM;
+import static com.xyzniu.fpsgame.config.Configuration.FLIP_HORIZONTAL;
 import static com.xyzniu.fpsgame.util.Geometry.distanceBetween;
 import static com.xyzniu.fpsgame.manager.PlayerManager.*;
 import static com.xyzniu.fpsgame.manager.PlayerManager.isMovingRight;
@@ -74,7 +75,7 @@ public class Camera {
     
     private void movePosition(Geometry.Vector direction) {
         direction.normalize();
-        direction.scale(Constants.STEP_LENGTH * delta);
+        direction.scale(Constants.STEP_LENGTH_NORMAL * delta);
         Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
         if (!Ground.hitDetection(newPosition)) {
             position = newPosition;
@@ -88,7 +89,10 @@ public class Camera {
     
     public void dragCamera(float deltaX) {
         rotation += deltaX / 16f;
-        double radians = Math.toRadians(-rotation);
+        double radians = Math.toRadians(rotation);
+        if (FLIP_HORIZONTAL) {
+            radians = -radians;
+        }
         direction = new Geometry.Vector(-(float) Math.sin(radians), 0, (float) Math.cos(radians));
     }
     

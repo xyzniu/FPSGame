@@ -20,7 +20,7 @@
         <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:visibility="invisible" />
+                android:visibility="invisible"/>
 
         <Button
                 android:layout_width="@dimen/btn_width"
@@ -34,7 +34,7 @@
         <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:visibility="invisible" />
+                android:visibility="invisible"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -43,7 +43,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
                 android:id="@+id/map_view"
                 android:orientation="vertical"
                 android:gravity="center|top">
@@ -65,7 +64,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="VOLUME: "/>
+                        android:text="@string/volume"/>
 
 
                 <SeekBar
@@ -74,6 +73,19 @@
                         android:theme="@style/Base.Theme.AppCompat.Light"
                         android:layout_marginTop="10dp"
                         android:id="@+id/volume_bar"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/flip_horizontal"/>
+
+                <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:theme="@style/Base.Theme.AppCompat.Light"
+                        android:id="@+id/switch_flip"/>
             </LinearLayout>
 
         </LinearLayout>
