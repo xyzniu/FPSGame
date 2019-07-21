@@ -12,7 +12,7 @@ public class TextureManager {
     
     public static int foxTexture;
     public static int houseTexture;
-    public static int bulletTexture;
+    public static int appleTexture;
     
     public static int tree1Texture;
     public static int tree2Texture;
@@ -25,7 +25,7 @@ public class TextureManager {
         
         foxTexture = TextureHelper.loadTexture(context, R.raw.foxuv);
         houseTexture = TextureHelper.loadTexture(context, R.raw.houseuv);
-        bulletTexture = TextureHelper.loadTexture(context, R.raw.bulletuv);
+        appleTexture = TextureHelper.loadTexture(context, R.raw.appleuv);
         
         tree1Texture = TextureHelper.loadTexture(context, R.raw.tree1uv);
         tree2Texture = TextureHelper.loadTexture(context, R.raw.tree2uv);

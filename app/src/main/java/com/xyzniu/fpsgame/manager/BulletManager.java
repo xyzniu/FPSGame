@@ -3,6 +3,7 @@ package com.xyzniu.fpsgame.manager;
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.pojo.Bullet;
+import com.xyzniu.fpsgame.pojo.Player;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 import com.xyzniu.fpsgame.util.Geometry;
@@ -18,17 +19,17 @@ import static android.opengl.Matrix.*;
 
 public class BulletManager {
     
-    private Model bulletModel;
+    private Model appleModel;
     private MainShaderProgram mainShaderProgram;
     private Matrix matrix = new Matrix();
-    private int bulletTexture;
+    private int appleTexture;
     private List<Bullet> bullets;
     public static volatile boolean addBullet;
     
     public BulletManager(Context context) {
-        bulletModel = new Model(context, R.raw.ball);
+        appleModel = new Model(context, R.raw.apple);
         mainShaderProgram = ShaderProgramManager.mainShaderProgram;
-        bulletTexture = TextureManager.bulletTexture;
+        appleTexture = TextureManager.appleTexture;
         bullets = new LinkedList<>();
         addBullet = false;
     }
@@ -44,7 +45,7 @@ public class BulletManager {
         }
         
         mainShaderProgram.useProgram();
-        bulletModel.bindData(mainShaderProgram);
+        appleModel.bindData(mainShaderProgram);
         
         Iterator<Bullet> it = bullets.iterator();
         Bullet bullet;
@@ -62,14 +63,22 @@ public class BulletManager {
         Geometry.Vector position = bullet.getPosition();
         setIdentityM(matrix.modelMatrix, 0);
         translateM(matrix.modelMatrix, 0, position.getX(), position.getY(), position.getZ());
-        scaleM(matrix.modelMatrix, 0, 0.01f, 0.01f, 0.01f);
+        rotateM(matrix.modelMatrix, 0, getRotation(position, PlayerManager.getPosition()), 0, 1, 0);
+        rotateM(matrix.modelMatrix, 0, bullet.rotate(), -0.5f, 0, -0.5f);
+        scaleM(matrix.modelMatrix, 0, 0.1f, 0.1f, 0.1f);
         matrix.updateMatrix();
         
         mainShaderProgram.setUniforms(matrix.modelMatrix,
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
-                bulletTexture);
-        bulletModel.draw();
+                appleTexture);
+        appleModel.draw();
+    }
+    
+    private float getRotation(Geometry.Vector bPosition, Geometry.Vector uPosition) {
+        Geometry.Vector direction = Geometry.Vector.sub(uPosition, bPosition);
+        double radian = (Math.atan2(direction.getX(), direction.getZ()) - Math.atan2(0, 1));
+        return (float) Math.toDegrees(radian);
     }
     
     public void updateBullets() {

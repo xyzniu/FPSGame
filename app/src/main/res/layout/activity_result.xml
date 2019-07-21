@@ -30,7 +30,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="2dp"
                 android:text="@string/back"
-                android:onClick="goMainActivity"/>
+                android:onClick="goMapActivity"/>
 
         <Button
                 android:layout_width="20dp"

@@ -28,7 +28,7 @@
                     android:layout_height="@dimen/btn_height"
                     android:text="@string/back"
                     android:background="@android:drawable/screen_background_light_transparent"
-                    android:onClick="goMainActivity"/>
+                    android:onClick="goMapActivity"/>
 
             <!--      Health      -->
             <ImageView

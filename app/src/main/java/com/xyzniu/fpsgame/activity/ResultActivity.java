@@ -45,7 +45,7 @@ public class ResultActivity extends Activity {
         }
     }
     
-    public void goMainActivity(View view) {
-        ActivityHelper.goToActivity(this, MainActivity.class);
+    public void goMapActivity(View view) {
+        ActivityHelper.goToActivity(this, MapActivity.class);
     }
 }

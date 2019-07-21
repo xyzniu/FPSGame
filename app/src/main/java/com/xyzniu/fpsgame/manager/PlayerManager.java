@@ -31,7 +31,6 @@ public class PlayerManager {
         player.killEnemy();
     }
     
-    
     public static Geometry.Vector getPosition() {
         return camera.getPosition();
     }
@@ -78,5 +77,9 @@ public class PlayerManager {
     
     public static int getHp() {
         return player.getHp();
+    }
+    
+    public static void setStepLength(float stepLength) {
+        camera.setStepLength(stepLength);
     }
 }

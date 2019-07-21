@@ -3,7 +3,6 @@ package com.xyzniu.fpsgame.pojo;
 import com.xyzniu.fpsgame.config.Constants;
 import com.xyzniu.fpsgame.manager.Ground;
 import com.xyzniu.fpsgame.util.Geometry;
-import com.xyzniu.fpsgame.manager.HitDetection;
 
 import static android.opengl.Matrix.setLookAtM;
 import static com.xyzniu.fpsgame.config.Configuration.FLIP_HORIZONTAL;
@@ -20,10 +19,12 @@ public class Camera {
     private final Geometry.Vector UP = new Geometry.Vector(0, 1, 0);
     private float rotation = 0;
     private Geometry.Vector endPoint;
+    private float stepLength;
     
     public Camera() {
         position = new Geometry.Vector(0, -0.3f, 0f);
         direction = new Geometry.Vector(0, 0, 1);
+        stepLength = Constants.STEP_LENGTH_NORMAL;
     }
     
     public void setStartPoint(Geometry.Vector startPoint) {
@@ -74,8 +75,9 @@ public class Camera {
     }
     
     private void movePosition(Geometry.Vector direction) {
+        Ground.swampDetection(position);
         direction.normalize();
-        direction.scale(Constants.STEP_LENGTH_NORMAL * delta);
+        direction.scale(stepLength * delta);
         Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
         if (!Ground.hitDetection(newPosition)) {
             position = newPosition;
@@ -120,5 +122,7 @@ public class Camera {
         }
     }
     
-    
+    public void setStepLength(float stepLength) {
+        this.stepLength = stepLength;
+    }
 }

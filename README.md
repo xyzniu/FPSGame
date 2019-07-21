@@ -12,8 +12,9 @@ This game is a first-person shoot game designed and conducted by @xyzniu.
 
 Object
 > House: [Download](https://www.turbosquid.com/FullPreview/Index.cfm/ID/487223) / [LicenseLink](https://blog.turbosquid.com/royalty-free-license/)  
-> Ball: [Download](https://free3d.com/3d-model/ball-v1--300046.html) / [LicenseLink](https://free3d.com/royalty-free-license)  
 > Fox: [Download](https://clara.io/view/1a03ac6b-d6b5-4c2d-9f1a-c80068311396) / [LicenseLink](https://clara.io/legal/terms-of-service)  
+> Tree: [Download](https://sketchfab.com/3d-models/low-poly-trees-2e70c34af8994852acd4b9ffce596336) / [LicenseLink](https://creativecommons.org/licenses/by/4.0/)  
+> Apple: [Download](https://free3d.com/3d-model/apple-84734.html)  
 
 Sound  
 > ShootSound: [Download](https://freesound.org/people/volivieri/sounds/37155/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)  

@@ -9,6 +9,7 @@ public class Bullet {
     // if hit the wall => invalid
     // if hit the enemy => invalid
     private volatile boolean isValid;
+    private int rotation;
     
     public Bullet(Geometry.Vector position, Geometry.Vector direction, boolean isValid) {
         this.position = new Geometry.Vector(position);
@@ -18,6 +19,7 @@ public class Bullet {
         this.position.add(this.direction);
         this.direction.scale(0.3f);
         this.isValid = isValid;
+        rotation = 0;
     }
     
     public Geometry.Vector getPosition() {
@@ -40,4 +42,7 @@ public class Bullet {
         }
     }
     
+    public int rotate() {
+        return rotation += 2;
+    }
 }

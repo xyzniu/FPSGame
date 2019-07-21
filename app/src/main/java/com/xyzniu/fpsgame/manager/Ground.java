@@ -1,11 +1,9 @@
 package com.xyzniu.fpsgame.manager;
 
-import android.util.Log;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.data.BasicShape;
 import com.xyzniu.fpsgame.data.VertexArray;
 import com.xyzniu.fpsgame.data.VertexData;
-import com.xyzniu.fpsgame.pojo.Tree;
 import com.xyzniu.fpsgame.programs.EndPointShaderProgram;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
@@ -231,6 +229,34 @@ public class Ground {
                 return false;
         }
         
+    }
+    
+    public static void swampDetection(Geometry.Vector position) {
+        
+        int x1 = Math.round(position.getX() + 0.1f);
+        int x2 = Math.round(position.getX() - 0.1f);
+        int z1 = Math.round(position.getZ() + 0.1f);
+        int z2 = Math.round(position.getZ() - 0.1f);
+        
+        if (isSwamp(x1, z1) || isSwamp(x1, z2) || isSwamp(x2, z1) || isSwamp(x2, z2)) {
+            PlayerManager.setStepLength(STEP_LENGTH_SLOW);
+        } else {
+            PlayerManager.setStepLength(STEP_LENGTH_NORMAL);
+        }
+        return;
+    }
+    
+    private static boolean isSwamp(int x, int z) {
+        if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
+            return true;
+        }
+        
+        switch (materials[z][x]) {
+            case SWAMP:
+                return true;
+            default:
+                return false;
+        }
     }
     
     

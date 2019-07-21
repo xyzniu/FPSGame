@@ -127,8 +127,8 @@ public class GameActivity extends Activity {
         shootBtn.setOnTouchListener(new ShootTouchListener(glSurfaceView, this));
     }
     
-    public void goMainActivity(View view) {
-        ActivityHelper.goToActivity(this, MainActivity.class);
+    public void goMapActivity(View view) {
+        ActivityHelper.goToActivity(this, MapActivity.class);
     }
     
     @Override
