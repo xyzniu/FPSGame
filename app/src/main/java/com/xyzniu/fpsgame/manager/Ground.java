@@ -30,6 +30,7 @@ public class Ground {
     private Model house;
     private Geometry.Vector endPoint;
     private TreeManager treeManager;
+    private AnimalManager animalManager;
     
     public Ground(Context context, int resourceId) {
         String map = TextResourceReader.readTextFileFromResource(context, resourceId);
@@ -54,6 +55,7 @@ public class Ground {
         house = new Model(context, R.raw.house);
         
         treeManager = new TreeManager(context);
+        animalManager = new AnimalManager(context);
         init();
         
     }
@@ -71,6 +73,9 @@ public class Ground {
                         break;
                     case MOB_SPAWNER:
                         mobSpawner.add(computeVector(i, j));
+                        break;
+                    case ANIMAL:
+                        animalManager.addAnimal(computeVector(i, j));
                         break;
                 }
             }
@@ -90,7 +95,7 @@ public class Ground {
     public void drawGround() {
         mainShaderProgram.useProgram();
         glDepthMask(true);
-        // draw the opaque manager first
+        // draw the opaque first
         int startX = 0;
         int startZ = 0;
         for (int i = 0; i < materials.length; i++) {
@@ -131,7 +136,8 @@ public class Ground {
                 }
             }
         }
-        // draw the transparent manager
+        animalManager.draw();
+        // draw the transparent
         glDepthMask(false);
         drawEndPoint();
         glDepthMask(true);
@@ -162,7 +168,7 @@ public class Ground {
             translateM(matrix.modelMatrix, 0, startX, startY, startZ);
             scaleM(matrix.modelMatrix, 0, 0.9f, 1f, 0.9f);
             matrix.updateMatrix();
-            endPointShaderProgram.setUniforms(matrix.modelViewProjectionMatrix);
+            endPointShaderProgram.setUniforms(matrix.modelViewProjectionMatrix, animalManager.hasCollectedAll());
             cube.draw();
         }
     }
@@ -259,5 +265,9 @@ public class Ground {
         }
     }
     
+    
+    public boolean openEndPoint() {
+        return animalManager.hasCollectedAll();
+    }
     
 }

@@ -18,6 +18,7 @@ public class Constants {
     public static final int TREE_2 = 8;
     public static final int TREE_3 = 9;
     public static final int SWAMP = 10;
+    public static final int ANIMAL = 11;
     public static final int NOTHING = 13;
 }
 

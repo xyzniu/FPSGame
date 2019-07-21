@@ -18,6 +18,8 @@ public class TextureManager {
     public static int tree2Texture;
     public static int tree3Texture;
     
+    public static int chickTexture;
+    
     public static void init(Context context) {
         grassTexture = TextureHelper.loadTexture(context, R.drawable.grass);
         soilTexture = TextureHelper.loadTexture(context, R.drawable.soil);
@@ -30,6 +32,8 @@ public class TextureManager {
         tree1Texture = TextureHelper.loadTexture(context, R.raw.tree1uv);
         tree2Texture = TextureHelper.loadTexture(context, R.raw.tree2uv);
         tree3Texture = TextureHelper.loadTexture(context, R.raw.tree3uv);
+        
+        chickTexture = TextureHelper.loadTexture(context, R.raw.chickuv);
     }
     
 }

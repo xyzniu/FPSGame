@@ -118,7 +118,7 @@ public class Renderer implements GLSurfaceView.Renderer {
             }
         }
         
-        if (PlayerManager.atEndPoint()) {
+        if (ground.openEndPoint() && PlayerManager.atEndPoint()) {
             win();
         }
     }
