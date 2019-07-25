@@ -79,7 +79,7 @@ public class Camera {
         direction.normalize();
         direction.scale(stepLength * delta);
         Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
-        if (!Ground.hitDetection(newPosition)) {
+        if (!Ground.hitDetection(newPosition, 0.2f)) {
             position = newPosition;
         }
     }

@@ -20,8 +20,10 @@ import static com.xyzniu.fpsgame.util.Geometry.distanceBetween;
 public class AnimalManager {
     
     private Model animalModel;
+    private Model arrowModel;
     private Matrix matrix = new Matrix();
     private int animalTexture;
+    private int arrowTexture;
     private List<Animal> animals;
     private MainShaderProgram program;
     private int collected;
@@ -29,6 +31,8 @@ public class AnimalManager {
     public AnimalManager(Context context) {
         animalModel = new Model(context, R.raw.chick);
         animalTexture = TextureManager.chickTexture;
+        arrowModel = new Model(context, R.raw.arrow);
+        arrowTexture = TextureManager.arrowTexture;
         animals = new LinkedList<>();
         program = ShaderProgramManager.mainShaderProgram;
         collected = 0;
@@ -36,13 +40,13 @@ public class AnimalManager {
     
     public void draw() {
         Geometry.Vector uPosition = PlayerManager.getPosition();
-        animalModel.bindData(program);
+        
         program.useProgram();
         Iterator<Animal> it = animals.iterator();
         while (it.hasNext()) {
             Animal animal = it.next();
             
-            if (distanceBetween(uPosition, animal.getPosition()) < 0.5) {
+            if (!animal.isCollected() && distanceBetween(uPosition, animal.getPosition()) < 0.5) {
                 animal.collect();
                 collected++;
             }
@@ -51,9 +55,11 @@ public class AnimalManager {
                 drawAnimal(animal);
             }
         }
+        
     }
     
     private void drawAnimal(Animal animal) {
+        animalModel.bindData(program);
         Geometry.Vector position = animal.getPosition();
         setIdentityM(matrix.modelMatrix, 0);
         translateM(matrix.modelMatrix, 0, position.getX(), -0.5f, position.getZ());
@@ -66,6 +72,20 @@ public class AnimalManager {
                 animalTexture);
         
         animalModel.draw();
+        
+        arrowModel.bindData(program);
+        
+        setIdentityM(matrix.modelMatrix, 0);
+        translateM(matrix.modelMatrix, 0, position.getX(), animal.getTransY(), position.getZ());
+        rotateM(matrix.modelMatrix, 0, animal.getRotateY(), 0f, 1f, 0f);
+        scaleM(matrix.modelMatrix, 0, 0.3f, 0.3f, 0.3f);
+        matrix.updateMatrix();
+        
+        program.setUniforms(matrix.modelMatrix,
+                matrix.it_modelMatrix,
+                matrix.modelViewProjectionMatrix,
+                arrowTexture);
+        arrowModel.draw();
     }
     
     public void addAnimal(Geometry.Vector position) {

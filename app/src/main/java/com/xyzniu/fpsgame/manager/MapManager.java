@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapManager {
-    private static final String TAG = "MapManager";
     
     private static boolean load = false;
     private static List<Integer> mapManager;

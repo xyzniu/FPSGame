@@ -198,18 +198,18 @@ public class Ground {
                 texture);
     }
     
-    public static boolean hitDetection(Geometry.Vector position) {
+    public static boolean hitDetection(Geometry.Vector position, float distance) {
         int x1 = Math.round(position.getX() + 0.1f);
         int x2 = Math.round(position.getX() - 0.1f);
         int z1 = Math.round(position.getZ() + 0.1f);
         int z2 = Math.round(position.getZ() - 0.1f);
         
-        return detectWallOrTree(position, x1, z1) || detectWallOrTree(position, x1, z2)
-                || detectWallOrTree(position, x2, z1) || detectWallOrTree(position, x2, z2);
+        return detectWallOrTree(position, x1, z1, distance) || detectWallOrTree(position, x1, z2, distance)
+                || detectWallOrTree(position, x2, z1, distance) || detectWallOrTree(position, x2, z2, distance);
         
     }
     
-    private static boolean detectWallOrTree(Geometry.Vector position, int x, int z) {
+    private static boolean detectWallOrTree(Geometry.Vector position, int x, int z, float mDistance) {
         if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
             return true;
         }
@@ -226,7 +226,7 @@ public class Ground {
                 float zz = position.getZ();
                 
                 double distance = Math.sqrt(Math.pow(xx - x, 2) + Math.pow(zz - z, 2));
-                if (distance > 0.20) {
+                if (distance > mDistance) {
                     return false;
                 } else {
                     return true;

@@ -28,7 +28,7 @@ public class Enemy {
     }
     
     public void update() {
-        if (Ground.hitDetection(position)) {
+        if (Ground.hitDetection(position, 0.5f)) {
             return;
         }
         if (distanceBetween(PlayerManager.getPosition(), position) < 1) {
