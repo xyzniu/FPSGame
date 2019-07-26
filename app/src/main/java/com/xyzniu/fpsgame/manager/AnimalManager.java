@@ -63,7 +63,7 @@ public class AnimalManager {
         Geometry.Vector position = animal.getPosition();
         setIdentityM(matrix.modelMatrix, 0);
         translateM(matrix.modelMatrix, 0, position.getX(), -0.5f, position.getZ());
-        scaleM(matrix.modelMatrix, 0, 0.5f, 0.5f, 0.5f);
+        scaleM(matrix.modelMatrix, 0, 0.6f, 0.6f, 0.6f);
         matrix.updateMatrix();
         
         program.setUniforms(matrix.modelMatrix,
@@ -78,7 +78,7 @@ public class AnimalManager {
         setIdentityM(matrix.modelMatrix, 0);
         translateM(matrix.modelMatrix, 0, position.getX(), animal.getTransY(), position.getZ());
         rotateM(matrix.modelMatrix, 0, animal.getRotateY(), 0f, 1f, 0f);
-        scaleM(matrix.modelMatrix, 0, 0.3f, 0.3f, 0.3f);
+        scaleM(matrix.modelMatrix, 0, 0.2f, 0.2f, 0.2f);
         matrix.updateMatrix();
         
         program.setUniforms(matrix.modelMatrix,

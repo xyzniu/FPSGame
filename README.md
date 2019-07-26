@@ -21,7 +21,8 @@ Sound
 > ShootSound: [Download](https://freesound.org/people/volivieri/sounds/37155/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)  
 > ZombieSound: [Download](https://freesound.org/people/mrh4hn/sounds/426627/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)  
 > CrunchSound: [Download](https://freesound.org/people/MATTIX/sounds/348112/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)  
-> ChickSound: [Download](https://freesound.org/people/Breviceps/sounds/468443/)
+> ChickSound: [Download](https://freesound.org/people/Breviceps/sounds/468443/)  
+> GrowlSound: [Download](https://freesound.org/people/Caap/sounds/427145/) / 
 
 Image
 > Heart_noncolor: [Download](https://www.flaticon.com/free-icon/like_149219) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
@@ -29,4 +30,5 @@ Image
 > Award_noncolor: [Download](https://www.flaticon.com/free-icon/award_1592707) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)    
 > Award_color: [Download](https://www.flaticon.com/free-icon/award_1592809) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
 > Game: [Download](https://www.flaticon.com/free-icon/game-controller_1670772) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
-> Settings: [Download](https://www.flaticon.com/free-icon/settings_148912) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)    
+> Settings: [Download](https://www.flaticon.com/free-icon/settings_148912) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
+> Rotate_camera: [Download](https://www.flaticon.com/free-icon/rotate-camera_189428) /     

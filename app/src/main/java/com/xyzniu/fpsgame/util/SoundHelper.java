@@ -21,7 +21,7 @@ public class SoundHelper {
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 5);
         soundMap = new HashMap<>();
         soundMap.put(SHOOT_SOUND, soundPool.load(context, R.raw.shoot_sound, 1));
-        soundMap.put(SCREAM_SOUND, soundPool.load(context, R.raw.male_scream, 1));
+        soundMap.put(SCREAM_SOUND, soundPool.load(context, R.raw.growl, 1));
         soundMap.put(CRUNCH_SOUND, soundPool.load(context, R.raw.crunch, 1));
         soundMap.put(CHICK_SOUND, soundPool.load(context, R.raw.chick_sound, 1));
     }

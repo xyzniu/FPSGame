@@ -10,12 +10,10 @@ import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
@@ -25,12 +23,15 @@ import com.xyzniu.fpsgame.renderer.Renderer;
 
 public class GameActivity extends Activity {
     
+    private static final String TAG = "GameActivity";
+    
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet = false;
     private Renderer objectRenderer;
     
     private Handler handler;
     private GameRunnable gameRunnable;
+    private int mapResourceId = 0;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,8 @@ public class GameActivity extends Activity {
                 || Build.MODEL.contains("Android SDK built for x86")));
         if (supportsEs2) {
             glSurfaceView.setEGLContextClientVersion(2);
-            int mapResourceId = getIntent().getIntExtra("mapResourceId", R.raw.map1);
-            objectRenderer = new Renderer(this, mapResourceId);
+            mapResourceId = getIntent().getIntExtra("mapResourceId", R.raw.map1);
+            objectRenderer = new Renderer(this, mapResourceId, glSurfaceView);
             glSurfaceView.setRenderer(objectRenderer);
             rendererSet = true;
             return true;
@@ -90,6 +91,7 @@ public class GameActivity extends Activity {
         initMovingButtons();
         initShootButton();
     }
+    
     
     private void initGameRunnable() {
         TextView killCountTextViwe = findViewById(R.id.kill_count);

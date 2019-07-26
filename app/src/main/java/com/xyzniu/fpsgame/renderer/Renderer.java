@@ -4,7 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
+import android.os.Handler;
 import android.os.SystemClock;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.*;
+import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.activity.GameRunnable;
 import com.xyzniu.fpsgame.activity.ResultActivity;
 import com.xyzniu.fpsgame.manager.*;
@@ -23,6 +29,7 @@ import static android.opengl.GLES20.*;
 public class Renderer implements GLSurfaceView.Renderer {
     
     private final Context context;
+    private GLSurfaceView view;
     private Ground ground;
     private EnemyManager enemyManager;
     private BulletManager bulletManager;
@@ -36,10 +43,12 @@ public class Renderer implements GLSurfaceView.Renderer {
     
     private Player player;
     private GameRunnable gameRunnable;
+    private ImageView cameraHintView;
     
-    public Renderer(Context context, int mapId) {
+    public Renderer(Context context, int mapId, GLSurfaceView view) {
         this.context = context;
         this.mapId = mapId;
+        this.view = view;
     }
     
     @Override
@@ -56,7 +65,26 @@ public class Renderer implements GLSurfaceView.Renderer {
         initTimer();
         
         renderSet = true;
+        Activity activity = (Activity) context;
+        cameraHintView = activity.findViewById(R.id.camera_hint);
+        if (mapId != R.raw.map1) {
+            cameraHintView.setVisibility(View.INVISIBLE);
+            cameraHintView = null;
+        }
+        
+        
     }
+    
+    /*
+    private void initToast() {
+        final Activity activity = (Activity) context;
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                makeText(context, "rotate camera", Toast.LENGTH_SHORT);
+            }
+        });
+    }*/
+    
     
     private void initTimer() {
         now = SystemClock.elapsedRealtime();
@@ -106,6 +134,10 @@ public class Renderer implements GLSurfaceView.Renderer {
             if (times >= 100) {
                 enemyManager.addEnemies();
                 times = 0;
+            }
+            if (cameraHintView != null && times == 50) {
+                cameraHintView.setVisibility(View.INVISIBLE);
+                cameraHintView = null;
             }
             PlayerManager.updateCamera();
             bulletManager.updateBullets();

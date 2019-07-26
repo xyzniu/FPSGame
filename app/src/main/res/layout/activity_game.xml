@@ -17,6 +17,24 @@
             app:layout_constraintTop_toTopOf="parent"
             android:orientation="vertical">
 
+        <!--    front sight    -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="o"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"/>
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/rotate_camera"
+                android:layout_centerInParent="true"
+                android:alpha="0.7"
+                android:background="@drawable/white"
+                android:id="@+id/camera_hint"/>
+
         <!--    Back, Health, Kill, Time    -->
         <LinearLayout
                 android:layout_width="match_parent"

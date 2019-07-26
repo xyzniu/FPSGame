@@ -37,7 +37,7 @@ public class Animal {
         } else {
             transY = -0.2f;
         }
-        return transY;
+        return -0.1f;
     }
     
     public float getRotateY() {

@@ -74,7 +74,7 @@ public class Enemy {
     public void bite() {
         if (rotation == 0 && wait <= 0) {
             rotation = 30;
-            wait = 30;
+            wait = 60;
             soundPool.play(soundMap.get(CRUNCH_SOUND), 1, 1, 0, 0, 1);
             PlayerManager.bitePlayer();
         } else {
