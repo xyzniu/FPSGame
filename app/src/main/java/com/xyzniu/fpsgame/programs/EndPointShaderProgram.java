@@ -11,6 +11,7 @@ public class EndPointShaderProgram extends ShaderProgram {
     private final int uLightColorLocation;
     private final int aPositionLocation;
     
+    
     protected EndPointShaderProgram(Context context) {
         super(context, R.raw.endpoint_vertex_shader, R.raw.endpoint_fragment_shader);
         
@@ -19,13 +20,9 @@ public class EndPointShaderProgram extends ShaderProgram {
         aPositionLocation = glGetAttribLocation(program, A_POSITION);
     }
     
-    public void setUniforms(float[] modelViewProjection, boolean hasCollectedAll) {
+    public void setUniforms(float[] modelViewProjection, float[] color) {
         glUniformMatrix4fv(uModelViewProjectionLocation, 1, false, modelViewProjection, 0);
-        if (hasCollectedAll) {
-            glUniform3fv(uLightColorLocation, 1, new float[]{0, 1, 0}, 0);
-        } else {
-            glUniform3fv(uLightColorLocation, 1, new float[]{1, 0, 0}, 0);
-        }
+        glUniform3fv(uLightColorLocation, 1, color, 0);
     }
     
     public int getPositionLocation() {

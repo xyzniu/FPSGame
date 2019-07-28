@@ -28,9 +28,7 @@ public class Enemy {
     }
     
     public void update() {
-        if (Ground.hitDetection(position, 0.5f)) {
-            return;
-        }
+        
         if (distanceBetween(PlayerManager.getPosition(), position) < 1) {
             bite();
             return;
@@ -38,8 +36,10 @@ public class Enemy {
         
         direction.normalize();
         direction.scale(ENEMY_STEP_LENGTH * delta);
-        position.add(direction);
-        
+        Geometry.Vector newPosition = Geometry.Vector.add(position, direction);
+        if (!Ground.hitDetectionForEnemy(newPosition)) {
+            position = newPosition;
+        }
     }
     
     public boolean isValid() {

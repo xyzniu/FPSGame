@@ -31,6 +31,13 @@ public class EnemyManager {
         enemies = new LinkedList<>();
         program = ShaderProgramManager.mainShaderProgram;
         this.mobSpawner = mobSpawner;
+        initEnemies();
+    }
+    
+    private void initEnemies() {
+        for (int i = 0; i < mobSpawner.size(); i++) {
+            enemies.add(new Enemy(mobSpawner.get(i)));
+        }
     }
     
     
@@ -94,23 +101,16 @@ public class EnemyManager {
         if (enoughEnemies()) {
             return;
         }
-        boolean notEnoughEnemies = notEnoughEnemies();
         Geometry.Vector mobSpawnerPosition;
         for (int i = 0; i < mobSpawner.size(); i++) {
             mobSpawnerPosition = mobSpawner.get(i);
             if (HitDetection.hitCamera(mobSpawnerPosition)) {
                 continue;
             }
-            if (notEnoughEnemies) {
-                enemies.add(new Enemy(mobSpawner.get(i)));
-            } else if (random.nextInt(10) < 3) {
-                enemies.add(new Enemy(mobSpawner.get(i)));
+            if (random.nextInt(10) < 3) {
+                enemies.add(new Enemy(mobSpawnerPosition));
             }
         }
-    }
-    
-    private boolean notEnoughEnemies() {
-        return enemies.size() < mobSpawner.size();
     }
     
     private boolean enoughEnemies() {

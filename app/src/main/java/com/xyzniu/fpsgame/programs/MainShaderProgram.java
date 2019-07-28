@@ -42,12 +42,20 @@ public class MainShaderProgram extends ShaderProgram {
                             float[] it_model,
                             float[] modelViewProjection,
                             int textureId) {
+        setUniforms(model, it_model, modelViewProjection, PlayerManager.getLightColor(), textureId);
+    }
+    
+    public void setUniforms(float[] model,
+                            float[] it_model,
+                            float[] modelViewProjection,
+                            float[] lightColor,
+                            int textureId) {
         glUniformMatrix4fv(uModelLocation, 1, false, model, 0);
         glUniformMatrix4fv(uITModelLocation, 1, false, it_model, 0);
         glUniformMatrix4fv(uModelViewProjectionLocation, 1, false, modelViewProjection, 0);
         
         glUniform3fv(uLightPositionLocation, 1, PlayerManager.getPositionVec3(), 0);
-        glUniform3fv(uLightColorLocation, 1, PlayerManager.getLightColor(), 0);
+        glUniform3fv(uLightColorLocation, 1, lightColor, 0);
         glUniform3fv(uViewPositionLocation, 1, PlayerManager.getPositionVec3(), 0);
         
         glActiveTexture(GL_TEXTURE0);

@@ -87,7 +87,7 @@ public class BulletManager {
         while (it.hasNext()) {
             bullet = it.next();
             bullet.update();
-            if (Ground.hitDetection(bullet.getPosition(), 0.2f)) {
+            if (Ground.hitDetection(bullet.getPosition())) {
                 bullet.setValid(false);
             }
             if (!bullet.isValid()) {

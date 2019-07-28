@@ -82,4 +82,5 @@ public class PlayerManager {
     public static void setStepLength(float stepLength) {
         camera.setStepLength(stepLength);
     }
+    
 }

@@ -38,10 +38,10 @@ public class ResultActivity extends Activity {
         killView.setText(String.format("Kill: %d", kill));
         if (win) {
             winOrLoseView.setText(YOUWIN);
-            awardView.setImageResource(R.drawable.award_color);
+            awardView.setImageResource(R.drawable.award);
         } else {
             winOrLoseView.setText(YOULOSE);
-            awardView.setImageResource(R.drawable.award_noncolor);
+            awardView.setImageResource(R.drawable.skeleton);
         }
     }
     

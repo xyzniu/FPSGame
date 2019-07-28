@@ -1,6 +1,7 @@
 package com.xyzniu.fpsgame.manager;
 
 import com.xyzniu.fpsgame.R;
+import com.xyzniu.fpsgame.config.Constants;
 import com.xyzniu.fpsgame.data.BasicShape;
 import com.xyzniu.fpsgame.data.VertexArray;
 import com.xyzniu.fpsgame.data.VertexData;
@@ -14,8 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.opengl.GLES20.glDepthMask;
+import static android.opengl.GLES20.glGetString;
 import static android.opengl.Matrix.*;
 import static com.xyzniu.fpsgame.config.Constants.*;
+import static com.xyzniu.fpsgame.util.TextureManager.arrowTexture;
 
 public class Ground {
     
@@ -31,6 +34,8 @@ public class Ground {
     private Geometry.Vector endPoint;
     private TreeManager treeManager;
     private AnimalManager animalManager;
+    private Model arrow;
+    private Model ruby;
     
     public Ground(Context context, int resourceId) {
         String map = TextResourceReader.readTextFileFromResource(context, resourceId);
@@ -53,6 +58,8 @@ public class Ground {
         square = new BasicShape(new VertexArray(VertexData.squareVertexData), 6);
         cube = new BasicShape(new VertexArray(VertexData.cubeWithoutUpAndDownSideVertexData), 24);
         house = new Model(context, R.raw.house);
+        arrow = new Model(context, R.raw.arrow);
+        ruby = new Model(context, R.raw.ruby);
         
         treeManager = new TreeManager(context);
         animalManager = new AnimalManager(context);
@@ -95,7 +102,6 @@ public class Ground {
     public void drawGround() {
         mainShaderProgram.useProgram();
         glDepthMask(true);
-        // draw the opaque first
         int startX = 0;
         int startZ = 0;
         for (int i = 0; i < materials.length; i++) {
@@ -128,6 +134,9 @@ public class Ground {
                         treeManager.draw(TREE_3, startX, startZ);
                         drawGround(startX, startZ, TextureManager.soilTexture);
                         break;
+                    case MOB_SPAWNER:
+                        drawRuby(startX, startZ);
+                        drawGround(startX, startZ, TextureManager.grassTexture);
                     case NOTHING:
                         break;
                     default:
@@ -137,10 +146,20 @@ public class Ground {
             }
         }
         animalManager.draw();
-        // draw the transparent
-        glDepthMask(false);
-        drawEndPoint();
-        glDepthMask(true);
+    }
+    
+    private void drawRuby(int startX, int startZ) {
+        ruby.bindData(mainShaderProgram);
+        setIdentityM(matrix.modelMatrix, 0);
+        translateM(matrix.modelMatrix, 0, startX, -0.5f, startZ);
+        matrix.updateMatrix();
+        
+        mainShaderProgram.setUniforms(matrix.modelMatrix,
+                matrix.it_modelMatrix,
+                matrix.modelViewProjectionMatrix,
+                Constants.YELLOW,
+                TextureManager.rubyTexture);
+        ruby.draw();
     }
     
     private void drawHouse(int startX, int startZ) {
@@ -158,7 +177,7 @@ public class Ground {
         house.draw();
     }
     
-    private void drawEndPoint() {
+    public void drawEndPoint() {
         int startX = (int) endPoint.getX();
         int startZ = (int) endPoint.getZ();
         endPointShaderProgram.useProgram();
@@ -168,8 +187,23 @@ public class Ground {
             translateM(matrix.modelMatrix, 0, startX, startY, startZ);
             scaleM(matrix.modelMatrix, 0, 0.9f, 1f, 0.9f);
             matrix.updateMatrix();
-            endPointShaderProgram.setUniforms(matrix.modelViewProjectionMatrix, animalManager.hasCollectedAll());
+            if (animalManager.hasCollectedAll()) {
+                endPointShaderProgram.setUniforms(matrix.modelViewProjectionMatrix, GREEN);
+            } else {
+                endPointShaderProgram.setUniforms(matrix.modelViewProjectionMatrix, RED);
+            }
             cube.draw();
+        }
+        
+        if (animalManager.hasCollectedAll()) {
+            arrow.bindData(endPointShaderProgram);
+            
+            setIdentityM(matrix.modelMatrix, 0);
+            translateM(matrix.modelMatrix, 0, startX, 0f, startZ);
+            scaleM(matrix.modelMatrix, 0, 0.2f, 0.2f, 0.2f);
+            matrix.updateMatrix();
+            endPointShaderProgram.setUniforms(matrix.modelViewProjectionMatrix, WHITE);
+            arrow.draw();
         }
     }
     
@@ -198,6 +232,49 @@ public class Ground {
                 texture);
     }
     
+    public static boolean hitDetection(Geometry.Vector position) {
+        int[] xzs = getXZ(position);
+        return detectWallOrTree(position, xzs[0], xzs[2]) || detectWallOrTree(position, xzs[0], xzs[3])
+                || detectWallOrTree(position, xzs[1], xzs[2]) || detectWallOrTree(position, xzs[1], xzs[3]);
+        
+    }
+    
+    private static int[] getXZ(Geometry.Vector position) {
+        return new int[]{
+                Math.round(position.getX() + 0.1f),
+                Math.round(position.getX() - 0.1f),
+                Math.round(position.getZ() + 0.1f),
+                Math.round(position.getZ() - 0.1f)
+        };
+    }
+    
+    public static boolean hitDetectionForEnemy(Geometry.Vector position) {
+        int[] xzs = getXZ(position);
+        return detectWall(position, xzs[0], xzs[2]) || detectWall(position, xzs[0], xzs[3])
+                || detectWall(position, xzs[1], xzs[2]) || detectWall(position, xzs[1], xzs[3]);
+        
+    }
+    
+    private static boolean detectWall(Geometry.Vector position, int x, int z) {
+        if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
+            return true;
+        }
+        
+        switch (materials[z][x]) {
+            case WALL:
+            case HOUSE:
+            case TREE_3:
+            case NOTHING:
+            case TREE_1:
+            case TREE_2:
+                return true;
+            default:
+                return false;
+        }
+        
+    }
+    
+    /*
     public static boolean hitDetection(Geometry.Vector position, float distance) {
         int x1 = Math.round(position.getX() + 0.1f);
         int x2 = Math.round(position.getX() - 0.1f);
@@ -209,7 +286,9 @@ public class Ground {
         
     }
     
-    private static boolean detectWallOrTree(Geometry.Vector position, int x, int z, float mDistance) {
+     */
+    
+    private static boolean detectWallOrTree(Geometry.Vector position, int x, int z) {
         if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
             return true;
         }
@@ -226,7 +305,7 @@ public class Ground {
                 float zz = position.getZ();
                 
                 double distance = Math.sqrt(Math.pow(xx - x, 2) + Math.pow(zz - z, 2));
-                if (distance > mDistance) {
+                if (distance > 0.2f) {
                     return false;
                 } else {
                     return true;

@@ -20,5 +20,11 @@ public class Constants {
     public static final int SWAMP = 10;
     public static final int ANIMAL = 11;
     public static final int NOTHING = 13;
+    
+    
+    public static final float[] WHITE = new float[]{1, 1, 1};
+    public static final float[] RED = new float[]{1, 0, 0};
+    public static final float[] GREEN = new float[]{0, 1, 0};
+    public static final float[] YELLOW = new float[]{1, 1, 0};
 }
 

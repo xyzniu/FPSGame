@@ -2,6 +2,7 @@ package com.xyzniu.fpsgame.util;
 
 import android.content.Context;
 import com.xyzniu.fpsgame.data.VertexArray;
+import com.xyzniu.fpsgame.programs.EndPointShaderProgram;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.util.ObjectLoader;
 
@@ -37,6 +38,10 @@ public class Model {
         positions.setVertexAttribPointer(0, program.getPositionLocation(), POSITION_COMPONENT_COUNT, 0);
         normals.setVertexAttribPointer(0, program.getNormalLocation(), NORMAL_COMPONENT_COUNT, 0);
         textureCoordinates.setVertexAttribPointer(0, program.getTextureCoordinatesLocation(), TEXTURE_COMPONENT_COUNT, 0);
+    }
+    
+    public void bindData(EndPointShaderProgram program) {
+        positions.setVertexAttribPointer(0, program.getPositionLocation(), POSITION_COMPONENT_COUNT, 0);
     }
     
     public void draw() {

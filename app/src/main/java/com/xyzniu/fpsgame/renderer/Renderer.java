@@ -122,10 +122,17 @@ public class Renderer implements GLSurfaceView.Renderer {
         now = SystemClock.elapsedRealtime();
         delta = elapsed / 10f;
         elapsedtime += elapsed;
-        
+    
+    
+        // draw the opaque first
         ground.drawGround();
         bulletManager.draw();
         enemyManager.draw();
+        
+        // draw the transparent
+        glDepthMask(false);
+        ground.drawEndPoint();
+        glDepthMask(true);
         
         
         if (elapsedtime > 20) {

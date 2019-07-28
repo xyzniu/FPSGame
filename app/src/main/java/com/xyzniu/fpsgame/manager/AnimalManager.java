@@ -63,6 +63,7 @@ public class AnimalManager {
         Geometry.Vector position = animal.getPosition();
         setIdentityM(matrix.modelMatrix, 0);
         translateM(matrix.modelMatrix, 0, position.getX(), -0.5f, position.getZ());
+        rotateM(matrix.modelMatrix, 0, getRotation(position, PlayerManager.getPosition()) + 90, 0f, 1f, 0f);
         scaleM(matrix.modelMatrix, 0, 0.6f, 0.6f, 0.6f);
         matrix.updateMatrix();
         
@@ -95,6 +96,12 @@ public class AnimalManager {
     
     public boolean hasCollectedAll() {
         return collected >= animals.size();
+    }
+    
+    private float getRotation(Geometry.Vector position, Geometry.Vector uPosition) {
+        Geometry.Vector direction = Geometry.Vector.sub(uPosition, position);
+        double radian = (Math.atan2(direction.getX(), direction.getZ()) - Math.atan2(0, 1));
+        return (float) Math.toDegrees(radian);
     }
     
 }

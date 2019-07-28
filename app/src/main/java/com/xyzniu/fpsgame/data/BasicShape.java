@@ -27,33 +27,30 @@ public class BasicShape {
         this.numFaces = numFaces;
     }
     
-    public void bindData(ShaderProgram shaderProgram) {
-        if (shaderProgram instanceof MainShaderProgram) {
-            MainShaderProgram program = (MainShaderProgram) shaderProgram;
-            vertexArray.setVertexAttribPointer(
-                    0,
-                    program.getPositionLocation(),
-                    POSITION_COMPONENT_COUNT,
-                    STRIDE);
-            vertexArray.setVertexAttribPointer(
-                    POSITION_COMPONENT_COUNT,
-                    program.getTextureCoordinatesLocation(),
-                    TEXTURE_COMPONENT_COUNT,
-                    STRIDE);
-            vertexArray.setVertexAttribPointer(
-                    POSITION_COMPONENT_COUNT + TEXTURE_COMPONENT_COUNT,
-                    program.getNormalLocation(),
-                    NORMAL_COMPONENT_COUNT,
-                    STRIDE);
-        } else if (shaderProgram instanceof EndPointShaderProgram) {
-            EndPointShaderProgram program = (EndPointShaderProgram) shaderProgram;
-            vertexArray.setVertexAttribPointer(
-                    0,
-                    program.getPositionLocation(),
-                    POSITION_COMPONENT_COUNT,
-                    STRIDE);
-        }
-        
+    public void bindData(MainShaderProgram program) {
+        vertexArray.setVertexAttribPointer(
+                0,
+                program.getPositionLocation(),
+                POSITION_COMPONENT_COUNT,
+                STRIDE);
+        vertexArray.setVertexAttribPointer(
+                POSITION_COMPONENT_COUNT,
+                program.getTextureCoordinatesLocation(),
+                TEXTURE_COMPONENT_COUNT,
+                STRIDE);
+        vertexArray.setVertexAttribPointer(
+                POSITION_COMPONENT_COUNT + TEXTURE_COMPONENT_COUNT,
+                program.getNormalLocation(),
+                NORMAL_COMPONENT_COUNT,
+                STRIDE);
+    }
+    
+    public void bindData(EndPointShaderProgram program) {
+        vertexArray.setVertexAttribPointer(
+                0,
+                program.getPositionLocation(),
+                POSITION_COMPONENT_COUNT,
+                STRIDE);
     }
     
     public void draw() {
