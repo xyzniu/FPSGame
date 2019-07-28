@@ -74,6 +74,7 @@ public class AnimalManager {
         
         animalModel.draw();
         
+        
         arrowModel.bindData(program);
         
         setIdentityM(matrix.modelMatrix, 0);

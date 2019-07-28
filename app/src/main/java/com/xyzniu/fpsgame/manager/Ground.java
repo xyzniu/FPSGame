@@ -250,12 +250,12 @@ public class Ground {
     
     public static boolean hitDetectionForEnemy(Geometry.Vector position) {
         int[] xzs = getXZ(position);
-        return detectWall(position, xzs[0], xzs[2]) || detectWall(position, xzs[0], xzs[3])
-                || detectWall(position, xzs[1], xzs[2]) || detectWall(position, xzs[1], xzs[3]);
+        return detectWall(xzs[0], xzs[2]) || detectWall(xzs[0], xzs[3])
+                || detectWall(xzs[1], xzs[2]) || detectWall(xzs[1], xzs[3]);
         
     }
     
-    private static boolean detectWall(Geometry.Vector position, int x, int z) {
+    private static boolean detectWall(int x, int z) {
         if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
             return true;
         }
@@ -274,19 +274,6 @@ public class Ground {
         
     }
     
-    /*
-    public static boolean hitDetection(Geometry.Vector position, float distance) {
-        int x1 = Math.round(position.getX() + 0.1f);
-        int x2 = Math.round(position.getX() - 0.1f);
-        int z1 = Math.round(position.getZ() + 0.1f);
-        int z2 = Math.round(position.getZ() - 0.1f);
-        
-        return detectWallOrTree(position, x1, z1, distance) || detectWallOrTree(position, x1, z2, distance)
-                || detectWallOrTree(position, x2, z1, distance) || detectWallOrTree(position, x2, z2, distance);
-        
-    }
-    
-     */
     
     private static boolean detectWallOrTree(Geometry.Vector position, int x, int z) {
         if (z < 0 || z >= materials.length || x < 0 || x >= materials[0].length) {
@@ -298,6 +285,7 @@ public class Ground {
             case HOUSE:
             case TREE_3:
             case NOTHING:
+            case MOB_SPAWNER:
                 return true;
             case TREE_1:
             case TREE_2:
