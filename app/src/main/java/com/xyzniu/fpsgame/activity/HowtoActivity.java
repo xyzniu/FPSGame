@@ -15,11 +15,9 @@ public class HowtoActivity extends Activity {
     public static volatile int num = 0;
     
     public static final int[] imgs = new int[]{
-            R.drawable.directions,
-            R.drawable.drag,
-            R.drawable.attack,
-            R.drawable.collections,
-            R.drawable.win
+            R.drawable.instructions_1,
+            R.drawable.instructions_2,
+            R.drawable.instructions_3,
     };
     
     

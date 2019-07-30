@@ -29,7 +29,6 @@ import static android.opengl.GLES20.*;
 public class Renderer implements GLSurfaceView.Renderer {
     
     private final Context context;
-    private GLSurfaceView view;
     private Ground ground;
     private EnemyManager enemyManager;
     private BulletManager bulletManager;
@@ -43,12 +42,10 @@ public class Renderer implements GLSurfaceView.Renderer {
     
     private Player player;
     private GameRunnable gameRunnable;
-    private ImageView cameraHintView;
     
-    public Renderer(Context context, int mapId, GLSurfaceView view) {
+    public Renderer(Context context, int mapId) {
         this.context = context;
         this.mapId = mapId;
-        this.view = view;
     }
     
     @Override
@@ -66,11 +63,6 @@ public class Renderer implements GLSurfaceView.Renderer {
         
         renderSet = true;
         Activity activity = (Activity) context;
-        cameraHintView = activity.findViewById(R.id.camera_hint);
-        if (mapId != R.raw.map1) {
-            cameraHintView.setVisibility(View.INVISIBLE);
-            cameraHintView = null;
-        }
         
         
     }
@@ -138,13 +130,9 @@ public class Renderer implements GLSurfaceView.Renderer {
         if (elapsedtime > 20) {
             elapsedtime = 0;
             times += 1;
-            if (times >= 100) {
+            if (times >= 300) {
                 enemyManager.addEnemies();
                 times = 0;
-            }
-            if (cameraHintView != null && times == 50) {
-                cameraHintView.setVisibility(View.INVISIBLE);
-                cameraHintView = null;
             }
             PlayerManager.updateCamera();
             bulletManager.updateBullets();

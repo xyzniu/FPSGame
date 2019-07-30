@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
                     android:id="@+id/instruction"
-                    android:src="@drawable/directions"/>
+                    android:src="@drawable/instructions_1"/>
 
             <Button
                     android:layout_width="wrap_content"

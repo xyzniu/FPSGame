@@ -24,16 +24,7 @@
                 android:layout_centerInParent="true"
                 android:text="o"
                 android:textColor="#FFFFFF"
-                android:textSize="10sp"/>
-
-        <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/rotate_camera"
-                android:layout_centerInParent="true"
-                android:alpha="0.7"
-                android:background="@drawable/white"
-                android:id="@+id/camera_hint"/>
+                android:textSize="15sp"/>
 
         <!--    Back, Health, Kill, Time    -->
         <LinearLayout

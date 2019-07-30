@@ -4,13 +4,11 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
@@ -18,7 +16,6 @@ import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
 import com.xyzniu.fpsgame.listener.ShootTouchListener;
-import com.xyzniu.fpsgame.pojo.Camera;
 import com.xyzniu.fpsgame.renderer.Renderer;
 
 public class GameActivity extends Activity {
@@ -26,6 +23,7 @@ public class GameActivity extends Activity {
     private static final String TAG = "GameActivity";
     
     private GLSurfaceView glSurfaceView;
+    private View view;
     private boolean rendererSet = false;
     private Renderer objectRenderer;
     
@@ -62,7 +60,7 @@ public class GameActivity extends Activity {
         if (supportsEs2) {
             glSurfaceView.setEGLContextClientVersion(2);
             mapResourceId = getIntent().getIntExtra("mapResourceId", R.raw.map1);
-            objectRenderer = new Renderer(this, mapResourceId, glSurfaceView);
+            objectRenderer = new Renderer(this, mapResourceId);
             glSurfaceView.setRenderer(objectRenderer);
             rendererSet = true;
             return true;
@@ -79,7 +77,7 @@ public class GameActivity extends Activity {
                         glSurfaceView.getLayoutParams().WRAP_CONTENT));
         
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        final View view = layoutInflater.inflate(R.layout.activity_game, null);
+        view = layoutInflater.inflate(R.layout.activity_game, null);
         
         addContentView(view, new ActionBar.LayoutParams(glSurfaceView.getLayoutParams().WRAP_CONTENT,
                 glSurfaceView.getLayoutParams().WRAP_CONTENT));

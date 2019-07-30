@@ -15,7 +15,7 @@ public class Camera {
     
     private volatile float[] viewMatrix = new float[16];
     private Geometry.Vector position;
-    private Geometry.Vector direction;
+    private volatile Geometry.Vector direction;
     private final Geometry.Vector UP = new Geometry.Vector(0, 1, 0);
     private float rotation = 0;
     private Geometry.Vector endPoint;

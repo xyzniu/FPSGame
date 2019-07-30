@@ -107,7 +107,7 @@ public class EnemyManager {
             if (HitDetection.hitCamera(mobSpawnerPosition)) {
                 continue;
             }
-            if (random.nextInt(10) < 3) {
+            if (random.nextInt(10) < 5) {
                 enemies.add(new Enemy(mobSpawnerPosition));
             }
         }

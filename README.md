@@ -4,9 +4,7 @@
 This game is a first-person shoot game designed and conducted by @xyzniu.
 
 ## ToDo List
-1. Add content to other pages (howto)
-2. Add more map
-3. Make it fun!!! 
+1. Add more map  
 
 ## License
 
@@ -16,7 +14,8 @@ Object
 > Tree: [Download](https://sketchfab.com/3d-models/low-poly-trees-2e70c34af8994852acd4b9ffce596336) / [LicenseLink](https://creativecommons.org/licenses/by/4.0/)  
 > Apple: [Download](https://free3d.com/3d-model/apple-84734.html) /  
 > Arrow: [Download](https://clara.io/view/35772fe9-079f-4b9c-ac00-3823ad61b12a) /  
-> Ruby: [Download](https://sketchfab.com/3d-models/ruby-stack-4f0c04c7dd72459ba1713cf66446f00e) /      
+> Ruby: [Download](https://sketchfab.com/3d-models/ruby-stack-4f0c04c7dd72459ba1713cf66446f00e) /
+> Chick: [Download](https://sketchfab.com/3d-models/happy-chick-eac715e9aa034efd9f7ef3a584503041) /       
 
 Sound  
 > ShootSound: [Download](https://freesound.org/people/volivieri/sounds/37155/) / [LicenseLink](https://creativecommons.org/licenses/by/3.0/)  
@@ -32,4 +31,3 @@ Image
 > Skeleton : [Download](https://www.flaticon.com/free-icon/fish-skeleton-hand-drawn-bones_57985#term=skeleton&page=1&position=40)  
 > Game: [Download](https://www.flaticon.com/free-icon/game-controller_1670772) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
 > Settings: [Download](https://www.flaticon.com/free-icon/settings_148912) / [LicenseLink](https://file000.flaticon.com/downloads/license/license.pdf)  
-> Rotate_camera: [Download](https://www.flaticon.com/free-icon/rotate-camera_189428) /     

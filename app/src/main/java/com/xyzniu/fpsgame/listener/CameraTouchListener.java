@@ -1,5 +1,6 @@
 package com.xyzniu.fpsgame.listener;
 
+
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +17,6 @@ public class CameraTouchListener implements View.OnTouchListener {
     
     @Override
     public boolean onTouch(View v, final MotionEvent event) {
-        
         if (event != null) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 prevX = event.getX();
@@ -33,5 +33,7 @@ public class CameraTouchListener implements View.OnTouchListener {
             return true;
         }
         return false;
+        
     }
 }
+
