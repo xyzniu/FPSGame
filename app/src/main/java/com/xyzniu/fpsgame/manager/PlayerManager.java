@@ -14,9 +14,9 @@ public class PlayerManager {
     public static volatile boolean isMovingLeft = false;
     public static volatile boolean isMovingRight = false;
     
-    public static void setPlayer(Player player, Camera camera) {
-        PlayerManager.player = player;
-        PlayerManager.camera = camera;
+    public static void init() {
+        PlayerManager.player = new Player(3);
+        PlayerManager.camera = new Camera();
         isMovingForward = false;
         isMovingBackward = false;
         isMovingLeft = false;
@@ -83,4 +83,11 @@ public class PlayerManager {
         camera.setStepLength(stepLength);
     }
     
+    public static boolean dead() {
+        return player.dead();
+    }
+    
+    public static int getKill() {
+        return player.getKill();
+    }
 }

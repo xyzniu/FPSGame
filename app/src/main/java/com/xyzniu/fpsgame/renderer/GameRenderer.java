@@ -4,18 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
-import android.os.Handler;
 import android.os.SystemClock;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.*;
-import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.activity.GameRunnable;
 import com.xyzniu.fpsgame.activity.ResultActivity;
 import com.xyzniu.fpsgame.manager.*;
-import com.xyzniu.fpsgame.pojo.Camera;
-import com.xyzniu.fpsgame.pojo.Player;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 import com.xyzniu.fpsgame.util.Matrix;
 import com.xyzniu.fpsgame.util.SoundHelper;
@@ -26,7 +18,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import static android.opengl.GLES20.*;
 
-public class Renderer implements GLSurfaceView.Renderer {
+public class GameRenderer implements GLSurfaceView.Renderer {
     
     private final Context context;
     private Ground ground;
@@ -40,10 +32,9 @@ public class Renderer implements GLSurfaceView.Renderer {
     private int times;
     private int mapId;
     
-    private Player player;
     private GameRunnable gameRunnable;
     
-    public Renderer(Context context, int mapId) {
+    public GameRenderer(Context context, int mapId) {
         this.context = context;
         this.mapId = mapId;
     }
@@ -56,27 +47,19 @@ public class Renderer implements GLSurfaceView.Renderer {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
-        initPlayer();
         loadResources(context);
-        initMap(context);
+        initManager(context);
         initTimer();
         
         renderSet = true;
-        Activity activity = (Activity) context;
-        
-        
     }
     
-    /*
-    private void initToast() {
-        final Activity activity = (Activity) context;
-        activity.runOnUiThread(new Runnable() {
-            public void run() {
-                makeText(context, "rotate camera", Toast.LENGTH_SHORT);
-            }
-        });
-    }*/
-    
+    private void initManager(Context context) {
+        PlayerManager.init();
+        ground = new Ground(context, mapId);
+        enemyManager = new EnemyManager(context, ground.getMobSpawner());
+        bulletManager = new BulletManager(context);
+    }
     
     private void initTimer() {
         now = SystemClock.elapsedRealtime();
@@ -84,21 +67,10 @@ public class Renderer implements GLSurfaceView.Renderer {
         times = 150;
     }
     
-    private void initMap(Context context) {
-        ground = new Ground(context, mapId);
-        enemyManager = new EnemyManager(context, ground.getMobSpawner());
-        bulletManager = new BulletManager(context);
-    }
-    
     private void loadResources(Context context) {
         ShaderProgramManager.init(context);
         TextureManager.init(context);
         SoundHelper.init(context);
-    }
-    
-    private void initPlayer() {
-        player = new Player(3);
-        PlayerManager.setPlayer(player, new Camera());
     }
     
     @Override
@@ -114,12 +86,11 @@ public class Renderer implements GLSurfaceView.Renderer {
         now = SystemClock.elapsedRealtime();
         delta = elapsed / 10f;
         elapsedtime += elapsed;
-    
-    
+        
         // draw the opaque first
         ground.drawGround();
-        bulletManager.draw();
-        enemyManager.draw();
+        bulletManager.drawBullets();
+        enemyManager.drawEnemies();
         
         // draw the transparent
         glDepthMask(false);
@@ -140,7 +111,7 @@ public class Renderer implements GLSurfaceView.Renderer {
             HitDetection.hitDetection(bulletManager.getBullets(), enemyManager.getEnemies());
             
             // check player
-            if (player.dead()) {
+            if (PlayerManager.dead() || gameRunnable.getTimeArray()[0] >= 60) {
                 dead();
             }
         }
@@ -150,22 +121,22 @@ public class Renderer implements GLSurfaceView.Renderer {
         }
     }
     
-    private void goToActivity(boolean win) {
+    private void goToResultActivity(boolean win) {
         Intent activity = new Intent();
         activity.setClass(this.context, ResultActivity.class);
         activity.putExtra(ResultActivity.TIME, gameRunnable.getTime());
         activity.putExtra(ResultActivity.WIN, win);
-        activity.putExtra(ResultActivity.KILL, player.getKill());
+        activity.putExtra(ResultActivity.KILL, PlayerManager.getKill());
         context.startActivity(activity);
         ((Activity) context).finish();
     }
     
     private void dead() {
-        goToActivity(false);
+        goToResultActivity(false);
     }
     
     private void win() {
-        goToActivity(true);
+        goToResultActivity(true);
     }
     
     public void setGameRunnable(GameRunnable gameRunnable) {

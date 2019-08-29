@@ -31,7 +31,7 @@ public class Ground {
     private Matrix matrix = new Matrix();
     private List<Geometry.Vector> mobSpawner = new ArrayList<>();
     private Model house;
-    private Geometry.Vector endPoint;
+    private Geometry.Vector endpoint;
     private TreeManager treeManager;
     private AnimalManager animalManager;
     private Model arrow;
@@ -76,7 +76,7 @@ public class Ground {
                         startPoint = new Geometry.Vector(j, -0.3f, i);
                         break;
                     case END_POINT:
-                        endPoint = computeVector(i, j);
+                        endpoint = computeVector(i, j);
                         break;
                     case MOB_SPAWNER:
                         mobSpawner.add(computeVector(i, j));
@@ -88,7 +88,7 @@ public class Ground {
             }
         }
         PlayerManager.setStartPoint(startPoint);
-        PlayerManager.setEndPoint(endPoint);
+        PlayerManager.setEndPoint(endpoint);
     }
     
     private Geometry.Vector computeVector(int i, int j) {
@@ -145,7 +145,7 @@ public class Ground {
                 }
             }
         }
-        animalManager.draw();
+        animalManager.drawAnimals();
     }
     
     private void drawRuby(int startX, int startZ) {
@@ -178,8 +178,8 @@ public class Ground {
     }
     
     public void drawEndPoint() {
-        int startX = (int) endPoint.getX();
-        int startZ = (int) endPoint.getZ();
+        int startX = (int) endpoint.getX();
+        int startZ = (int) endpoint.getZ();
         endPointShaderProgram.useProgram();
         cube.bindData(endPointShaderProgram);
         for (int startY = 0; startY < 5; startY++) {

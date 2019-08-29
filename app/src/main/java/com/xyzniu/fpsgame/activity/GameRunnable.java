@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.manager.PlayerManager;
-import com.xyzniu.fpsgame.renderer.Renderer;
+import com.xyzniu.fpsgame.renderer.GameRenderer;
 
 public class GameRunnable implements Runnable {
     
@@ -30,7 +30,7 @@ public class GameRunnable implements Runnable {
     public void run() {
         timerTextView.setText(getTime());
         
-        if (Renderer.renderSet) {
+        if (GameRenderer.renderSet) {
             killCountTextView.setText(String.format("Kill: %d", PlayerManager.getKillCount()));
             if (hp != PlayerManager.getHp()) {
                 hp = PlayerManager.getHp();
@@ -46,11 +46,19 @@ public class GameRunnable implements Runnable {
         handler.postDelayed(this, 500);
     }
     
-    public String getTime() {
+    public int[] getTimeArray(){
         long millis = SystemClock.elapsedRealtime() - startTime;
         int seconds = (int) millis / 1000;
         int minutes = seconds / 60;
         seconds = seconds % 60;
-        return String.format("Time: %02d:%02d", minutes, seconds);
+        int[] rst = new int[2];
+        rst[0] = minutes;
+        rst[1] = seconds;
+        return rst;
+    }
+    
+    public String getTime() {
+        int[] rst = getTimeArray();
+        return String.format("Time: %02d:%02d", rst[0], rst[1]);
     }
 }

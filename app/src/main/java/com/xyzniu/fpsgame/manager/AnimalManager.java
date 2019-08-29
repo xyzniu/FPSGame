@@ -22,7 +22,6 @@ public class AnimalManager {
     private Model animalModel;
     private Model arrowModel;
     private Matrix matrix = new Matrix();
-    private int animalTexture;
     private int arrowTexture;
     private List<Animal> animals;
     private MainShaderProgram program;
@@ -30,7 +29,6 @@ public class AnimalManager {
     
     public AnimalManager(Context context) {
         animalModel = new Model(context, R.raw.chick);
-        animalTexture = TextureManager.chickTexture;
         arrowModel = new Model(context, R.raw.arrow);
         arrowTexture = TextureManager.arrowTexture;
         animals = new LinkedList<>();
@@ -38,7 +36,7 @@ public class AnimalManager {
         collected = 0;
     }
     
-    public void draw() {
+    public void drawAnimals() {
         Geometry.Vector uPosition = PlayerManager.getPosition();
         
         program.useProgram();
@@ -70,7 +68,7 @@ public class AnimalManager {
         program.setUniforms(matrix.modelMatrix,
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
-                animalTexture);
+                TextureManager.chickTexture);
         
         animalModel.draw();
         

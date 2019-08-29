@@ -6,13 +6,13 @@ import com.xyzniu.fpsgame.manager.PlayerManager;
 
 import static com.xyzniu.fpsgame.util.Geometry.distanceBetween;
 import static com.xyzniu.fpsgame.util.SoundHelper.*;
-import static com.xyzniu.fpsgame.renderer.Renderer.delta;
+import static com.xyzniu.fpsgame.renderer.GameRenderer.delta;
 import static com.xyzniu.fpsgame.config.Constants.*;
 
 public class Enemy {
     
     private int hp;
-    private volatile boolean valid;
+    private volatile boolean isValid;
     private Geometry.Vector position;
     private Geometry.Vector direction;
     private int rotation;
@@ -21,7 +21,7 @@ public class Enemy {
     public Enemy(Geometry.Vector position) {
         this.position = new Geometry.Vector(position);
         this.direction = new Geometry.Vector(0, 0, 1);
-        valid = true;
+        isValid = true;
         hp = 3;
         rotation = 0;
         wait = 0;
@@ -43,7 +43,7 @@ public class Enemy {
     }
     
     public boolean isValid() {
-        return valid;
+        return isValid;
     }
     
     public Geometry.Vector getPosition() {
@@ -53,7 +53,7 @@ public class Enemy {
     public boolean hit() {
         hp -= 1;
         if (hp <= 0) {
-            valid = false;
+            isValid = false;
             return true;
         }
         return false;

@@ -18,7 +18,6 @@ import static android.opengl.Matrix.setIdentityM;
 public class EnemyManager {
     
     public Model enemyModel;
-    private int enemyTexture;
     private List<Enemy> enemies;
     private List<Geometry.Vector> mobSpawner;
     private MainShaderProgram program;
@@ -27,7 +26,6 @@ public class EnemyManager {
     
     public EnemyManager(Context context, List<Geometry.Vector> mobSpawner) {
         enemyModel = new Model(context, R.raw.fox);
-        enemyTexture = TextureManager.foxTexture;
         enemies = new LinkedList<>();
         program = ShaderProgramManager.mainShaderProgram;
         this.mobSpawner = mobSpawner;
@@ -41,7 +39,7 @@ public class EnemyManager {
     }
     
     
-    public void draw() {
+    public void drawEnemies() {
         program.useProgram();
         enemyModel.bindData(program);
         
@@ -72,7 +70,7 @@ public class EnemyManager {
         program.setUniforms(matrix.modelMatrix,
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
-                enemyTexture);
+                TextureManager.foxTexture);
         
         enemyModel.draw();
     }

@@ -37,6 +37,6 @@ public class MovingTouchListener implements View.OnTouchListener {
                 break;
         }
         
-        return true;
+        return false;
     }
 }

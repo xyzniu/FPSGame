@@ -9,7 +9,7 @@ import static com.xyzniu.fpsgame.config.Configuration.FLIP_HORIZONTAL;
 import static com.xyzniu.fpsgame.util.Geometry.distanceBetween;
 import static com.xyzniu.fpsgame.manager.PlayerManager.*;
 import static com.xyzniu.fpsgame.manager.PlayerManager.isMovingRight;
-import static com.xyzniu.fpsgame.renderer.Renderer.delta;
+import static com.xyzniu.fpsgame.renderer.GameRenderer.delta;
 
 public class Camera {
     

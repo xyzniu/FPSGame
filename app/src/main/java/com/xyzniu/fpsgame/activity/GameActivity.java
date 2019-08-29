@@ -16,7 +16,7 @@ import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.listener.CameraTouchListener;
 import com.xyzniu.fpsgame.listener.MovingTouchListener;
 import com.xyzniu.fpsgame.listener.ShootTouchListener;
-import com.xyzniu.fpsgame.renderer.Renderer;
+import com.xyzniu.fpsgame.renderer.GameRenderer;
 
 public class GameActivity extends Activity {
     
@@ -25,7 +25,7 @@ public class GameActivity extends Activity {
     private GLSurfaceView glSurfaceView;
     private View view;
     private boolean rendererSet = false;
-    private Renderer objectRenderer;
+    private GameRenderer objectRenderer;
     
     private Handler handler;
     private GameRunnable gameRunnable;
@@ -60,7 +60,7 @@ public class GameActivity extends Activity {
         if (supportsEs2) {
             glSurfaceView.setEGLContextClientVersion(2);
             mapResourceId = getIntent().getIntExtra("mapResourceId", R.raw.map1);
-            objectRenderer = new Renderer(this, mapResourceId);
+            objectRenderer = new GameRenderer(this, mapResourceId);
             glSurfaceView.setRenderer(objectRenderer);
             rendererSet = true;
             return true;

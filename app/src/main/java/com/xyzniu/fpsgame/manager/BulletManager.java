@@ -3,7 +3,6 @@ package com.xyzniu.fpsgame.manager;
 import android.content.Context;
 import com.xyzniu.fpsgame.R;
 import com.xyzniu.fpsgame.pojo.Bullet;
-import com.xyzniu.fpsgame.pojo.Player;
 import com.xyzniu.fpsgame.programs.MainShaderProgram;
 import com.xyzniu.fpsgame.programs.ShaderProgramManager;
 import com.xyzniu.fpsgame.util.Geometry;
@@ -22,14 +21,12 @@ public class BulletManager {
     private Model appleModel;
     private MainShaderProgram mainShaderProgram;
     private Matrix matrix = new Matrix();
-    private int appleTexture;
     private List<Bullet> bullets;
     public static volatile boolean addBullet;
     
     public BulletManager(Context context) {
         appleModel = new Model(context, R.raw.apple);
         mainShaderProgram = ShaderProgramManager.mainShaderProgram;
-        appleTexture = TextureManager.appleTexture;
         bullets = new LinkedList<>();
         addBullet = false;
     }
@@ -38,7 +35,7 @@ public class BulletManager {
         return bullets;
     }
     
-    public void draw() {
+    public void drawBullets() {
         if (addBullet) {
             bullets.add(new Bullet(PlayerManager.getPosition(), PlayerManager.getDirection(), true));
             addBullet = false;
@@ -71,7 +68,7 @@ public class BulletManager {
         mainShaderProgram.setUniforms(matrix.modelMatrix,
                 matrix.it_modelMatrix,
                 matrix.modelViewProjectionMatrix,
-                appleTexture);
+                TextureManager.appleTexture);
         appleModel.draw();
     }
     
