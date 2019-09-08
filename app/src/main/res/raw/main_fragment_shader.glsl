@@ -30,14 +30,17 @@ void main() {
 
     // attenuation
     float distance = length(u_LightPosition - v_Position);
-    if(distance < 1.5){
-        distance = 1.5;
+    if(distance < 1.2){
+        distance = 1.2;
     }
     float attenuation = 1.0 / distance;
     diffuse *= attenuation;
     specular *= attenuation;
 
     vec3 objectColor = vec3(texture2D(u_TextureUnit, v_TextureCoordinates));
+    // vec3 result = ambient * objectColor;
+    // vec3 result = diffuse * objectColor;
+    // vec3 result = specular * objectColor;
     vec3 result = (ambient + specular + diffuse) * objectColor;
 
     gl_FragColor = vec4(result, 1.0);

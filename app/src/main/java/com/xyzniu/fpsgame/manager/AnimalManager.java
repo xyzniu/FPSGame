@@ -26,6 +26,7 @@ public class AnimalManager {
     private List<Animal> animals;
     private MainShaderProgram program;
     private int collected;
+    private static double atan2 = Math.atan2(1, 0);
     
     public AnimalManager(Context context) {
         animalModel = new Model(context, R.raw.chick);
@@ -99,7 +100,7 @@ public class AnimalManager {
     
     private float getRotation(Geometry.Vector position, Geometry.Vector uPosition) {
         Geometry.Vector direction = Geometry.Vector.sub(uPosition, position);
-        double radian = (Math.atan2(direction.getX(), direction.getZ()) - Math.atan2(0, 1));
+        double radian = (atan2 - Math.atan2(direction.getZ(), direction.getX()));
         return (float) Math.toDegrees(radian);
     }
     

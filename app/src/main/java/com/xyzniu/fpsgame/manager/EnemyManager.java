@@ -23,6 +23,7 @@ public class EnemyManager {
     private MainShaderProgram program;
     private Random random = new Random();
     private Matrix matrix = new Matrix();
+    private static double atan2 = Math.atan2(1, 0);
     
     public EnemyManager(Context context, List<Geometry.Vector> mobSpawner) {
         enemyModel = new Model(context, R.raw.fox);
@@ -79,7 +80,7 @@ public class EnemyManager {
         Geometry.Vector ePosition = e.getPosition();
         Geometry.Vector direction = Geometry.Vector.sub(uPosition, ePosition);
         e.setDirection(new Geometry.Vector(direction.getX(), 0, direction.getZ()));
-        double radian = (Math.atan2(direction.getX(), direction.getZ()) - Math.atan2(0, 1));
+        double radian = (atan2 - Math.atan2(direction.getZ(), direction.getX()));
         return (float) Math.toDegrees(radian);
     }
     
